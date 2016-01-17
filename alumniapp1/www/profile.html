@@ -1,0 +1,365 @@
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="link icon-only open-panel">
+                <span class="kkicon icon-menu"></span>
+            </a>
+        </div>
+        <div class="center sliding">Profile</div>
+        <div class="right">
+            <a href="#" class="link icon-only open-panel" data-panel="right">
+                <span class="kkicon icon-user"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="view another-view">
+    <!-- Pages -->
+    <div class="pages">
+        <div class="page no-toolbar" data-page="profile">
+            <div class="page-content">
+
+                <div class="content-block-title">
+                    <div class="left">General Information</div>
+                    <div class="right">
+                        <div class="item-input">
+                                        <label class="label-switch">
+                                            <input type="checkbox" id="saveswitch">
+                                            <div class="checkbox"></div>
+                                        </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-block">
+                    <ul>
+                        <!-- Text inputs -->
+                         <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-input">
+                                        <img class="student_avatar" style="display:none;" id="largeImage" src="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="photobutton">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-input">
+                                        <a href="#" class="item-link list-button">Get your photo!.</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-profile"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Initial.</div>
+                                    <div class="item-input">
+                                        <input type='radio' id='radio_1' name='initial' value='Mr.' />Mr.
+                                        <input type='radio' id='radio_2' name='initial' value='Mrs' />Mrs.
+                                        <input type='radio' id='radio_3' name='initial' value='Miss' />Miss
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-profile"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Firstname</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your firstname" id="txtfirstname">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-profile"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Middlename</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your middlename" id="txtmidname">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-profile"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Lastname</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your lastname" id="txtlastname">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-at-sign"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">E-mail</div>
+                                    <div class="item-input">
+                                        <input type="email" placeholder="E-mail" id="txtemail">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Select -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-man-woman"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Gender</div>
+                                    <div class="item-input">
+                                        <select id="txtgender">
+                                            <option value=1>Male</option>
+                                            <option value=2>Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Date -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-calendar-31"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Birth date</div>
+                                    <div class="item-input">
+                                        <input type="date" placeholder="Birth day" id="txtbirth">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-at-sign"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Age</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Age" id="txtage">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-calendar-31"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Race</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Race" id="txtrace">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><span class="icon-calendar-31"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">Nationality</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Nationality" id="txtnation">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Date time-->
+                        
+                    </ul>
+                </div>
+
+                <div class="content-block-title">Academic records information</div>
+                <div class="list-block">
+                    <ul>
+                        <!-- Text inputs -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Student ID</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your student ID" id="txtsid">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Academic year</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your academic year" id="txtclass">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Select -->
+                        
+                    </ul>
+                </div>
+                <div class="content-block-title">Home and Accomodation</div>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Address</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your address" id="txtaddress">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Address #1</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Additional address information" id="txtAddress_1">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Postcode</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your postcode" id="txtpostcode">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Country</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your country" id="txtcountry">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Latitude</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Latitude" id="txthome_lat">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Longtitude</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Longtitude" id="txthome_lng">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                         <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-input">
+                                        <div id="map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="geobutton">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-input">
+                                        <a href="#" class="item-link list-button">Setup you location here!.</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="content-block-title">Current Occupation</div>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Current occupation</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Your current Occupation" id="txtcjob">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-block-title">Additional Occupation(s)</div>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Additional #1 occupation</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Additional 1st Occupation" id="txtcjob1">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Additional #2 occupation</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Additional 2nd Occupation" id="txtcjob2">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Additional #3 occupation</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Additional 3rd Occupation" id="txtcjob3">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Additional #4 occupation</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Additional 4th Occupation" id="txtcjob4">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">Additional #5 occupation</div>
+                                    <div class="item-input">
+                                        <input type="text" placeholder="Additional 5th Occupation" id="txtcjob5">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

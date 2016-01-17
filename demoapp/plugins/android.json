@@ -1,0 +1,46 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"StreamPlayer\"><param name=\"android-package\" value=\"com.plugin.streamplayer.StreamPlayer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Html5Video\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.Html5Video\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": []
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.phonegap.plugins.streamplayer": {
+            "PACKAGE_NAME": "com.my.demoapp"
+        },
+        "jaeger.Html5Video": {
+            "PACKAGE_NAME": "com.my.demoapp"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.my.demoapp"
+        }
+    }
+}

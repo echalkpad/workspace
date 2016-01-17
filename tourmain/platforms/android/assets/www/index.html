@@ -1,0 +1,551 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/progressbar.css" />
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script src="js/socket.io.js"></script>
+<script type="text/javascript" src="js/progressbar.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<style>
+#myDiv {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(0,0,0,0.6);
+   z-index: 10;
+   display: none;
+}
+</style>
+<script>
+    var my_media = null;
+    var mediaTimer = null;
+    var sequence = 0;
+    var playstate = 0;
+    var devicestring = "";
+    var debughtml = "";
+    var sync = [];
+    var newtrack = [];
+    var loadstatus = 0;
+    var socketid = "";
+    var tgroup = "";
+    var loadcompleted = [];
+    var playlist = 0;
+    //var hostip = "52.74.57.2";
+    var socket = "";
+    var hostip = "192.168.129.1";
+    var wifissid = "";
+    var loadtimerId = "";
+    var retry = 0;
+
+
+function onDeviceReady() {
+    window.brightness = cordova.require("cordova.plugin.Brightness.Brightness");
+    devicestring = device.uuid;
+    $('#txt2').val(devicestring);
+    $('#devicestring').html("Device ID: "+device.uuid);
+    window.sessionStorage.setItem("devicestring", devicestring);
+    //console.log(device.uuid);
+    window.plugins.insomnia.keepAwake()
+    cordova.plugins.backgroundMode.setDefaults({ text:'Starting Touragent Background.'});
+    cordova.plugins.backgroundMode.enable();
+    cordova.plugins.backgroundMode.onactivate = function () {
+        cordova.plugins.backgroundMode.configure({
+            silent: true
+        })
+    }
+    getCurrentSSID();
+}
+$(document).ready(function(){
+    document.addEventListener("deviceready", onDeviceReady, false);
+    console.log(window.sessionStorage.getItem("serverip"));
+    var progressBar;
+    var status = "ok";
+    var alltrack = ""
+    var obj = "";
+    tgroup = $('#txt1').val();
+    // Connect to our node/websockets server
+    socket = io.connect('http://'+hostip+':3000');
+    progressBar = new ProgressBar("progress", {'width':'100%', 'height':'3px'});
+    // alert(textid);
+    socket.on('connect', function() {
+        console.log('connecting to server');
+        if (playlist != 0) {
+
+            getlist();
+        } else {
+
+        }
+       
+    })
+
+    
+    socket.on('socketid', function(data) {
+        socketid = data;
+        //console.log(socketid);
+    })
+ 
+    socket.on('existing', function(data){
+        alert("This group already occupied");
+        location.reload(); 
+    })
+ 
+    // New socket connected, display new count on page
+    socket.on('users connected', function(data){
+        if (data.tgroup == $('#txt1').val()) {
+            $('#usersConnected').html('Users connected: ' + data.count)
+        }
+    })
+
+    setInterval(function() {
+        socket.emit('checkuser', { "devicestring" : devicestring , "socketid" : socketid, "tgroup" : $('#txt1').val() })
+    }, 2000);
+ 
+    socket.on('initial notes', function(data){
+                $('#grouplist').html("Group "+$('#txt1').val());
+                alltrack = data
+                console.log(alltrack);
+                console.log("length: "+ alltrack.length)
+                // ----- xhr type --------------
+                // var xhr = [];
+                // var blob = [];
+                // for (var i = 0; i < alltrack.length; i++){
+                //     (function (i){
+                //    console.log(alltrack[i].note)
+                //    xhr[i] = new XMLHttpRequest(); 
+                //    xhr[i].open("GET", alltrack[i].note); 
+                //    xhr[i].responseType = "arraybuffer";//force the HTTP response, response-type header to be blob
+                //    xhr[i].onload = function(e) 
+                //    {
+                //            blob[i]= new Blob();
+                //            blob[i] = e.currentTarget.response;
+                //            console.log("call xhraction: "+ i +" "+blob[i])
+                //          xhraction(alltrack,i, blob[i]);
+                            // console.log("getting "+alltrack[i].note)
+                            // console.log("Track"+i+": "+ xhr.response)
+                            //document.getElementById("debug").innerHTML = xhr.response;//xhr.response is now a blob object
+                            // console.log(btoa(xhr.response))
+                            // window.sessionStorage.setItem("Track"+i,btoa(xhr.response));
+                        
+                //    }
+                //    xhr[i].send();
+                //    })(i);
+                // }
+                // -------- xhr type ------
+
+
+            // var html = ''
+            // for (var i = 0; i < data.length; i++){
+                    // We store html as a var then add to DOM after for efficiency
+        //  if (textid == data[i].tgroup) {
+            //      html += '<audio id="audio"'+i+' src="' + data[i].note + '" controls></audio><br>'
+        //  }
+            // }
+            // $('#notes').html(html)
+            waittime = 0;
+            var html = '<option selected> Select track to play </option>'
+            for (var i = 0; i < data.length; i++){
+                    // We store html as a var then add to DOM after for efficiency
+            
+                        html += '<option value='+i+'> Track'+(i+1)+' </option>'
+            
+            }
+            //console.log(html)
+            $('#trackid').html(html)
+
+
+        if (loadstatus == 0) {
+            $('#progress').show();
+            for (i = 0; i < alltrack.length; i++){
+                var notrack = 0;
+                var trackstatus = 0;
+                (function (i,notrack,tlength) {
+                    
+                sync[i] = ContentSync.sync({ src: alltrack[i].note, id: 'track'+i });
+
+                sync[i].on('progress', function(data) {
+                    loadcompleted[i] = (100/alltrack.length)*(data.progress/100)
+                    progressBar.setPercent(sumpercent(loadcompleted));
+
+                    // data.progress
+                    // console.log(data.progress);
+                });
+
+                sync[i].on('complete', function(data) {
+                    writetrack(i,data.localPath);
+                    console.log("length: "+tlength);
+                    console.log("debug ::: "+data.localPath);
+                    notrack +=1;
+                    // console.log("i:"+i+" "+newtrack[i]);
+                    // data.localPath
+                    debughtml += data.localPath+" is successfully loaded<br>";
+                    console.log("Complete", data);
+                    $('#debug').html(debughtml)
+                    console.log("notrack: "+notrack)
+                    trackstatus += notrack;
+                    console.log("trackstatus: "+trackstatus);
+                     if (trackstatus == tlength) {
+                        debughtml += "All track is loaded complete.<br>";
+                        loadstatus = 1;
+                        $('#debug').html(debughtml)
+                        $('#progress').hide();
+                     }
+                     clearTimeout(loadtimerId)
+
+                });
+
+                sync[i].on('error', function(e) {
+                    // e
+                    console.log('Error: ', e.message);
+                    debughtml += "Audio loading errors occured.... Reloading<br>"
+                    $('#debug').html(debughtml)
+                    for (var ii =0; ii < alltrack.length; ii++) {
+                        sync[ii].cancel();
+                    }
+                    socket.emit('reloadAudio', alltrack);
+                     
+                });
+
+                sync[i].on('cancel', function() {
+                    // triggered if event is cancelled
+                    debughtml += alltrack[i].note+" is cancelled<br>"; 
+                    $('#debug').html(debughtml)
+                });
+
+                }) (i,notrack,alltrack.length);
+            
+            }
+            $('#debug').html(debughtml)
+            
+        }
+
+    })
+
+    function writetrack(x,path) {
+        newtrack[x] = path;
+    }
+
+    function sumpercent(data) {
+        var total = 0;
+        for (var i=0; i < data.length; i++) {
+            total = total + data[i];
+        }
+        return total;
+    }
+
+    // Add a new (random) note, emit to server to let others know
+    $('#bsubmit').click(function(){
+	// console.log($('#trackid').val());
+    console.log("state: 1");
+    socket.emit('pbutton', {trackID: $('#trackid').val(), tgroup: $('#txt1').val()})
+    if (tgroup == $('#txt1').val()) {
+        var html = ''
+        for (var i = 0; i < alltrack.length; i++){
+            // console.log("no: "+i)
+            
+                        // We store html as a var then add to DOM after for efficiency
+            if (i == $('#trackid').val()) {
+                console.log("state: 2");
+                        // console.log('start debug #1');
+                        console.log("textid ::: "+ textid);
+                        console.log("tgroup ::: "+ alltrack[i].tlist);
+                        console.log("playstate #1:::" + playstate);
+                        $('#debug').hide();
+                        
+                            console.log("state: 3");
+                                html += "<span>Track Name: "+alltrack[i].note+"</span><br>"
+                                $('#trackinfo').html(html)
+                                if (playstate ==0) {
+                                // console.log('newtrack:'+newtrack[i])
+                                $('#state').html("<span>Playing</span>")
+                                stopAudio();
+                                playAudio("file://"+newtrack[i])
+                                socket.emit('playack', { "playok": 1 })
+                                } else if (playstate == 1) {
+                                $('#state').html("<span>Playing</span>")
+                                stopAudio();
+                                playAudio("file://"+newtrack[i])
+                                } else if (playstate == 2) {
+                                    resumeAudio();
+                            
+                                } else {
+                                    stopAudio();
+                                }
+                        
+            }
+        }
+    
+    }
+
+    })
+
+    $('#bstop').click(function(){
+                socket.emit('pstop', {trackID: $('#trackid').val(), tgroup: $('#txt1').val()})
+                $('#state').html("<span>Stopped</span>")
+                stopAudio();
+
+    })
+
+    $('#bpause').click(function(){
+                socket.emit('ppause', {trackID: $('#trackid').val(), tgroup: $('#txt1').val()})
+                pauseAudio();
+
+    })
+
+    socket.on('pong', function(data){
+
+        // console.log(data)
+        if (data.sequence == (sequence+1)) {
+            console.log("OK - "+data.sequence+" - "+data.devicestring+" playstate: "+playstate+" playlist: "+data.playlist);
+            sequence = data.sequence
+        } else {
+            console.log("NOT OK - "+data.sequence+" - "+data.devicestring+" playstate: "+playstate+" playlist: "+data.playlist);
+            sequence = data.sequence
+        }
+    })  
+    
+
+    socket.on('disconnect', function() {
+        var timerId = setTimeout(function() { $('#online').html('offline') }, 4000)
+    })
+    
+    var timerId = setTimeout(function() { $('#online').html('offline') }, 4000)
+
+
+    socket.on('online', function(data){
+        if (data.status == "ok") {
+            $('#online').html('online')
+            clearTimeout(timerId)
+        }
+    })
+    
+    $('#pl1').click(function(){
+                    clearTimeout(loadtimerId);
+                    $('#myDiv').hide();
+                    playlist = 1;
+                    getlist();
+                    
+    })
+
+    $('#pl2').click(function(){
+                    clearTimeout(loadtimerId);
+                    $('#myDiv').hide();
+                    playlist = 2;
+                    getlist();
+    })
+
+    $('#pl3').click(function(){
+                    clearTimeout(loadtimerId);
+                    $('#myDiv').hide();
+                    playlist = 3;
+                    getlist();
+    })
+
+    $('#pl4').click(function(){
+                    clearTimeout(loadtimerId);
+                    $('#myDiv').hide();
+                    playlist = 4;
+                    getlist();
+    })
+
+    $('#pl5').click(function(){
+                    clearTimeout(loadtimerId);
+                    $('#myDiv').hide();
+                    playlist = 5;
+                    getlist();
+    })
+
+    $('#pl6').click(function(){
+                    $('#myDiv').show();
+                    
+
+    })
+    
+    function getlist() {
+        console.log("getting new list");
+        debughtml = "";
+        $('#debug').html("");
+        if (playlist == window.sessionStorage.getItem("playlist" && retry == 0)) {
+            
+        } else {
+            window.sessionStorage.setItem("playlist", playlist);
+            $('#playlist').html("Playlist "+ playlist)
+            loadstatus = 0;
+            alltrack = 0;
+            retry = 0;
+            console.log('reloaded');
+            socket.emit('reloadAudio', alltrack);
+            console.log('new loading');
+            socket.emit('getlist', { "tgroup": $('#txt1').val(), "devicestring" : devicestring, "socketid" : socketid, "typeid" : 1, "playlist" : playlist })
+            loadtimerId = setTimeout(function() { console.log("timeoout"); retry = 1; getlist(); }, 180000);
+        }
+    }
+
+    setInterval(function() {
+        socket.emit('ping', { "sequence": sequence, "devicestring" : devicestring , "socketid" : socketid})
+    }, 10000);
+    
+    setInterval(function() {
+        socket.emit('online', { "status": status, "devicestring" : devicestring , "socketid" : socketid })
+    }, 2000);
+ 
+})
+
+function playAudio(src) {
+            // Create Media object from src
+            my_media = new Media(src, onSuccess, onError);
+
+            // Play audio
+            my_media.play();
+            playstate = 1
+            // Update my_media position every second
+            if (mediaTimer == null) {
+                mediaTimer = setInterval(function() {
+                    // get my_media position
+                    my_media.getCurrentPosition(
+                        // success callback
+                        function(position) {
+                            if (position > -1) {
+                                setAudioPosition((position) + "/"+ my_media.getDuration()+" sec<br>Time elapsed : "+(my_media.getDuration()-position));
+                            }
+                        },
+                        // error callback
+                        function(e) {
+                            console.log("Error getting pos=" + e);
+                            setAudioPosition("Error: " + e);
+                        }
+                    );
+                }, 1000);
+            }
+        }
+
+
+        // Pause audio
+        //
+        function pauseAudio() {
+            if (my_media) {
+                my_media.pause();
+            }
+            playstate = 2;
+        }
+
+        function resumeAudio() {
+            if (my_media) {
+                my_media.play();
+            }
+            playstate = 1;
+        }
+        // Stop audio
+        //
+        function stopAudio() {
+            if (my_media) {
+                my_media.stop();
+            }
+            playstate = 0;
+            clearInterval(mediaTimer);
+            mediaTimer = null;
+        }
+
+        // onSuccess Callback
+        //
+        function onSuccess() {
+            playstate = 0;
+            console.log("playAudio():Audio Success");
+        }
+
+        // onError Callback
+        //
+        function onError(error) {
+            console.log('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+        }
+
+        // Set audio position
+        //
+        function setAudioPosition(position) {
+            document.getElementById('timing').innerHTML = position;
+
+        }
+
+
+        function ssidHandler(s){
+            if (s.toLowerCase() == "royalgem") {
+                $('#serverip').html("Server IP: 192.168.129.1");
+                
+            } else {
+                $('#serverip').html("Server IP: 52.74.57.2");
+                window.sessionStorage.setItem("serverip","52.74.57.2");
+            }
+        }
+        function fail(e){
+            alert("Failed to get wireless SSID :: "+e);
+        }
+        function getCurrentSSID(){
+            
+            WifiWizard.getCurrentSSID(ssidHandler, fail);
+           
+        }
+
+</script>
+</head>
+<body>
+<div id='myDiv'>
+
+<input type=button id="pl1" value="PL1" class="ui-btn">
+<input type=button id="pl2" value="PL2" class="ui-btn">
+<input type=button id="pl3" value="Pl3" class="ui-btn">
+<input type=button id="pl4" value="Pl4" class="ui-btn">
+<input type=button id="pl5" value="Pl5" class="ui-btn">
+
+ <!-- add the fields/buttons here -->
+</div>
+<div id="notes">
+<select id="trackid" name="sometext" >
+</select>
+</div>
+
+<input type="button" id="bsubmit" value="PLAY" class="ui-btn">
+<input type="button" id="bstop" value="STOP" class="ui-btn">
+<input type="button" id="bpause" value="PAUSE" class="ui-btn">
+<input type="button" id="pl6" value="PLAYLIST" class="ui-btn">
+
+<div id="devicestring"></div>
+<div id="serverip"></div>
+<div id="usersConnected"></div>
+<div id="grouplist"></div>
+<div id="playlist"></div>
+<div id="online">offline</div>
+<div id="state"></div>
+<div id="trackinfo"></div>
+<div id="timing"></div>
+
+<p id="demo"></p>
+<div id="progress"></div>
+<div id="debug"></div>
+
+
+<script>
+var textid = "";
+
+console.log($('#txt1').val());
+if (window.sessionStorage.getItem("groupid") != undefined) {
+    textid = window.sessionStorage.getItem("groupid");
+} else {
+     textid = prompt("Please enter Group code" , "1");
+    window.sessionStorage.setItem("groupid", textid);
+}
+
+if (textid != null) {
+        document.getElementById("demo").innerHTML =
+        "<input id=txt1 name=txt1 type=hidden value="+textid+"></input><input id=txt2 name=txt2 type=hidden value="+devicestring+"></input><input id=txt3 name=txt3 type=hidden value=></input></input><input id=txt4 name=txt4 type=hidden value=></input>";
+
+    }
+$('#myDiv').show();
+
+
+</script>
+</body>
+</html>

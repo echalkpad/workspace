@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="HybridMobileProjectImportWizard">
+		<item value="false" key="HybridProjectImportPage.COPY"/>
+		<list key="HybridProjectImportPage.DIRECTORIES">
+			<item value="C:\Users\doi\my\HelloMap"/>
+		</list>
+	</section>
+</section>

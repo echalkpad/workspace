@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="js/jquery-1.11.3.min.js"></script>
+
+<script src="js/socket.io.js"></script>
+
+</head>
+
+<body>
+<canvas id="group1" width=1000 height=1000></canvas>
+
+</body>
+<script>
+//var hostip = "52.74.57.2";
+var hostip = "192.168.129.1";
+socket = io.connect('http://'+hostip+':3000');
+
+setInterval(function() {
+        socket.emit('getmonitor', { "device" : "all" })
+        console.log("monitor sent")
+    }, 1000);
+
+var c=document.getElementById("group1");
+var ctx=c.getContext("2d");
+
+
+socket.on('monitor', function(data){
+		var c=document.getElementById("group1");
+		var ctx=c.getContext("2d");
+		ctx.clearRect(0, 0, 1000, 1000);
+		var currentx = 5;
+		var currenty = 5;
+		var groupcount = [0,0,0,0,0];
+        console.log(data.length)
+	    for (var i=0; i < data.length; i++) {
+			if (data[i].roles == 1) {
+					groupcount[data[i].tgroup] = groupcount[data[i].tgroup] + 1 
+					ctx.beginPath();
+					ctx.lineWidth="4";
+					ctx.strokeStyle="green";
+					ctx.rect(((currentx+100)*groupcount[data[i].tgroup]),((currenty+60)*data[i].tgroup),40,60);
+					ctx.font="12px Georgia";
+					ctx.fillText(data[i].tgroup,((currentx+100)*groupcount[data[i].tgroup])+10,((currenty+60)*data[i].tgroup)+20);
+					ctx.font="10px Georgia";
+					ctx.fillText(data[i].devicestring,((currentx+100)*groupcount[data[i].tgroup])+10,((currenty+60)*data[i].tgroup)+30);
+					ctx.font="7px Georgia";
+					ctx.fillText(data[i].socketid,((currentx+100)*groupcount[data[i].tgroup])+10,((currenty+60)*data[i].tgroup)+40);
+					ctx.stroke();
+					groupcount[data[i].tgroup] = groupcount[data[i].tgroup] + 1
+			}
+			if (data[i].roles == 0) {
+					
+					ctx.beginPath();
+					ctx.lineWidth="4";
+					ctx.strokeStyle="red";
+					ctx.rect(((currentx+100)*groupcount[data[i].tgroup]),((currenty+60)*data[i].tgroup),40,60);
+					ctx.font="12px Georgia";
+					ctx.fillText(data[i].tgroup,((currentx+100)*groupcount[data[i].tgroup])+10,((currenty+60)*data[i].tgroup)+20);
+					ctx.font="10px Georgia";
+					ctx.fillText(data[i].devicestring,((currentx+100)*groupcount[data[i].tgroup])+10,((currenty+60)*data[i].tgroup)+30);
+					ctx.font="7px Georgia";
+					ctx.fillText(data[i].socketid,((currentx+100)*groupcount[data[i].tgroup])+10,((currenty+60)*data[i].tgroup)+40);
+					ctx.stroke();
+					groupcount[data[i].tgroup] = groupcount[data[i].tgroup] + 1
+			}	    	
+	    }
+
+    })
+
+</script>
+</html>

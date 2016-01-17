@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VGI Demo App</title>
+<!--
+    This template can be used for simple utility application that has a main view and a settings view, for applications like Maps app, Weather App or Clock app.
+-->  
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0;" />
+
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding:0;
+}
+
+.wrapper {
+   display: block;
+   min-height: 100%; /* real browsers */
+   height: auto !important; /* real browsers */
+   height: 100%; /* IE6 bug */
+   margin-bottom: -55px; /* กำหนด margin-bottom ให้ติดลบเท่ากับความสูงของ footer */
+}
+.footer {
+   height: 55px; /* ความสูงของ footer */
+   display: block;
+   text-align: center;
+}
+*{
+-webkit-user-drag: none;
+-moz-user-drag: none;
+-ms-user-drag: none;
+user-drag: none;
+}
+
+
+</style>     
+
+<script type="text/javascript">
+            window.addEventListener('load', function() {
+                document.body.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                }, false);
+            }, false);
+ </script> 
+
+
+</head>
+<body>
+<div class="wrapper">
+	<div id="header">
+		<img src=images/head.jpg width=100%>
+	</div>
+	<div id="content">
+		<div align=center>
+			<span><video width="320" height="240" controls>
+			  <source src="http://live.vgi.co.th:1935/live/e4.sdp/playlist.m3u8">
+			  
+			Your browser does not support the video tag.
+			</video></span>
+			
+		</div>
+
+	</div>
+</div>
+<div class="footer">
+	<div id="footer">
+		<table width=100% border=0 height=100% cellpadding=0 cellspacing=0>
+				<tr>
+					<td width=25% align=center bgcolor=#000000>
+					<a href=main.html><img src=images/home.jpg></a>
+					</td>
+					<td width=25% align=center bgcolor=#000000>
+					<a href=live.html><img src=images/live.jpg></a>
+					</td>
+					<td width=25% align=center bgcolor=#000000>
+					<a href=playback.html><img src=images/playback.jpg></a>
+					</td>
+					<td width=25% align=center bgcolor=#000000>
+					<a href=contact.html><img src=images/contact.jpg></a>
+					</td>
+				</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>

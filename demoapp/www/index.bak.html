@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>ListApp</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+	<link href="http://jplayer.org/latest/dist/skin/pink.flag/css/jplayer.pink.flag.min.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="lib/jquery.min.js"></script>
+	<script type="text/javascript" src="http://jplayer.org/latest/dist/jplayer/jquery.jplayer.min.js"></script>
+	<style>
+		img.fullscreen {
+			max-height: 100%;
+			max-width: 100%;
+		}		
+	</style>
+	<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+
+	$("#jquery_jplayer_1").jPlayer({
+		ready: function () {
+			$(this).jPlayer("setMedia", {
+				title: "Clock Udonthani #1",
+				webmv: "http://103.27.201.113:8010/test.webm",
+			});
+		},
+		swfPath: "dist/jplayer",
+		supplied: "webmv, ogv, m4v",
+		size: {
+			width: "100%",
+		},
+		globalVolume: true,
+		useStateClassSkin: false,
+		autoBlur: false,
+		smoothPlayBar: true,
+		keyEnabled: true
+
+	});
+
+	$("#jquery_jplayer_2").jPlayer({
+		ready: function () {
+			$(this).jPlayer("setMedia", {
+				title: "Clock Udonthani #2",
+				webmv: "http://103.27.201.113:8010/test2.webm",
+				
+			});
+		},
+		swfPath: "dist/jplayer",
+		supplied: "webmv, ogv, m4v",
+		cssSelectorAncestor: "#jp_container_2",
+		size: {
+			width: "100%",
+		},
+		globalVolume: true,
+		useStateClassSkin: false,
+		autoBlur: false,
+		smoothPlayBar: true,
+		keyEnabled: true
+
+	});
+	
+});
+//]]>
+</script>
+
+</head>
+<body>
+<div data-role="page" id="photos">
+	<header data-role="header">
+		<h1>My Photos</h1>
+	</header>
+	<article data-role="content">
+		<ul data-role="listview"  data-filter="true">
+			<li>
+				<a href="#dog">
+				<h1>Clock Udonthani #1</h1>
+				<img src="images/doggie_tn.jpg" alt="Min Pin" />
+				<p>.........</p>
+				</a>
+			</li>
+			<li>
+				<a href="#gummies">
+				<h1>Clock Udonthaini #2</h1>
+				<img src="images/gummies_tn.jpg" alt="Gummy Bears" />
+				<p>.........</p>
+				</a>
+			</li>
+		</ul>
+	</article>
+	<footer data-role="footer" data-position="fixed">
+		<nav data-role="navbar">
+			<ul>
+				<li><a href="home" data-icon="home">Home</a></li>
+				<li><a href="Photos" data-icon="grid">Video</a></li>
+				<li><a href="Info" data-icon="info">Info</a></li>
+			</ul>
+		</nav>
+	</footer>
+</div><!-- Page Photos -->
+
+	<div data-role="page" id="dog">
+		<header data-role="header">
+			<h1>Clock Udonthani #1</h1>
+			<a href="#photos" data-icon="grid" data-iconpos="notext">Photos</a>
+		</header>
+
+<div id="jp_container_1" class="jp-video jp-video-360p" role="application" aria-label="media player">
+	<div class="jp-type-single">
+		<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+		<div class="jp-gui">
+			<div class="jp-video-play">
+				<button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+			</div>
+		</div>
+		<div class="jp-no-solution">
+			<span>Update Required</span>
+			To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+		</div>
+	</div>
+</div>
+		
+		
+		
+	</div><!-- Page Dog -->
+	
+	<div data-role="page" id="gummies">
+		<header data-role="header">
+			<h1>Clock Udonthani #2</h1>
+			<a href="#photos" data-icon="grid" data-iconpos="notext">Photos</a>
+		</header>
+
+<div id="jp_container_2" class="jp-video jp-video-360p" role="application" aria-label="media player">
+	<div class="jp-type-single">
+		<div id="jquery_jplayer_2" class="jp-jplayer"></div>
+		<div class="jp-gui">
+			<div class="jp-video-play">
+				<button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+			</div>
+		</div>
+		<div class="jp-no-solution">
+			<span>Update Required</span>
+			To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+		</div>
+	</div>
+</div>
+		
+		
+	</div><!-- Page Gummy Bears --> 
+
+</body>
+</html>

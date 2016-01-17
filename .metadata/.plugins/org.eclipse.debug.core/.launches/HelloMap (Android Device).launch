@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.thym.android.core.AndroidLaunchConfigurationType">
+<stringAttribute key="org.eclipse.thym.android.core.ATTR_DEVICE_SERIAL" value="0123456789ABCDEF"/>
+<booleanAttribute key="org.eclipse.thym.android.core.ATTR_IS_DEVICE_LAUNCH" value="true"/>
+<stringAttribute key="org.eclipse.thym.android.core.ATTR_LOGCAT_FILTER" value="Cordova:V DroidGap:V CordovaLog:V CordovaPlugin:V CordovaChromeClient:V CordovaWebView:V *:S"/>
+<stringAttribute key="org.eclipse.thym.core.ATTR_BUILD_SCOPE" value="HelloMap"/>
+</launchConfiguration>

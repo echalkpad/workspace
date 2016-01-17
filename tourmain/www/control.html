@@ -1,0 +1,88 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script src="http://52.74.57.2:3000/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="jquery.iphonepicker.min.js"></script>
+<script>
+$(document).ready(function(){
+    // Connect to our node/websockets server
+    var socket = io.connect('http://52.74.57.2:3000');
+    // alert(textid);
+    socket.on('connect', function() {
+	socket.emit('getlist', { "tgroup": $('#txt1').val() })	
+    })
+ 
+    // Initial set of notes, loop through and add to list
+    socket.on('initial notes', function(data){
+
+        	var html = '<option selected> Select track to play </option>'
+        	for (var i = 0; i < data.length; i++){
+            		// We store html as a var then add to DOM after for efficiency
+			if (textid == data[i].tgroup) {
+            			html += '<option value='+i+'> Track'+(i+1)+' </option>'
+			}
+        	}
+		console.log(html)
+        	$('#trackid').html(html)
+
+    })
+ 
+    // New note emitted, add it to our list of current notes
+    socket.on('new note', function(data){
+	if ($('#txt1').val() == "1") {
+        	$('#notes').append('<li>' + data.note + '</li>')
+	}
+    })
+ 
+    // New socket connected, display new count on page
+    socket.on('users connected', function(data){
+        $('#usersConnected').html('Users connected: ' + data)
+    })
+ 
+    // Add a new (random) note, emit to server to let others know
+    $('#bsubmit').click(function(){
+		console.log($('#trackid').val());
+        	socket.emit('pbutton', {trackID: $('#trackid').val(), tgroup: $('#txt1').val()})
+
+    })
+
+    $('#bstop').click(function(){
+                socket.emit('pstop', {trackID: $('#trackid').val(), tgroup: $('#txt1').val()})
+
+    })
+
+    $('#bpause').click(function(){
+                socket.emit('ppause', {trackID: $('#trackid').val(), tgroup: $('#txt1').val()})
+
+    })
+})
+
+
+</script>
+</head>
+<body>
+<div id=notes>
+<select id="trackid" name="sometext" >
+</select>
+</div>
+
+<input type=button id=bsubmit value=PLAY class=ui-btn>
+<input type=button id=bstop value=STOP class=ui-btn>
+<input type=button id=bpause value=PAUSE class=ui-btn>
+<p id="demo"></p>
+
+<script>
+var textid = prompt("Please enter Group code" , "1");
+
+if (textid != null) {
+        document.getElementById("demo").innerHTML =
+        "<input id=txt1 name=txt1 type=hidden value="+textid+">";
+    }
+
+</script>
+</body>
+</html>

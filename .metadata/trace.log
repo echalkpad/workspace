@@ -1,0 +1,2327 @@
+# !SESSION 2015-05-12 17:44:42.496
+# version: 1.1
+# verbose: true
+# The following option strings are specified for this debug session:
+# 	null
+| main | 2015-05-12 17:44:42.496 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Completed WidgetModel.getWidgetForRead it 38ms |
+| ModalContext | 2015-05-12 17:44:45.690 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| ModalContext | 2015-05-12 17:44:45.693 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 4 ms |
+| ModalContext | 2015-05-12 17:44:45.725 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| ModalContext | 2015-05-12 17:44:45.726 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 1 ms |
+| ModalContext | 2015-05-12 17:44:45.735 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| ModalContext | 2015-05-12 17:44:45.736 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 1 ms |
+| ModalContext | 2015-05-12 17:44:45.743 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| ModalContext | 2015-05-12 17:44:45.744 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 1 ms |
+| ModalContext | 2015-05-12 17:44:45.779 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| ModalContext | 2015-05-12 17:44:45.780 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 1 ms |
+| Worker-20 | 2015-05-12 17:44:45.838 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Completed WidgetModel.getWidgetForRead it 18ms |
+| Worker-19 | 2015-05-12 17:44:45.838 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| Worker-19 | 2015-05-12 17:44:45.840 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 2 ms |
+| main | 2015-05-12 17:46:26.244 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| main | 2015-05-12 17:46:26.245 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 1 ms |
+| main | 2015-05-12 17:46:26.251 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| main | 2015-05-12 17:46:26.253 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 2 ms |
+| main | 2015-05-12 17:47:10.003 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" list target |
+| main | 2015-05-12 17:47:10.022 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Output Stream Monitor | 2015-05-12 17:47:12.214 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Available Android targets:
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.317 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.319 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 1 or "android-8"
+     Name: Android 2.2
+     Type: Platform
+     API level: 8
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 2 or "android-10"
+     Name: Android 2.3.3
+     Type: Platform
+     API level: 10
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432 |
+| Output Stream Monitor | 2015-05-12 17:47:13.320 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi, default/x86
+----------
+id: 3 or "android-15"
+     Name: Android 4.0.3
+     Type: Platform
+     API level: 15
+     Revision: 5
+     Skins: HVGA, QVGA |
+| Output Stream Monitor | 2015-05-12 17:47:13.321 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a, default/mips, default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.322 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 4 or "android-16"
+     Name: Android 4.1.2
+     Type: Platform
+     API level: 16
+     Revision: 5
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/mips |
+| Output Stream Monitor | 2015-05-12 17:47:13.323 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , default/x86
+----------
+id: 5 or "android-17"
+     Name: Android 4.2.2
+     Type: Platform
+     API level: 17
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854 |
+| Output Stream Monitor | 2015-05-12 17:47:13.324 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/mips, default/x86
+----------
+id: 6 or "android-18"
+     Name: Android 4.3.1
+     Type: Platform
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.325 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      API level: 18
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+id:  |
+| Output Stream Monitor | 2015-05-12 17:47:13.336 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 7 or "android-19"
+     Name: Android 4.4.2
+     Type: Platform
+     API level: 19
+     Revision: 4
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+id: 8 or "android-20"
+     Name: Android 4.4W.2
+     Type: Platform
+     API level: 20
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-wear/armeabi-v7a, android-wear/x86
+----------
+id: 9 or "android-21"
+     Name: Android 5.0.1
+     Type: Platform
+     API level: 21
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86, android-wear/armeabi-v7a, android-wear/x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id: 10 or "android-22"
+     Name: Android 5.1.1
+     Type: Platform
+     API level: 22
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id: 11 or "Google Inc.:Google APIs:8"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 2.2 (API level 8)
+     Libraries:
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 12 or "Google Inc.:Google APIs:10"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 2.3.3 (API level 10)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 13 or "Google Inc.:Google APIs:15"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 4.0.3 (API level 15)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 14 or "Google Inc.:Google APIs:16"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.337 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Description: Android + Google APIs
+     Based on Android 4.1.2 (API level 16)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.338 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 15 or "Google Inc.:Google APIs:17"
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.340 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.2.2 (API level 17)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.341 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 16 or "Google Inc.:Google APIs:18"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.3.1 (API level 18)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id:  |
+| Output Stream Monitor | 2015-05-12 17:47:13.343 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 17 or "Google Inc.:Glass Development Kit Preview:19"
+     Name: Glass Development Kit Preview
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 11
+     Description: Preview of the Glass Development Kit
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.google.android.glass (gdk.jar)
+          APIs for Glass Development Kit Preview
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : no ABIs.
+----------
+id: 18 or "Google Inc.:Google APIs:19"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA |
+| Output Stream Monitor | 2015-05-12 17:47:13.344 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 19 or "Google Inc.:Google APIs (x86 System Image):19"
+     Name: Google APIs (x86 System Image)
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android x86 + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/x86
+----------
+id: 20 or "Google Inc.:Google APIs:21"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.345 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.0.1 (API level 21)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:13.346 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 21 or "Google Inc.:Google APIs:22"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.1.1 (API level 22)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400 |
+| Output Stream Monitor | 2015-05-12 17:47:13.347 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+ |
+| main | 2015-05-12 17:47:13.398 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" devices |
+| main | 2015-05-12 17:47:13.550 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" devices |
+| Output Stream Monitor | 2015-05-12 17:47:13.631 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | List of devices attached 
+0123456789ABCDEF	device
+
+ |
+| Worker-19 | 2015-05-12 17:47:13.666 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" start-server |
+| Worker-19 | 2015-05-12 17:47:13.669 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" start-server |
+| Worker-19 | 2015-05-12 17:47:13.721 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" devices |
+| Worker-19 | 2015-05-12 17:47:13.724 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" devices |
+| Output Stream Monitor | 2015-05-12 17:47:13.743 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | List of devices attached 
+0123456789ABCDEF	device
+
+ |
+| main | 2015-05-12 17:47:14.430 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" list avd |
+| main | 2015-05-12 17:47:14.434 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" list avd |
+| Output Stream Monitor | 2015-05-12 17:47:15.244 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Available Android Virtual Devices:
+ |
+| Worker-21 | 2015-05-12 17:47:26.007 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Worker-21 | 2015-05-12 17:47:26.011 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Output Stream Monitor | 2015-05-12 17:47:26.821 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Available Android targets:
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.226 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.228 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 1 or "android-8"
+     Name: Android 2.2
+     Type: Platform
+     API level: 8
+     Revision:  |
+| Output Stream Monitor | 2015-05-12 17:47:27.229 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:47:27.230 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi
+----------
+id:  |
+| Output Stream Monitor | 2015-05-12 17:47:27.231 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 2 or "android-10"
+     Name: Android 2.3.3
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.232 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 10
+     Revision: 2
+     Skins: HVGA,  |
+| Output Stream Monitor | 2015-05-12 17:47:27.234 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | QVGA |
+| Output Stream Monitor | 2015-05-12 17:47:27.235 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:47:27.236 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi, default/x86
+----------
+id: 3 or "android-15"
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.237 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 4.0.3
+     Type: Platform
+     API level: 15
+     Revision: 5
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA,  |
+| Output Stream Monitor | 2015-05-12 17:47:27.238 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a, default/mips,  |
+| Output Stream Monitor | 2015-05-12 17:47:27.239 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/x86
+----------
+id: 4 or "android-16"
+     Name: Android 4.1.2
+     Type: Platform
+     API level: 16
+     Revision: 5
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.240 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a |
+| Output Stream Monitor | 2015-05-12 17:47:27.241 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , default/mips, default/x86
+----------
+id: 5 or "android-17"
+     Name: Android 4.2.2
+     Type: Platform
+     API level: 17
+     Revision: 3
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.242 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a |
+| Output Stream Monitor | 2015-05-12 17:47:27.244 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , default/mips, default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.245 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 6 or "android-18"
+     Name: Android 4.3.1
+     Type: Platform
+     API level: 18
+     Revision: 3
+     Skins: HVGA, QVGA |
+| Output Stream Monitor | 2015-05-12 17:47:27.246 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.247 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+id: 7 or "android-19"
+     Name: Android 4.4.2
+     Type: Platform
+     API level: 19
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.248 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision: 4
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:47:27.249 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default |
+| Output Stream Monitor | 2015-05-12 17:47:27.250 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /armeabi-v7a, default/x86
+----------
+id: 8 or "android-20"
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.251 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 4.4W.2
+     Type: Platform
+     API level: 20
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800,  |
+| Output Stream Monitor | 2015-05-12 17:47:27.252 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-wear/armeabi-v7a, android-wear/x86
+----------
+id: 9 or "android-21"
+     Name: Android 5.0.1
+     Type: Platform
+     API level: 21
+     Revision: 2
+     Skins:  |
+| Output Stream Monitor | 2015-05-12 17:47:27.254 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | HVGA, QVGA |
+| Output Stream Monitor | 2015-05-12 17:47:27.255 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:47:27.255 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | android-tv/armeabi-v7a, android-tv/x86, android-wear/armeabi-v7a, android-wear/x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id: 10 or "android-22"
+     Name: Android 5.1.1
+     Type: Platform
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.256 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      API level:  |
+| Output Stream Monitor | 2015-05-12 17:47:27.257 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 22
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432,  |
+| Output Stream Monitor | 2015-05-12 17:47:27.258 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86, default/armeabi-v7a,  |
+| Output Stream Monitor | 2015-05-12 17:47:27.259 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/x86, default/x86_64
+----------
+id: 11 or "Google Inc.:Google APIs:8"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.260 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Description: Android + Google APIs
+     Based on Android 2.2 (API level 8)
+     Libraries:
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.261 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 12 or "Google Inc.:Google APIs:10"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description:  |
+| Output Stream Monitor | 2015-05-12 17:47:27.262 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Android + Google APIs
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.263 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Based on Android 2.3.3 (API level 10)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.264 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for USB Accessories
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 13 or "Google Inc.:Google APIs:15"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.265 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Based on Android 4.0.3 (API level 15)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.266 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 14 or "Google Inc.:Google APIs:16"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision:  |
+| Output Stream Monitor | 2015-05-12 17:47:27.267 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 3
+     Description: Android + Google APIs
+     Based on Android 4.1.2 (API level 16)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+           |
+| Output Stream Monitor | 2015-05-12 17:47:27.269 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | API for USB Accessories
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.270 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 15 or "Google Inc.:Google APIs:17"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.271 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.2.2 (API level 17)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA |
+| Output Stream Monitor | 2015-05-12 17:47:27.273 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ,  |
+| Output Stream Monitor | 2015-05-12 17:47:27.274 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 16 or "Google Inc.:Google APIs:18"
+     Name: Google APIs
+     Type: Add-On
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.275 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Vendor:  |
+| Output Stream Monitor | 2015-05-12 17:47:27.276 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.3.1 (API level 18)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:47:27.277 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a
+----------
+id: 17 or "Google Inc.:Glass Development Kit Preview:19"
+     Name: Glass Development Kit Preview
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 11
+     Description: Preview of the Glass Development Kit
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.google.android.glass (gdk.jar)
+          APIs for Glass Development Kit Preview
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : no ABIs.
+----------
+id: 18 or "Google Inc.:Google APIs:19"
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.278 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 19 or "Google Inc.:Google APIs (x86 System Image):19"
+     Name: Google APIs (x86 System Image)
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android x86 + Google APIs
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.279 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/x86
+----------
+id: 20 or "Google Inc.:Google APIs:21"
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.280 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.0.1 (API level 21)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+----------
+id: 21 or "Google Inc.:Google APIs:22"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+ |
+| Output Stream Monitor | 2015-05-12 17:47:27.282 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Description: Android + Google APIs
+     Based on Android 5.1.1 (API level 22)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+ |
+| Worker-21 | 2015-05-12 17:47:27.320 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" update lib-project --target android-8 --path "C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework" |
+| Worker-21 | 2015-05-12 17:47:27.324 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" update lib-project --target android-8 --path "C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework" |
+| main | 2015-05-12 17:47:28.483 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| main | 2015-05-12 17:47:28.484 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 1 ms |
+| main | 2015-05-12 17:47:28.487 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| main | 2015-05-12 17:47:28.489 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 2 ms |
+| Output Stream Monitor | 2015-05-12 17:47:28.515 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated project.properties
+ |
+| Output Stream Monitor | 2015-05-12 17:47:28.517 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated local.properties
+ |
+| Output Stream Monitor | 2015-05-12 17:47:28.519 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | build.xml: Found version-tag: custom. File will not be updated.
+ |
+| Output Stream Monitor | 2015-05-12 17:47:28.542 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added file  |
+| Output Stream Monitor | 2015-05-12 17:47:28.543 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework\proguard-project.txt
+ |
+| main | 2015-05-12 17:47:31.021 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Really updating the installed plugin list |
+| main | 2015-05-12 17:47:31.024 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated plugin list in 3 ms |
+| Worker-22 | 2015-05-12 17:47:56.020 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" start-server |
+| Worker-22 | 2015-05-12 17:47:56.025 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" start-server |
+| Worker-22 | 2015-05-12 17:47:56.126 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" devices |
+| Worker-22 | 2015-05-12 17:47:56.129 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" devices |
+| Output Stream Monitor | 2015-05-12 17:47:56.161 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | List of devices attached 
+0123456789ABCDEF	device
+
+ |
+| Worker-22 | 2015-05-12 17:47:56.183 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Worker-22 | 2015-05-12 17:47:56.187 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Output Stream Monitor | 2015-05-12 17:47:57.205 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Available Android targets:
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.776 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.778 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 1 or "android-8"
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.779 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 2.2
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.781 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 8
+     Revision: 3
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.782 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.783 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 2 or "android-10"
+     Name: Android 2.3.3
+     Type: Platform
+     API level:  |
+| Output Stream Monitor | 2015-05-12 17:47:57.784 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 10
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432,  |
+| Output Stream Monitor | 2015-05-12 17:47:57.785 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi, default/x86
+----------
+id: 3 or "android-15"
+     Name: Android 4.0.3
+     Type: Platform
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.786 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      API level: 15
+     Revision: 5
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a, default/mips,  |
+| Output Stream Monitor | 2015-05-12 17:47:57.787 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/x86
+----------
+id: 4 or "android-16"
+     Name: Android 4.1.2
+     Type: Platform
+     API level: 16
+     Revision: 5
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA,  |
+| Output Stream Monitor | 2015-05-12 17:47:57.788 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/mips, default/x86
+----------
+id: 5 or "android-17"
+     Name: Android 4.2.2
+     Type: Platform
+     API level: 17
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.790 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/ |
+| Output Stream Monitor | 2015-05-12 17:47:57.791 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | armeabi-v7a, default/mips,  |
+| Output Stream Monitor | 2015-05-12 17:47:57.792 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/x86
+----------
+id: 6 or "android-18"
+     Name: Android 4.3.1
+     Type: Platform
+     API level: 18
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854,  |
+| Output Stream Monitor | 2015-05-12 17:47:57.793 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.794 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 7 or "android-19"
+     Name: Android 4.4.2
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.796 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 19
+     Revision: 4
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in |
+| Output Stream Monitor | 2015-05-12 17:47:57.798 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+ Tag/ABIs : default/armeabi-v7a |
+| Output Stream Monitor | 2015-05-12 17:47:57.799 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.800 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 8 or "android-20"
+     Name: Android 4.4W.2
+     Type: Platform
+     API level: 20
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-wear/ |
+| Output Stream Monitor | 2015-05-12 17:47:57.801 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | armeabi-v7a, android-wear/x86
+----------
+id: 9 or "android-21"
+     Name: Android 5.0.1
+     Type: Platform
+     API level: 21
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720,  |
+| Output Stream Monitor | 2015-05-12 17:47:57.802 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86, android-wear/armeabi-v7a, android-wear/x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id: 10 or "android-22"
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.804 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 5.1.1
+     Type: Platform
+     API level: 22
+     Revision:  |
+| Output Stream Monitor | 2015-05-12 17:47:57.805 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 2 |
+| Output Stream Monitor | 2015-05-12 17:47:57.806 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : android-tv/armeabi-v7a,  |
+| Output Stream Monitor | 2015-05-12 17:47:57.808 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | android-tv |
+| Output Stream Monitor | 2015-05-12 17:47:57.809 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id:  |
+| Output Stream Monitor | 2015-05-12 17:47:57.810 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 11 or "Google Inc.:Google APIs:8"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs |
+| Output Stream Monitor | 2015-05-12 17:47:57.811 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+     Based on Android 2.2 (API level 8)
+     Libraries:
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default) |
+| Output Stream Monitor | 2015-05-12 17:47:57.812 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WVGA854
+ Tag/ABIs : default |
+| Output Stream Monitor | 2015-05-12 17:47:57.815 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | / |
+| Output Stream Monitor | 2015-05-12 17:47:57.816 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | armeabi
+----------
+id: 12 or "Google Inc.:Google APIs:10"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.817 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Description: Android + Google APIs
+     Based on Android 2.3.3 (API level 10)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.maps (maps.jar |
+| Output Stream Monitor | 2015-05-12 17:47:57.818 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | )
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.819 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 13 or "Google Inc.:Google APIs:15"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 4.0.3 (API level 15)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.820 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 14 or "Google Inc.:Google APIs:16"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.1.2 (API level 16)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar |
+| Output Stream Monitor | 2015-05-12 17:47:57.821 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | )
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:47:57.822 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a
+----------
+id: 15 or "Google Inc.:Google APIs:17"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.2.2 (API level 17)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854,  |
+| Output Stream Monitor | 2015-05-12 17:47:57.824 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WXGA720 |
+| Output Stream Monitor | 2015-05-12 17:47:57.825 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 16 or "Google Inc.:Google APIs:18"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.3.1 (API level 18)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.826 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 17 or "Google Inc.:Glass Development Kit Preview:19"
+     Name: Glass Development Kit Preview
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 11
+     Description: Preview of the Glass Development Kit
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.google.android.glass (gdk.jar)
+          APIs for Glass Development Kit Preview
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : no ABIs.
+----------
+id: 18 or "Google Inc.:Google APIs:19"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.827 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 19 or "Google Inc.:Google APIs (x86 System Image):19"
+     Name: Google APIs (x86 System Image)
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android x86 + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default),  |
+| Output Stream Monitor | 2015-05-12 17:47:57.829 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.831 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 20 or "Google Inc.:Google APIs:21"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.0.1 (API level 21)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+----------
+id: 21 or "Google Inc.:Google APIs:22"
+     Name: Google APIs |
+| Output Stream Monitor | 2015-05-12 17:47:57.832 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.1.1 (API level 22)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.833 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |            |
+| Output Stream Monitor | 2015-05-12 17:47:57.835 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | API for USB Accessories
+ |
+| Output Stream Monitor | 2015-05-12 17:47:57.836 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default),  |
+| Output Stream Monitor | 2015-05-12 17:47:57.837 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA854 |
+| Output Stream Monitor | 2015-05-12 17:47:57.838 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+ |
+| Worker-22 | 2015-05-12 17:47:57.899 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" update lib-project --target android-8 --path "C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework" |
+| Worker-22 | 2015-05-12 17:47:57.904 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" update lib-project --target android-8 --path "C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework" |
+| Output Stream Monitor | 2015-05-12 17:47:59.291 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated project.properties
+ |
+| Output Stream Monitor | 2015-05-12 17:47:59.294 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated local.properties
+ |
+| Output Stream Monitor | 2015-05-12 17:47:59.295 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | build.xml |
+| Output Stream Monitor | 2015-05-12 17:47:59.296 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | : Found version-tag: custom. File will not be updated.
+ |
+| Output Stream Monitor | 2015-05-12 17:47:59.299 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated |
+| Output Stream Monitor | 2015-05-12 17:47:59.301 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  file C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework\proguard-project.txt
+ |
+| Worker-22 | 2015-05-12 17:48:04.720 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Completed WidgetModel.getWidgetForRead it 0ms |
+| Worker-22 | 2015-05-12 17:48:04.722 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Completed WidgetModel.getWidgetForRead it 1ms |
+| Worker-22 | 2015-05-12 17:48:04.723 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Worker-22 | 2015-05-12 17:48:04.734 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Output Stream Monitor | 2015-05-12 17:48:05.881 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Available Android targets:
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.553 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.554 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id:  |
+| Output Stream Monitor | 2015-05-12 17:48:06.555 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 1 or "android-8"
+     Name: Android 2.2
+     Type: Platform
+     API level: 8
+     Revision: 3 |
+| Output Stream Monitor | 2015-05-12 17:48:06.556 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:06.557 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default |
+| Output Stream Monitor | 2015-05-12 17:48:06.558 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /armeabi
+----------
+id:  |
+| Output Stream Monitor | 2015-05-12 17:48:06.559 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 2 |
+| Output Stream Monitor | 2015-05-12 17:48:06.561 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  or " |
+| Output Stream Monitor | 2015-05-12 17:48:06.562 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | android-10"
+     Name: Android 2.3.3
+     Type: Platform
+     API level: 10
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400,  |
+| Output Stream Monitor | 2015-05-12 17:48:06.563 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WQVGA432 |
+| Output Stream Monitor | 2015-05-12 17:48:06.565 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ,  |
+| Output Stream Monitor | 2015-05-12 17:48:06.566 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi, default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.567 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 3 or "android-15"
+     Name: Android 4.0.3
+     Type: Platform
+     API level: 15
+     Revision: 5
+     Skins: HVGA, QVGA |
+| Output Stream Monitor | 2015-05-12 17:48:06.568 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a, default/ |
+| Output Stream Monitor | 2015-05-12 17:48:06.569 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | mips, default/x86
+----------
+id: 4 |
+| Output Stream Monitor | 2015-05-12 17:48:06.570 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  or "android-16"
+     Name: Android 4.1.2
+     Type: Platform
+     API level: 16
+     Revision: 5
+     Skins: HVGA, QVGA,  |
+| Output Stream Monitor | 2015-05-12 17:48:06.571 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WQVGA400, WQVGA432 |
+| Output Stream Monitor | 2015-05-12 17:48:06.572 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/mips, default/x86
+----------
+id: 5 or "android-17"
+     Name: Android 4.2.2
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.573 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 17
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default |
+| Output Stream Monitor | 2015-05-12 17:48:06.574 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /armeabi-v7a, default/mips, default/x86
+----------
+id: 6 or "android-18"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.575 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 4.3.1
+     Type: Platform
+     API level: 18
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:06.576 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a, default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.577 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 7 or "android-19"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.578 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 4.4.2
+     Type: Platform
+     API level: 19
+     Revision: 4
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/x86 |
+| Output Stream Monitor | 2015-05-12 17:48:06.579 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+----------
+id: 8 or "android-20"
+     Name: Android 4.4W.2
+     Type: Platform
+     API level: 20
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.580 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision:  |
+| Output Stream Monitor | 2015-05-12 17:48:06.581 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-wear/armeabi-v7a, android-wear/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.582 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 9 or "android-21"
+     Name: Android 5.0.1
+     Type: Platform
+     API level: 21
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800,  |
+| Output Stream Monitor | 2015-05-12 17:48:06.583 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-tv/armeabi-v7a,  |
+| Output Stream Monitor | 2015-05-12 17:48:06.586 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | android-tv |
+| Output Stream Monitor | 2015-05-12 17:48:06.587 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /x86, android-wear/armeabi-v7a, android-wear/x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id: 10 or "android-22"
+     Name: Android 5.1.1
+     Type: Platform
+     API level: 22
+     Revision: 2
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.588 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id:  |
+| Output Stream Monitor | 2015-05-12 17:48:06.589 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 11 or "Google Inc.:Google APIs:8"
+     Name: Google APIs
+     Type: Add-On
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.590 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 2.2 (API level 8)
+     Libraries:
+      * com.google.android.maps (maps.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.591 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.592 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 12 or "Google Inc.:Google APIs:10"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 2.3.3 (API level 10)
+     Libraries:
+      *  |
+| Output Stream Monitor | 2015-05-12 17:48:06.594 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | com.android.future.usb.accessory (usb.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.595 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for USB Accessories
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.596 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id:  |
+| Output Stream Monitor | 2015-05-12 17:48:06.597 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 13 or "Google Inc.:Google APIs:15"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 4.0.3 (API level 15)
+     Libraries:
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.598 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:06.599 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a
+----------
+id: 14 or "Google Inc.:Google APIs:16"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.1.2 (API level 16)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps |
+| Output Stream Monitor | 2015-05-12 17:48:06.602 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.603 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Skins:  |
+| Output Stream Monitor | 2015-05-12 17:48:06.604 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 15 |
+| Output Stream Monitor | 2015-05-12 17:48:06.605 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  or "Google Inc.:Google APIs:17"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.2.2 (API level 17)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps ( |
+| Output Stream Monitor | 2015-05-12 17:48:06.606 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:06.607 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a
+----------
+id: 16 or "Google Inc.:Google APIs:18"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.3.1 (API level 18)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.608 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400 |
+| Output Stream Monitor | 2015-05-12 17:48:06.609 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ,  |
+| Output Stream Monitor | 2015-05-12 17:48:06.611 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/ |
+| Output Stream Monitor | 2015-05-12 17:48:06.611 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | armeabi-v7a |
+| Output Stream Monitor | 2015-05-12 17:48:06.613 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+----------
+id: 17 or "Google Inc.:Glass Development Kit Preview:19"
+     Name: Glass Development Kit Preview
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 11
+     Description: Preview of the Glass Development Kit
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.google.android.glass (gdk.jar)
+          APIs for Glass Development Kit Preview
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432,  |
+| Output Stream Monitor | 2015-05-12 17:48:06.614 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WSVGA |
+| Output Stream Monitor | 2015-05-12 17:48:06.615 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : no ABIs.
+----------
+id: 18 or "Google Inc.:Google APIs:19"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 19 or "Google Inc.:Google APIs (x86 System Image):19"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.616 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Google APIs (x86 System Image)
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android x86 + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/x86
+----------
+id: 20 or "Google Inc.:Google APIs:21"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.0.1 (API level 21)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.618 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+----------
+id: 21 or "Google Inc.:Google APIs:22"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.1.1 (API level 22)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.619 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       *  |
+| Output Stream Monitor | 2015-05-12 17:48:06.620 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | com.google.android.maps (maps.jar)
+          API for Google Maps
+ |
+| Output Stream Monitor | 2015-05-12 17:48:06.622 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+ |
+| Worker-22 | 2015-05-12 17:48:06.688 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" create project --target android-8 --path "C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android" --name "HelloMap" --activity HelloMap --package com.example.map |
+| Worker-22 | 2015-05-12 17:48:06.692 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" create project --target android-8 --path "C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android" --name "HelloMap" --activity HelloMap --package com.example.map |
+| Output Stream Monitor | 2015-05-12 17:48:07.881 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created project directory:  |
+| Output Stream Monitor | 2015-05-12 17:48:07.884 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.895 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\src\com\example\map |
+| Output Stream Monitor | 2015-05-12 17:48:07.895 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.930 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added file C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\src\com\example\map\HelloMap.java |
+| Output Stream Monitor | 2015-05-12 17:48:07.931 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.932 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.933 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory  |
+| Output Stream Monitor | 2015-05-12 17:48:07.933 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\bin
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.934 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\libs
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.935 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory  |
+| Output Stream Monitor | 2015-05-12 17:48:07.936 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res\values
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.938 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added file  |
+| Output Stream Monitor | 2015-05-12 17:48:07.938 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res\values\strings.xml
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.939 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res\layout
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.942 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added |
+| Output Stream Monitor | 2015-05-12 17:48:07.943 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  file C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res\layout\main.xml
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.963 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added |
+| Output Stream Monitor | 2015-05-12 17:48:07.965 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  file C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\AndroidManifest.xml
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.974 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added |
+| Output Stream Monitor | 2015-05-12 17:48:07.975 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  file C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\build.xml
+ |
+| Output Stream Monitor | 2015-05-12 17:48:07.976 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added |
+| Output Stream Monitor | 2015-05-12 17:48:07.977 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  file C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\proguard-project.txt
+ |
+| main | 2015-05-12 17:48:08.388 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" list target |
+| main | 2015-05-12 17:48:08.391 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Output Stream Monitor | 2015-05-12 17:48:09.192 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Available Android targets:
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.657 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.660 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 1 or "android-8"
+     Name: Android 2.2
+     Type: Platform
+     API level: 8 |
+| Output Stream Monitor | 2015-05-12 17:48:09.661 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+     Revision:  |
+| Output Stream Monitor | 2015-05-12 17:48:09.662 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 3
+     Skins: HVGA, QVGA, WQVGA400 |
+| Output Stream Monitor | 2015-05-12 17:48:09.663 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA432,  |
+| Output Stream Monitor | 2015-05-12 17:48:09.665 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA800 |
+| Output Stream Monitor | 2015-05-12 17:48:09.666 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  (default), WVGA854
+ Tag/ABIs : default |
+| Output Stream Monitor | 2015-05-12 17:48:09.667 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /armeabi
+----------
+id: 2 or "android-10"
+     Name: Android 2.3.3
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.668 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 10
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:09.670 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi, default/x86
+----------
+id: 3 or "android-15"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.670 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 4.0.3
+     Type: Platform
+     API level: 15
+     Revision: 5
+     Skins: HVGA, QVGA |
+| Output Stream Monitor | 2015-05-12 17:48:09.672 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432, WSVGA,  |
+| Output Stream Monitor | 2015-05-12 17:48:09.673 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA800 (default) |
+| Output Stream Monitor | 2015-05-12 17:48:09.674 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WVGA854, WXGA720, WXGA800
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:09.675 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a, default/mips, default/x86
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.676 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+id: 4 or "android-16"
+     Name: Android 4.1.2
+     Type: Platform
+     API level: 16
+     Revision: 5
+     Skins: HVGA,  |
+| Output Stream Monitor | 2015-05-12 17:48:09.677 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:09.678 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a, default/mips, default/x86 |
+| Output Stream Monitor | 2015-05-12 17:48:09.679 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+----------
+id: 5 or "android-17"
+     Name: Android 4.2.2
+     Type: Platform
+     API level: 17
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default),  |
+| Output Stream Monitor | 2015-05-12 17:48:09.680 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default |
+| Output Stream Monitor | 2015-05-12 17:48:09.681 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /armeabi-v7a, default/mips, default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.682 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 6 or "android-18"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.683 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 4.3.1
+     Type: Platform
+     API level: 18
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default),  |
+| Output Stream Monitor | 2015-05-12 17:48:09.684 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.685 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 7 or "android-19"
+     Name: Android 4.4.2
+     Type: Platform
+     API level: 19
+     Revision: 4
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432,  |
+| Output Stream Monitor | 2015-05-12 17:48:09.686 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+id:  |
+| Output Stream Monitor | 2015-05-12 17:48:09.687 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 8 or "android-20"
+     Name: Android 4.4W.2
+     Type: Platform
+     API level: 20
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.689 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision:  |
+| Output Stream Monitor | 2015-05-12 17:48:09.690 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare,  |
+| Output Stream Monitor | 2015-05-12 17:48:09.691 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-wear/armeabi-v7a, android-wear/x86 |
+| Output Stream Monitor | 2015-05-12 17:48:09.692 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+----------
+id: 9 or "android-21"
+     Name: Android 5.0.1
+     Type: Platform
+     API level: 21
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound |
+| Output Stream Monitor | 2015-05-12 17:48:09.693 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-tv/armeabi-v7a,  |
+| Output Stream Monitor | 2015-05-12 17:48:09.693 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | android-tv/x86, android-wear/armeabi-v7a, android-wear/x86, default/armeabi-v7a, default/x86, default |
+| Output Stream Monitor | 2015-05-12 17:48:09.694 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /x86_64
+----------
+id: 10 or "android-22"
+     Name: Android 5.1.1
+     Type: Platform
+     API level:  |
+| Output Stream Monitor | 2015-05-12 17:48:09.695 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 22
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86,  |
+| Output Stream Monitor | 2015-05-12 17:48:09.696 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a, default/x86, default/x86_64
+----------
+id: 11 or "Google Inc.:Google APIs:8"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.697 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Based on Android 2.2 (API level 8)
+     Libraries:
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 12 or "Google Inc.:Google APIs:10"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.699 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Based on Android 2.3.3 (API level 10)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.700 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 13 or "Google Inc.:Google APIs:15"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 4.0.3 (API level 15)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.701 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 14 or "Google Inc.:Google APIs:16"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.702 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.1.2 (API level 16)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA,  |
+| Output Stream Monitor | 2015-05-12 17:48:09.703 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 15 or "Google Inc.:Google APIs:17"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.2.2 (API level 17)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.704 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:09.705 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a
+----------
+id: 16 or "Google Inc.:Google APIs:18"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.3.1 (API level 18)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.706 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 17 or "Google Inc.:Glass Development Kit Preview:19"
+     Name: Glass Development Kit Preview
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 11
+     Description: Preview of the Glass Development Kit
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.google.android.glass (gdk.jar)
+          APIs for Glass Development Kit Preview
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:09.707 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | no ABIs.
+----------
+id: 18 or "Google Inc.:Google APIs:19"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.708 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 19 or "Google Inc.:Google APIs (x86 System Image):19"
+     Name: Google APIs (x86 System Image)
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android x86 + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/x86
+----------
+id: 20 or "Google Inc.:Google APIs:21"
+     Name: Google APIs
+     Type: Add-On
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.709 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.0.1 (API level 21)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+----------
+id: 21 or "Google Inc.:Google APIs:22"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.711 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.1.1 (API level 22)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in |
+| Output Stream Monitor | 2015-05-12 17:48:09.711 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+ |
+| Output Stream Monitor | 2015-05-12 17:48:09.712 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:09.714 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | google_apis/armeabi-v7a |
+| Output Stream Monitor | 2015-05-12 17:48:09.715 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , google_apis/x86, google_apis/x86_64
+ |
+| Worker-17 | 2015-05-12 17:48:09.755 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" start-server |
+| Worker-17 | 2015-05-12 17:48:09.759 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" start-server |
+| Worker-17 | 2015-05-12 17:48:09.811 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" devices |
+| Worker-17 | 2015-05-12 17:48:09.814 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" devices |
+| Output Stream Monitor | 2015-05-12 17:48:09.845 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | List of devices attached 
+0123456789ABCDEF	device
+
+ |
+| Worker-17 | 2015-05-12 17:48:09.867 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Worker-17 | 2015-05-12 17:48:09.872 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Output Stream Monitor | 2015-05-12 17:48:10.854 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Available Android targets:
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.409 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.411 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 1 or "android-8"
+     Name: Android 2.2
+     Type: Platform
+     API level: 8
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400 |
+| Output Stream Monitor | 2015-05-12 17:48:11.412 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.413 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 2 |
+| Output Stream Monitor | 2015-05-12 17:48:11.414 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  or "android-10 |
+| Output Stream Monitor | 2015-05-12 17:48:11.415 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | "
+     Name: Android 2.3.3
+     Type: Platform
+     API level: 10
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854 |
+| Output Stream Monitor | 2015-05-12 17:48:11.416 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+ Tag/ABIs : default/armeabi, default/x86
+----------
+id: 3 or "android-15"
+     Name: Android 4.0.3
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.417 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 15
+     Revision: 5
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a,  |
+| Output Stream Monitor | 2015-05-12 17:48:11.418 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/mips, default/x86
+----------
+id: 4 or "android-16"
+     Name: Android 4.1.2
+     Type: Platform
+     API level: 16
+     Revision: 5
+     Skins: HVGA, QVGA, WQVGA400,  |
+| Output Stream Monitor | 2015-05-12 17:48:11.419 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/mips, default/x86
+----------
+id: 5 or "android-17"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.420 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 4.2.2
+     Type: Platform
+     API level: 17
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/ |
+| Output Stream Monitor | 2015-05-12 17:48:11.421 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | mips, default/x86
+----------
+id: 6 or "android-18"
+     Name: Android 4.3.1
+     Type: Platform
+     API level: 18
+     Revision: 3
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.422 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.423 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 7 or "android-19"
+     Name: Android 4.4.2
+     Type: Platform
+     API level: 19
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.424 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision: 4
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.425 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  Tag/ABIs : default/armeabi-v7a |
+| Output Stream Monitor | 2015-05-12 17:48:11.426 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , default/x86
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.427 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 8 or "android-20"
+     Name: Android 4.4W.2
+     Type: Platform
+     API level: 20
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.428 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Revision:  |
+| Output Stream Monitor | 2015-05-12 17:48:11.431 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854 |
+| Output Stream Monitor | 2015-05-12 17:48:11.433 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ,  |
+| Output Stream Monitor | 2015-05-12 17:48:11.434 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:11.435 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | android-wear/armeabi-v7a, android-wear/x86
+----------
+id: 9 or "android-21"
+     Name: Android 5.0.1
+     Type: Platform
+     API level: 21
+     Revision: 2
+     Skins: HVGA,  |
+| Output Stream Monitor | 2015-05-12 17:48:11.437 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | QVGA |
+| Output Stream Monitor | 2015-05-12 17:48:11.438 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-tv/armeabi-v7a,  |
+| Output Stream Monitor | 2015-05-12 17:48:11.439 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | android-tv/x86, android-wear/armeabi-v7a, android-wear/x86, default/armeabi-v7a, default/x86, default |
+| Output Stream Monitor | 2015-05-12 17:48:11.440 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | /x86_64
+----------
+id: 10 or "android-22"
+     Name: Android 5.1.1
+     Type: Platform
+     API level: 22
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800 |
+| Output Stream Monitor | 2015-05-12 17:48:11.441 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WXGA800-7in
+ Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id:  |
+| Output Stream Monitor | 2015-05-12 17:48:11.442 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 11 or "Google Inc.:Google APIs:8"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 2.2 (API level 8)
+     Libraries:
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 |
+| Output Stream Monitor | 2015-05-12 17:48:11.444 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  (default) |
+| Output Stream Monitor | 2015-05-12 17:48:11.445 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 12 or "Google Inc.:Google APIs:10"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 2.3.3 |
+| Output Stream Monitor | 2015-05-12 17:48:11.446 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  (API level 10)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:11.447 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi
+----------
+id: 13 or "Google Inc.:Google APIs:15"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.448 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Description: Android + Google APIs
+     Based on Android 4.0.3 (API level 15)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.449 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.451 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 14 or "Google Inc.:Google APIs:16"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.1.2 (API level 16)
+     Libraries:
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.452 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 15 or "Google Inc.:Google APIs:17"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.452 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Based on Android 4.2.2 (API level 17)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.454 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs :  |
+| Output Stream Monitor | 2015-05-12 17:48:11.455 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/armeabi-v7a
+----------
+id: 16 or "Google Inc.:Google APIs:18"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.3.1 (API level 18)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.456 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 17 or "Google Inc.:Glass Development Kit Preview:19"
+     Name: Glass Development Kit Preview
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 11
+     Description: Preview of the Glass Development Kit
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.google.android.glass (gdk.jar)
+          APIs for Glass Development Kit Preview
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA |
+| Output Stream Monitor | 2015-05-12 17:48:11.457 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : no ABIs.
+----------
+id: 18 or "Google Inc.:Google APIs:19"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.458 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 19 or "Google Inc.:Google APIs (x86 System Image):19"
+     Name: Google APIs (x86 System Image)
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android x86 + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:11.459 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/x86
+----------
+id: 20 or "Google Inc.:Google APIs:21"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description:  |
+| Output Stream Monitor | 2015-05-12 17:48:11.465 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Android + Google APIs
+     Based on Android 5.0.1 (API level 21)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+----------
+id: 21 or "Google Inc.:Google APIs:22"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.1.1 (API level 22)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+ |
+| Worker-17 | 2015-05-12 17:48:11.531 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" update lib-project --target android-8 --path "C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework" |
+| Worker-17 | 2015-05-12 17:48:11.535 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" update lib-project --target android-8 --path "C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework" |
+| Output Stream Monitor | 2015-05-12 17:48:13.052 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated project.properties
+ |
+| Output Stream Monitor | 2015-05-12 17:48:13.056 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated local.properties
+ |
+| Output Stream Monitor | 2015-05-12 17:48:13.058 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | build.xml: Found version-tag: custom. File will not be updated.
+ |
+| Output Stream Monitor | 2015-05-12 17:48:13.061 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Updated file  |
+| Output Stream Monitor | 2015-05-12 17:48:13.062 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\Users\doi\.cordova\lib\npm_cache\cordova-android\3.6.4\package\framework\proguard-project.txt
+ |
+| Worker-17 | 2015-05-12 17:48:19.340 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Completed WidgetModel.getWidgetForRead it 0ms |
+| Worker-17 | 2015-05-12 17:48:19.342 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Completed WidgetModel.getWidgetForRead it 0ms |
+| Worker-17 | 2015-05-12 17:48:19.344 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Worker-17 | 2015-05-12 17:48:19.349 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" list target |
+| Output Stream Monitor | 2015-05-12 17:48:21.760 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Available Android targets:
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.479 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.480 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 1 or "android-8"
+     Name: Android 2.2
+     Type: Platform
+     API level: 8
+     Revision: 3
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.481 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 2 or "android-10"
+     Name: Android 2.3.3
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.482 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 10
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/ |
+| Output Stream Monitor | 2015-05-12 17:48:22.483 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | armeabi, default/x86
+----------
+id: 3 or "android-15"
+     Name: Android 4.0.3
+     Type: Platform
+     API level: 15
+     Revision: 5
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA |
+| Output Stream Monitor | 2015-05-12 17:48:22.483 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a, default/mips, default/x86
+----------
+id: 4 or "android-16"
+     Name: Android 4.1.2 |
+| Output Stream Monitor | 2015-05-12 17:48:22.484 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.485 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 16
+     Revision: 5
+     Skins: HVGA, QVGA |
+| Output Stream Monitor | 2015-05-12 17:48:22.486 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/mips, default/x86
+----------
+id: 5 or "android-17"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.487 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 4.2.2
+     Type: Platform
+     API level: 17
+     Revision: 3
+     Skins: HVGA,  |
+| Output Stream Monitor | 2015-05-12 17:48:22.488 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/mips, default/x86
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.489 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+id: 6 or "android-18"
+     Name: Android 4.3.1
+     Type: Platform
+     API level: 18
+     Revision: 3
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in |
+| Output Stream Monitor | 2015-05-12 17:48:22.490 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+ Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+id: 7 or "android-19"
+     Name: Android 4.4.2
+     Type: Platform
+     API level: 19
+     Revision: 4
+     Skins: HVGA, QVGA, WQVGA400,  |
+| Output Stream Monitor | 2015-05-12 17:48:22.491 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a, default/x86
+----------
+id: 8 or "android-20"
+     Name: Android 4.4W.2
+     Type: Platform
+     API level: 20
+     Revision: 2
+     Skins: HVGA |
+| Output Stream Monitor | 2015-05-12 17:48:22.492 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : android-wear/armeabi-v7a, android-wear/x86
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.493 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | ----------
+id: 9 or "android-21"
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.494 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Name: Android 5.0.1
+     Type: Platform
+     API level: 21
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.494 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86, android-wear/armeabi-v7a, android-wear/x86, default/armeabi-v7a, default/x86, default/x86_64
+----------
+id: 10 or "android-22"
+     Name: Android 5.1.1
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.495 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Type: Platform
+     API level: 22
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : android-tv/armeabi-v7a, android-tv/x86, default/armeabi-v7a,  |
+| Output Stream Monitor | 2015-05-12 17:48:22.496 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | default/x86, default/x86_64
+----------
+id: 11 or "Google Inc.:Google APIs:8"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.497 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Description: Android + Google APIs
+     Based on Android 2.2 (API level 8)
+     Libraries:
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 12 or "Google Inc.:Google APIs:10"
+     Name: Google APIs |
+| Output Stream Monitor | 2015-05-12 17:48:22.498 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 2.3.3 (API level 10)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA |
+| Output Stream Monitor | 2015-05-12 17:48:22.499 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA400, WQVGA432 |
+| Output Stream Monitor | 2015-05-12 17:48:22.500 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WVGA800 (default), WVGA854
+ Tag/ABIs : default/armeabi
+----------
+id: 13 or "Google Inc.:Google APIs:15"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 2
+     Description: Android + Google APIs
+     Based on Android 4.0.3 (API level 15)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.501 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
+ Tag/ABIs : default/armeabi-v7a
+----------
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.502 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | id: 14 or "Google Inc.:Google APIs:16"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.1.2 (API level 16)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.503 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |       * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 15 or "Google Inc.:Google APIs:17"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android  |
+| Output Stream Monitor | 2015-05-12 17:48:22.504 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | 4.2.2 (API level 17)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 16 or "Google Inc.:Google APIs:18"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 3
+     Description: Android + Google APIs
+     Based on Android 4.3.1 (API level 18)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.505 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 17 or "Google Inc.:Glass Development Kit Preview:19"
+     Name: Glass Development Kit Preview
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 11
+     Description: Preview of the Glass Development Kit
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.google.android.glass (gdk.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.506 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           APIs for Glass Development Kit Preview
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : no ABIs.
+----------
+id: 18 or "Google Inc.:Google APIs:19"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400 |
+| Output Stream Monitor | 2015-05-12 17:48:22.507 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | , WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/armeabi-v7a
+----------
+id: 19 or "Google Inc.:Google APIs (x86 System Image):19"
+     Name: Google APIs (x86 System Image)
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 12
+     Description: Android x86 + Google APIs
+     Based on Android 4.4.2 (API level 19)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.508 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/x86
+----------
+id: 20 or "Google Inc.:Google APIs:21"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.0.1 (API level 21)
+     Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.509 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |           Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in, AndroidWearRound, AndroidWearSquare, AndroidWearRound, AndroidWearSquare
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+----------
+id: 21 or "Google Inc.:Google APIs:22"
+     Name: Google APIs
+     Type: Add-On
+     Vendor: Google Inc.
+     Revision: 1
+     Description: Android + Google APIs
+     Based on Android 5.1.1 (API level 22)
+ |
+| Output Stream Monitor | 2015-05-12 17:48:22.510 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |      Libraries:
+      * com.android.future.usb.accessory (usb.jar)
+          API for USB Accessories
+      * com.google.android.media.effects (effects.jar)
+          Collection of video effects
+      * com.google.android.maps (maps.jar)
+          API for Google Maps
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : google_apis/armeabi-v7a, google_apis/x86, google_apis/x86_64
+ |
+| Worker-17 | 2015-05-12 17:48:22.574 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: cmd /c "C:\android-sdk-windows\tools\android" create project --target android-8 --path "C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android" --name "HelloMap" --activity HelloMap --package com.example.map |
+| Worker-17 | 2015-05-12 17:48:22.578 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for cmd /c "C:\android-sdk-windows\tools\android" create project --target android-8 --path "C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android" --name "HelloMap" --activity HelloMap --package com.example.map |
+| Output Stream Monitor | 2015-05-12 17:48:24.094 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory  |
+| Output Stream Monitor | 2015-05-12 17:48:24.095 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\src\com\example\map
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.096 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added file  |
+| Output Stream Monitor | 2015-05-12 17:48:24.097 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\src\com\example\map\HelloMap.java
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.098 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.100 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory  |
+| Output Stream Monitor | 2015-05-12 17:48:24.101 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\bin
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.101 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\libs
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.103 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory  |
+| Output Stream Monitor | 2015-05-12 17:48:24.104 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res\values
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.105 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added file  |
+| Output Stream Monitor | 2015-05-12 17:48:24.106 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res\values\strings.xml
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.107 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Created directory C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res\layout
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.109 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added file  |
+| Output Stream Monitor | 2015-05-12 17:48:24.110 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\res\layout\main.xml
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.113 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added file  |
+| Output Stream Monitor | 2015-05-12 17:48:24.113 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\AndroidManifest.xml
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.120 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added |
+| Output Stream Monitor | 2015-05-12 17:48:24.121 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 |  file C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\build.xml
+ |
+| Output Stream Monitor | 2015-05-12 17:48:24.124 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Added file  |
+| Output Stream Monitor | 2015-05-12 17:48:24.125 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | C:\eclipse\configuration\org.eclipse.osgi\787\data\proj_gen\HelloMap\android\proguard-project.txt
+ |
+# !SESSION 2015-09-05 22:51:39.908
+# version: 1.1
+# verbose: true
+# The following option strings are specified for this debug session:
+# 	null
+| main | 2015-09-05 22:51:39.908 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Completed WidgetModel.getWidgetForRead it 42ms |
+| main | 2015-09-05 22:51:55.583 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Completed WidgetModel.getWidgetForRead it 10ms |
+| Worker-6 | 2015-09-05 22:55:20.859 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" start-server |
+| Worker-6 | 2015-09-05 22:55:20.870 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" start-server |
+| Worker-6 | 2015-09-05 22:55:20.924 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Sync Execute command line: "C:\android-sdk-windows\platform-tools\adb" devices |
+| Worker-6 | 2015-09-05 22:55:20.928 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | Creating TracingStreamListeners for "C:\android-sdk-windows\platform-tools\adb" devices |
+| Output Stream Monitor | 2015-09-05 22:55:20.957 | org.eclipse.thym.core | /debug | org.eclipse.thym.core.HybridCore | trace | 175 | List of devices attached 
+0123456789ABCDEF	device
+
+ |

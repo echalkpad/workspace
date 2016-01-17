@@ -1,0 +1,22 @@
+$bg             : "img/bg2.jpg";
+
+$colorPrimary   : #3483A4;
+$colorSecondary : #E03D0E;
+$colorError     : #c0392b;
+
+$avaSize        : 70px;
+$avaPadding     : 2px;
+$borderRadius   : 4px;
+
+// NAVBAR
+$navbarBG           : #f0f0f0;
+$navbarColor        : $colorPrimary;
+$navbarBorderColor  : #cccccc;
+
+// SIDEBAR
+$sidebarColor       : #f0f0f0;
+$sidebarBG          : #333333;
+$menuBorder         : #333333;
+$menuColor          : #cccccc;
+$menuHoverBG        : #222222;
+$dividerBG          : lighten($sidebarBG, 10%);

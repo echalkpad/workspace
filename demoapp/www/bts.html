@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VGI Demo App</title>
+<!--
+    This template can be used for simple utility application that has a main view and a settings view, for applications like Maps app, Weather App or Clock app.
+-->  
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0;" />
+<link href="//vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/4.12/video.js"></script>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding:0;
+}
+
+.wrapper {
+   display: block;
+   min-height: 100%; /* real browsers */
+   height: auto !important; /* real browsers */
+   height: 100%; /* IE6 bug */
+   margin-bottom: -55px; /* กำหนด margin-bottom ให้ติดลบเท่ากับความสูงของ footer */
+}
+.footer {
+   height: 55px; /* ความสูงของ footer */
+   display: block;
+   text-align: center;
+}
+*{
+-webkit-user-drag: none;
+-moz-user-drag: none;
+-ms-user-drag: none;
+user-drag: none;
+}
+
+
+</style>     
+
+<script type="text/javascript">
+            window.addEventListener('load', function() {
+                document.body.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                }, false);
+            }, false);
+
+
+            setInterval(function() {
+			    var myImageElement1 = document.getElementById('imgoncamera1');
+			    var myImageElement2 = document.getElementById('imgoncamera2');
+			    myImageElement1.src = 'http://103.27.201.113/snap/thumb.jpg?rand=' + Math.random();
+			    myImageElement2.src = 'http://103.27.201.113/snap/thumb1.jpg?rand=' + Math.random();
+			}, 1000);
+ </script> 
+
+
+</head>
+<body>
+<div class="wrapper">
+	<div id="header">
+		<img src=images/head.jpg width=100%>
+	</div>
+	<div id="content">
+		<div align=center>
+			<span>
+			<a href=playvideo1.html><video id="video1" width="240" height="180"  class="video-js vjs-default-skin" controls preload="auto">
+				<source src="http://103.27.201.113:8010/test.webm" type=video/webm />
+				Your browser does not support the video tag.
+			</video></a>
+			</span><span>
+			<a href=playvideo2.html><video id="video1" width="240" height="180"  class="video-js vjs-default-skin" controls preload="auto">
+				<source src="http://103.27.201.113:8010/test2.webm" type=video/webm />
+				Your browser does not support the video tag.
+			</video></a>
+			</span><br>
+			<span id="camera1">
+			
+				<img src="http://103.27.201.113/snap/thumb.jpg" width="240" height="180" id="imgoncamera1">
+			
+			</span><span id="camera2">
+			
+				<img src="http://103.27.201.113/snap/thumb1.jpg" width="240" height="180" id="imgoncamera2">
+			
+		</span>
+		</div>
+	</div>
+</div>
+<div class="footer">
+	<div id="footer">
+		<table width=100% border=0 height=100% cellpadding=0 cellspacing=0>
+				<tr>
+					<td width=25% align=center bgcolor=#000000>
+					<a href=main.html><img src=images/home.jpg></a>
+					</td>
+					<td width=25% align=center bgcolor=#000000>
+					<a href=live.html><img src=images/live.jpg></a>
+					</td>
+					<td width=25% align=center bgcolor=#000000>
+					<a href=playback.html><img src=images/playback.jpg></a>
+					</td>
+					<td width=25% align=center bgcolor=#000000>
+					<a href=contact.html><img src=images/contact.jpg></a>
+					</td>
+				</tr>
+		</table>
+	</div>
+</div>
+
+</body>
+</html>

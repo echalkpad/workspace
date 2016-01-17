@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Device Properties Example</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="http://zeptojs.com/zepto.min.js"></script>
+	<script src="http://52.74.57.2:3000/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+	var mediaRec = "";
+	var src="myrecording.amr";
+
+
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+	
+
+    // Record audio
+    //
+    function recordAudio() {
+		$('#media').html("<span>Recording . . .</span>")
+        src = "myrecording.amr";
+        mediaRec = new Media(src, onSuccess, onError);
+
+        // Record audio
+        mediaRec.startRecord();
+
+        // Stop recording after 10 sec
+        
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+       
+
+    }
+
+    // onSuccess Callback
+    //
+    function onSuccess() {
+        console.log("recordAudio():Audio Success");
+    }
+
+    // onError Callback
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+    // Set audio position
+    //
+    function setAudioPosition(position) {
+        document.getElementById('audio_position').innerHTML = position;
+    }
+
+var win = function (r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+var fail = function (error) {
+    alert("An error has occurred: Code = " + error.code + " " + error.source + " " + error.target);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
+}
+
+
+
+    </script>
+	
+  </head>
+  <body>
+	<p><input id=recordbutton type=button value=Record></button></p>
+	<p id="media"></p>
+    <p id="audio_position"></p>
+
+	<script>
+	$(document).ready(function(){
+
+		
+		
+	
+	var enterEvent = "touchstart";
+	var leaveEvent = "touchend";
+	if(!("ontouchstart" in window)){
+		// if no touch we use mouseenter and mouseleave events
+		enterEvent = "mouseenter";
+		leaveEvent = "mouseleave";
+	}
+
+	$("#recordbutton").on(enterEvent, function(e){
+		recordAudio();
+		// code here
+	});
+	$("#recordbutton").on(leaveEvent, function(e){
+			$('#media').html("<span></span>")
+			$('#recordbutton').removeClass('tapped');
+			mediaRec.stopRecord();
+			var options = new FileUploadOptions();
+			options.fileKey = "file";
+			options.fileName = "soundfile.amr";
+			options.mimeType = "audio/amr";
+			var params = {};
+			params.value1 = "test";
+			params.value2 = "param";
+			params.APPID = "1qazxsw2";
+
+			options.params = params;
+			var ft = new FileTransfer();
+            ft.upload(encodeURI('file:///sdcard/myrecording.amr'), encodeURI('http://52.74.57.2/node/upload.php'), win, fail, options);
+			
+
+		// code here
+	});
+	
+	$('#recordbutton').on('tap', function(e){
+			e.preventDefault();
+			
+			//do your thing
+			
+			return false;
+	});
+	
+	});
+	
+
+	</script>
+  </body>
+</html>

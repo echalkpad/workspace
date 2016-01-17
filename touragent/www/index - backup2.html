@@ -1,0 +1,247 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://52.74.57.2:3000/socket.io/socket.io.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" charset="utf-8">
+	var my_media = null;
+    var mediaTimer = null;
+	var sequence = 0;
+	var playstate = 0;
+	var devicestring = "";
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+	devicestring = device.uuid;
+	$('#txt2').val(devicestring);
+    console.log(device.uuid);
+	cordova.plugins.backgroundMode.setDefaults({ text:'Starting Touragent Background.'});
+	cordova.plugins.backgroundMode.enable();
+	cordova.plugins.backgroundMode.onactivate = function () {
+		cordova.plugins.backgroundMode.configure({
+			silent: true
+		})
+	}
+}
+	
+$(document).ready(function(){
+	
+    // Connect to our node/websockets server
+	var status = "ok";
+    var alltrack = ""
+    var obj = "";
+    var socket = io.connect('http://52.74.57.2:3000');
+    // alert(textid);
+	socket.on('connect', function() {
+		socket.emit('getlist', { "tgroup": $('#txt1').val(), "devicestring" : devicestring})
+	})
+    // Initial set of notes, loop through and add to list
+    socket.on('initial notes', function(data){
+                alltrack = data
+        	// var html = ''
+        	// for (var i = 0; i < data.length; i++){
+            		// We store html as a var then add to DOM after for efficiency
+		//	if (textid == data[i].tgroup) {
+           	//		html += '<audio id="audio"'+i+' src="' + data[i].note + '" controls></audio><br>'
+		//	}
+        	// }
+        	// $('#notes').html(html)
+
+    })
+ 
+    // New note emitted, add it to our list of current notes
+    socket.on('new note', function(data){
+	if ($('#txt1').val() == "1") {
+        	// $('#notes').append('<li>' + data.note + '</li>')
+	}
+    })
+
+    socket.on('ccontrol', function(data){
+		console.log("playstate : "+playstate);
+    	console.log(data);
+		console.log(alltrack);
+	if (data.tgroup == $('#txt1').val()) {
+		var html = ''
+		for (var i = 0; i < alltrack.length; i++){
+			console.log("no: "+i)
+			
+                        // We store html as a var then add to DOM after for efficiency
+			if (i == data.trackID) {
+                        if (textid == alltrack[i].tgroup) {
+								html += "<span>Track Name: "+alltrack[i].note+"</span><br>"
+								$('#trackinfo').html(html)
+								if (playstate ==0) {
+								playstate += 1
+								$('#state').html("<span>Playing</span>")
+                                playAudio(alltrack[i].note)
+								socket.emit('playack', { "playok": 1 })
+								} else if (playstate == 1) {
+								$('#state').html("<span>Playing</span>")
+								resumeAudio()
+								} else {
+								stopAudio()
+								}
+                        }
+			}
+        }
+	
+	}
+    })
+ 
+    socket.on('cstop', function(data){
+    	console.log(data)
+		console.log(alltrack)
+		if (data.tgroup == $('#txt1').val()) {
+			$('#state').html("<span>Stopped</span>")
+			playstate = 0
+			stopAudio()
+		}
+    })
+
+    socket.on('pong', function(data){
+    	console.log(data)
+		if (data.sequence == (sequence+1)) {
+			console.log("OK - "+data.sequence+" - "+data.devicestring+" playstate: "+playstate);
+			sequence = data.sequence
+		} else {
+			console.log("NOT OK - "+data.sequence+" - "+data.devicestring+" playstate: "+playstate);
+			sequence = data.sequence
+		}
+	})	
+	
+    socket.on('cpause', function(data){
+    	console.log(data)
+		console.log(alltrack)
+		if (data.tgroup == $('#txt1').val()) {
+			$('#state').html("<span>Paused</span>")
+			pauseAudio()
+		}
+    })	
+ 
+    // New socket connected, display new count on page
+    socket.on('users connected', function(data){
+        // $('#usersConnected').html('Users connected: ' + data)
+    })
+	
+	socket.on('disconnect', function() {
+		var timerId = setTimeout(function() { $('#online').html('offline') }, 4000)
+	})
+	
+	var timerId = setTimeout(function() { $('#online').html('offline') }, 4000)
+	socket.on('online', function(data){
+		if (data.status == "ok") {
+			$('#online').html('online')
+			clearTimeout(timerId)
+		}
+	})
+	
+	
+	
+	setInterval(function() {
+        socket.emit('ping', { "sequence": sequence, "devicestring" : devicestring})
+    }, 10000);
+	
+	setInterval(function() {
+        socket.emit('online', { "status": status, "devicestring" : devicestring })
+    }, 2000);
+ 
+})
+
+		
+
+        // Play audio
+        //
+        function playAudio(src) {
+            // Create Media object from src
+            my_media = new Media(src, onSuccess, onError);
+
+            // Play audio
+            my_media.play();
+
+            // Update my_media position every second
+            if (mediaTimer == null) {
+                mediaTimer = setInterval(function() {
+                    // get my_media position
+                    my_media.getCurrentPosition(
+                        // success callback
+                        function(position) {
+                            if (position > -1) {
+                                setAudioPosition((position) + " sec");
+                            }
+                        },
+                        // error callback
+                        function(e) {
+                            console.log("Error getting pos=" + e);
+                            setAudioPosition("Error: " + e);
+                        }
+                    );
+                }, 1000);
+            }
+        }
+
+
+        // Pause audio
+        //
+        function pauseAudio() {
+            if (my_media) {
+                my_media.pause();
+            }
+        }
+
+        function resumeAudio() {
+            if (my_media) {
+                my_media.play();
+            }
+        }
+        // Stop audio
+        //
+        function stopAudio() {
+            if (my_media) {
+                my_media.stop();
+            }
+			playstate = 0;
+            clearInterval(mediaTimer);
+            mediaTimer = null;
+        }
+
+        // onSuccess Callback
+        //
+        function onSuccess() {
+			playstate = 0;
+            console.log("playAudio():Audio Success");
+        }
+
+        // onError Callback
+        //
+        function onError(error) {
+            console.log('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+        }
+
+        // Set audio position
+        //
+        function setAudioPosition(position) {
+            document.getElementById('notes').innerHTML = position;
+        }
+
+</script>
+<body>
+<br><br>
+
+<p id="notes"></p>
+<div id="usersConnected"></div>
+<div id="online">offline</div>
+<div id="state"></div>
+<div id="trackinfo"></div>
+<div id="notes"></div>
+<p id="demo"></p>
+
+
+<script>
+var textid = prompt("Please enter Group code" , "1");
+
+if (textid != null) {
+        document.getElementById("demo").innerHTML =
+        "<input id=txt1 name=txt1 type=hidden value="+textid+"></input><input id=txt2 name=txt2 type=hidden value="+devicestring+"></input>";
+
+    }
+	
+
+</script>

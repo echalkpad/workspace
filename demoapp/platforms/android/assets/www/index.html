@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+    <title>VGI Demo App</title>
+<!--
+    This template can be used for simple utility application that has a main view and a settings view, for applications like Maps app, Weather App or Clock app.
+-->  
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0; " />
+<style>
+*{
+-webkit-user-drag: none;
+-moz-user-drag: none;
+-ms-user-drag: none;
+user-drag: none;
+}
+
+html, body {
+  min-height :90%;
+  margin: 0;
+  margin-bottom: 0;
+  padding:0;
+}
+
+#main1 {
+  position: absolute;
+}
+</style>   
+
+<script type="text/javascript">
+            window.addEventListener('load', function() {
+                document.body.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                }, false);
+            }, false);
+        </script> 
+</head>
+<body> 
+	<div class=main1>
+		<a href=main.html><img src="images/login.png" width=100%/></a>
+	</div>
+</body>
+</html>
