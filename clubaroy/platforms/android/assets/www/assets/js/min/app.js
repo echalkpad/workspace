@@ -2102,6 +2102,10 @@ if ("list" == page.name) {
 
                 tmpobj = JSON.parse(data);
                 var length = Object.keys(tmpobj.data).length;
+                if (length < 1) {
+                    myApp.alert("no result(s) found" , "");
+                    return 0;
+                }
                 // console.log(length)
                 shtml="";
 
@@ -2867,7 +2871,7 @@ if ("list" == page.name) {
     }
 
     if ('recipe' == page.name) {
-        $('#backrecipe').on('click', function() {
+        $('#backrecipes').on('click', function() {
             mainView.router.back();
         })
 
@@ -2959,7 +2963,7 @@ if ("list" == page.name) {
     }
 
     if ("recipedetails" == page.name) {
-        $('#backrecipedetails').on('click', function() {
+        $('#backrecipesdetails').on('click', function() {
             mainView.router.back();
         })
         var rcpxobj = "";
@@ -3131,6 +3135,65 @@ if ("list" == page.name) {
             mainView.router.back();
         });
         navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
+
+        $('#km1').on('click', function() {
+            mainView.router.loadPage('list.html?distance=on&cat=100&file=allrestaurant2json&para=cat');
+        })
+
+        $('#km2').on('click', function() {
+            mainView.router.loadPage('list.html?distance=on&cat=5000&file=allrestaurant2json&para=cat');
+        })
+
+        $('#km3').on('click', function() {
+            mainView.router.loadPage('list.html?distance=on&cat=10000&file=allrestaurant2json&para=cat');
+        })
+
+        var pvobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/province2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : "xx"},
+            success: function(data) {
+            console.log(data)
+
+            pvobj = JSON.parse(data);
+            var length = Object.keys(pvobj.data).length;
+            // console.log(length)
+            html="";
+
+            for (var i=0; i < length; i++) {
+                
+                
+                
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            // console.log('i: '+i) 
+            //html+='<li class="swipeout"><div class="swipeout-content"><div class="item-content no-padding"><div class="item-inner blog-list"><div class="image"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'"><img src=http://www.clubaroy.com/home/uploads/galleries/'+readJSON(tmpobj.data[i].image)+' width="100%"><span class="rating blog-rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></span></a></div><div class="text"><h4 class="title mt-5 mb-0"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'">'+readJSON(tmpobj.data[i].title_th)+'</a></h4><small>'+readJSON(tmpobj.data[i].address_th)+'</small><small> | </small><small>'+readJSON(tmpobj.data[i].rname_th)+'</small></div></div></div></div><div class="swipeout-actions-left"><a href="#" class="action-red js-add-to-fav"><i class="fa fa-heart-o"></i></a></div></li>'
+
+                    html='<li>';
+                    html+='<a href="list.html?cat='+readJSON(pvobj.data[i].id)+'&file=restaurant-province2json&para=cat" class="item-link item-content item-content-icon item-content-icon-accordion">';
+                    html+='<div class="item-inner blog-list">';
+                    html+='<div class="text">';
+                    html+='<h4 class="title mt-5 mb-0">'+readJSON(pvobj.data[i].name_th)+'</h4>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</a>';
+                    html+='</li>';
+                    //html+='<div class="facebook-avatar"><img src="http://www.clubaroy.com/home/uploads/restaurants/'+readJSON(ucobj.data[i].thumbnail_th)+'" width="34" height="34"></div>';
+                  
+
+                    $("#listprovince").append(html);
+                    (function (i) {
+                    
+                    }(i))
+
+                    
+            }
+            // console.log(html);
+            
+            }
+        });
+
     }
 
     if ("category" == page.name) {
@@ -3383,3 +3446,5 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 
     }
   }
+
+  myApp.popup(".popup-login");
