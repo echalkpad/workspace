@@ -1,0 +1,1953 @@
+var facebookperson = {};
+
+// Initialize app
+function naxvarBg() {
+    var navbar = $(".navbar-clear"), box = null, cls = "active";
+    return 0 === navbar.length ? !1 : (box = navbar.next().find($(".page-on-center").length > 0 ? ".page-on-center .page-content" : ".page .page-content"), 
+    box.scrollTop() > 10 ? navbar.addClass(cls) : navbar.removeClass(cls), void box.scroll(function() {
+        $(this).scrollTop() > 40 ? navbar.addClass(cls) : navbar.removeClass(cls);
+    }));
+}
+
+function readJSON(inputstring) {
+    return decodeURI(inputstring).replace(/\+/g,' ').replace(/\%26/g,'&').replace(/\%40/g,'/').replace(/\%3A/g,':').replace(/\%2F/g,'/').replace(/\%3F/g,'?').replace(/\%3B/g,';').replace(/\%2C/g,',').replace(/\%3D/g,'=')
+}
+
+function useFa(object,value) {
+    if (value == "yes") {
+        $('#'+object).attr('class','fa fa-check')
+    } else {
+        $('#'+object).attr('class','fa fa-times')
+    }
+}
+
+
+function showLineChart(obj) {
+    var data = {
+        labels: [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ],
+        datasets: [ {
+            label: "My dataset",
+            fillColor: fillColor,
+            strokeColor: strokeColor,
+            pointColor: pointColor,
+            pointStrokeColor: pointStrokeColor,
+            pointHighlightFill: pointHighlightFill,
+            pointHighlightStroke: pointHighlightStroke,
+            data: [ 65, 59, 80, 81, 56, 55, 40 ]
+        } ]
+    }, chart = new Chart(obj).Line(data, {
+        responsive: !0,
+        pointDotRadius: 5,
+        pointDotStrokeWidth: 2,
+        datasetStrokeWidth: 2,
+        scaleFontSize: 10,
+        tooltipFontSize: 12,
+        scaleLineColor: "rgba(0, 0, 0, 0.1)",
+        scaleBeginAtZero: !0,
+        scaleShowGridLines: !0,
+        scaleShowHorizontalLines: !0,
+        scaleShowVerticalLines: !1
+    });
+    return chart;
+}
+
+function showLineChartPage(obj) {
+    var data = {
+        labels: [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ],
+        datasets: [ {
+            label: "My dataset",
+            fillColor: fillColor,
+            strokeColor: strokeColor,
+            pointColor: pointColor,
+            pointStrokeColor: pointStrokeColor,
+            pointHighlightFill: pointHighlightFill,
+            pointHighlightStroke: pointHighlightStroke,
+            data: [ 65, 59, 80, 81, 56, 55, 40 ]
+        }, {
+            label: "My dataset 2",
+            fillColor: fillColor2,
+            strokeColor: strokeColor2,
+            pointColor: pointColor2,
+            pointStrokeColor: pointStrokeColor2,
+            pointHighlightFill: pointHighlightFill2,
+            pointHighlightStroke: pointHighlightStroke2,
+            data: [ 32, 34, 67, 12, 37, 55, 20 ]
+        } ]
+    }, chart = new Chart(obj).Line(data, {
+        responsive: !0,
+        pointDotRadius: 5,
+        pointDotStrokeWidth: 2,
+        datasetStrokeWidth: 2,
+        scaleFontSize: 10,
+        tooltipFontSize: 12,
+        scaleLineColor: "rgba(0, 0, 0, 0.1)",
+        scaleBeginAtZero: !0,
+        scaleShowGridLines: !0,
+        scaleShowHorizontalLines: !0,
+        scaleShowVerticalLines: !1
+    });
+    return chart;
+}
+
+function showBarChartPage(obj) {
+    var data = {
+        labels: [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ],
+        datasets: [ {
+            label: "My dataset",
+            fillColor: fillColor,
+            strokeColor: strokeColor,
+            pointColor: pointColor,
+            pointStrokeColor: pointStrokeColor,
+            pointHighlightFill: pointHighlightFill,
+            pointHighlightStroke: pointHighlightStroke,
+            data: [ 65, 59, 80, 81, 56, 55, 40 ]
+        }, {
+            label: "My dataset 2",
+            fillColor: fillColor2,
+            strokeColor: strokeColor2,
+            pointColor: pointColor2,
+            pointStrokeColor: pointStrokeColor2,
+            pointHighlightFill: pointHighlightFill2,
+            pointHighlightStroke: pointHighlightStroke2,
+            data: [ 32, 34, 67, 12, 37, 55, 20 ]
+        } ]
+    }, chart = new Chart(obj).Bar(data, {
+        responsive: !0,
+        pointDotRadius: 6,
+        pointDotStrokeWidth: 2,
+        datasetStrokeWidth: 2,
+        scaleFontSize: 10,
+        tooltipFontSize: 12,
+        scaleLineColor: "rgba(0, 0, 0, 0.1)",
+        scaleBeginAtZero: !0,
+        scaleShowGridLines: !0,
+        scaleShowHorizontalLines: !0,
+        scaleShowVerticalLines: !1
+    });
+    return chart;
+}
+
+function showPieChartPage(obj) {
+    var data = [ {
+        value: 300,
+        color: pointColor,
+        highlight: pointColorHighlight,
+        label: "Text 1"
+    }, {
+        value: 50,
+        color: pointColor2,
+        highlight: pointColorHighlight2,
+        label: "Text 2"
+    }, {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Text 3"
+    } ], chart = new Chart(obj).Pie(data, {
+        responsive: !0,
+        tooltipFontSize: 12
+    });
+    return chart;
+}
+
+function showDoughnutChartPage(obj) {
+    var data = [ {
+        value: 300,
+        color: pointColor,
+        highlight: pointColorHighlight,
+        label: "Text 1"
+    }, {
+        value: 50,
+        color: pointColor2,
+        highlight: pointColorHighlight2,
+        label: "Text 2"
+    }, {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Text 3"
+    } ], chart = new Chart(obj).Doughnut(data, {
+        responsive: !0,
+        tooltipFontSize: 12
+    });
+    return chart;
+}
+
+function showRadarChartPage(obj) {
+    var data = {
+        labels: [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ],
+        datasets: [ {
+            label: "My dataset",
+            fillColor: fillColor,
+            strokeColor: strokeColor,
+            pointColor: pointColor,
+            pointStrokeColor: pointStrokeColor,
+            pointHighlightFill: pointHighlightFill,
+            pointHighlightStroke: pointHighlightStroke,
+            data: [ 65, 59, 80, 81, 56, 55, 40 ]
+        }, {
+            label: "My dataset 2",
+            fillColor: fillColor2,
+            strokeColor: strokeColor2,
+            pointColor: pointColor2,
+            pointStrokeColor: pointStrokeColor2,
+            pointHighlightFill: pointHighlightFill2,
+            pointHighlightStroke: pointHighlightStroke2,
+            data: [ 32, 34, 67, 12, 37, 55, 20 ]
+        } ]
+    }, chart = new Chart(obj).Radar(data, {
+        responsive: !0,
+        pointDotRadius: 4,
+        pointDotStrokeWidth: 1,
+        datasetStrokeWidth: 2,
+        scaleFontSize: 10,
+        tooltipFontSize: 12,
+        scaleLineColor: "rgba(0, 0, 0, 0.1)",
+        scaleBeginAtZero: !0,
+        scaleShowGridLines: !0,
+        scaleShowHorizontalLines: !0,
+        scaleShowVerticalLines: !1
+    });
+    return chart;
+}
+
+function initialize(lat,lng,map) {
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+          center: new google.maps.LatLng(0, 0),
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(mapCanvas, mapOptions);
+        return map;
+}
+
+function removefav(userid,restid) {
+    $.ajax({
+        
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/remove2json.php", //Relative or absolute path to response.php file
+            data: { "userid" : userid, "restaurant_id" : restid },
+            success: function(data) {
+            console.log(data)
+
+            
+
+             }
+        });
+    $('#favorplace'+userid+restid).hide();
+
+}
+
+function addfav(userid,restid) {
+    $.ajax({
+        
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/addfav2json.php", //Relative or absolute path to response.php file
+            data: { "userid" : userid, "restaurant_id" : restid },
+            success: function(data) {
+            console.log(data)
+
+            
+
+             }
+        });
+ myApp.alert("Favorite have been added", "");
+
+}
+
+function checkfavor() {
+    var favorobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/favor2json.php", //Relative or absolute path to response.php file
+            data: { "id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            console.log(data)
+
+            favorobj = JSON.parse(data);
+            var length = Object.keys(favorobj.data).length;
+            // console.log(length)
+            html="";
+
+            // console.log(html);
+            $('#bafav').html(Object.keys(favorobj.data).length);
+            }
+        });
+     
+}
+
+function ratingcheck(restaurant_id, x){ 
+        //console.log("start check ratiing");
+        var rating = 0;
+        var tmpobj=""
+        $.ajax({
+        
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rating2json.php", //Relative or absolute path to response.php file
+            data: { "restaurant_id" : restaurant_id },
+            success: function(data) {
+            //console.log(data)
+
+            tmpobj = JSON.parse(data);
+            var length = Object.keys(tmpobj.data).length;
+            // console.log(length)
+            html="";
+
+            for (var i=0; i < length; i++) {
+                rating = tmpobj.data[i].total;    
+            }
+
+                if (rating == "" || rating == null) {
+                    rating = 0;
+                } 
+                 
+                    if (rating == 1 || rating == 2 || rating == 3 || rating == 4 || rating == 5  ) {
+                        html='<i class="fa fa-star"></i>';
+                    } else {
+                        html='<i class="fa fa-star-o"></i>';
+                    }
+                     if (rating == 2 || rating == 3 || rating == 4 || rating == 5  ) {
+                        html+='<i class="fa fa-star"></i>';
+                    } else {
+                        html+='<i class="fa fa-star-o"></i>';
+                    }
+                     if (rating == 3 || rating == 4 || rating == 5  ) {
+                        html+='<i class="fa fa-star"></i>';
+                    } else {
+                        html+='<i class="fa fa-star-o"></i>';
+                    }
+                     if (rating == 4 || rating == 5  ) {
+                        html+='<i class="fa fa-star"></i>';
+                    } else {
+                        html+='<i class="fa fa-star-o"></i>';
+                    }
+                     if (rating == 5  ) {
+                        html+='<i class="fa fa-star"></i>';
+                    } else {
+                        html+='<i class="fa fa-star-o"></i>';
+                    }
+                    
+                        //console.log("x :: "+x);
+                        //console.log("rating :: "+rating);
+                        $('#rating'+x).html(html);
+
+        }
+        });
+        
+        
+
+}
+
+function lratingcheck(restaurant_id, x){ 
+        //console.log("start check ratiing");
+        var rating = 0;
+        var tmpobj=""
+        $.ajax({
+        
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rating2json.php", //Relative or absolute path to response.php file
+            data: { "restaurant_id" : restaurant_id },
+            success: function(data) {
+            //console.log(data)
+
+            tmpobj = JSON.parse(data);
+            var length = Object.keys(tmpobj.data).length;
+            // console.log(length)
+            html="";
+
+            for (var i=0; i < length; i++) {
+                rating = tmpobj.data[i].total;    
+            }
+
+                if (rating == "" || rating == null) {
+                    rating = 0;
+                } 
+                 
+                    if (rating == 1 || rating == 2 || rating == 3 || rating == 4 || rating == 5  ) {
+                        html='<i class="fa fa-star"></i>';
+                    } else {
+                        html='<i class="fa fa-star-o"></i>';
+                    }
+                     if (rating == 2 || rating == 3 || rating == 4 || rating == 5  ) {
+                        html+='<i class="fa fa-star"></i>';
+                    } else {
+                        html+='<i class="fa fa-star-o"></i>';
+                    }
+                     if (rating == 3 || rating == 4 || rating == 5  ) {
+                        html+='<i class="fa fa-star"></i>';
+                    } else {
+                        html+='<i class="fa fa-star-o"></i>';
+                    }
+                     if (rating == 4 || rating == 5  ) {
+                        html+='<i class="fa fa-star"></i>';
+                    } else {
+                        html+='<i class="fa fa-star-o"></i>';
+                    }
+                     if (rating == 5  ) {
+                        html+='<i class="fa fa-star"></i>';
+                    } else {
+                        html+='<i class="fa fa-star-o"></i>';
+                    }
+                    
+                        //console.log("x :: "+x);
+                        //console.log("rating :: "+rating);
+                        $('#lrating'+x).html(html);
+
+        }
+        });
+        
+        
+
+}
+
+function showPolarChartPage(obj) {
+    var data = [ {
+        value: 300,
+        color: pointColor,
+        highlight: pointColorHighlight,
+        label: "Text 1"
+    }, {
+        value: 50,
+        color: pointColor2,
+        highlight: pointColorHighlight2,
+        label: "Text 2"
+    }, {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Text 3"
+    } ], chart = new Chart(obj).PolarArea(data, {
+        responsive: !0,
+        scaleFontSize: 10,
+        tooltipFontSize: 12
+    });
+    return chart;
+}
+
+
+
+
+  // Now that we've initialized the JavaScript SDK, we call 
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  
+
+
+var myApp = new Framework7({
+    swipeBackPage: !1,
+    pushState: !0,
+    swipePanel: "left",
+    modalTitle: "Title"
+}), $$ = Dom7;
+
+
+          
+
+
+
+$$("body").on("click", ".js-add-to-fav", function() {
+    myApp.alert("You love this post!", "");
+});
+
+var mainView = myApp.addView(".view-main", {
+    dynamicNavbar: !0
+});
+
+
+
+$$('.popup-login').on('opened', function () {
+
+// ----------------login part ---------------------
+var buttonpress = 0;
+        
+
+$('#loginclubaroy').click(function() {
+    // console.log($('#usernameclubaroy').val());
+    var loginobj = "";
+        $.ajax({
+            async: false,
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/username2json.php", //Relative or absolute path to response.php file
+            data: { "username" : $('#usernameclubaroy').val()},
+            success: function(data) {
+            console.log(data)
+
+            loginobj = JSON.parse(data);
+            var length = Object.keys(loginobj.data).length;
+             console.log(loginobj)
+           
+
+            
+            // console.log(html);
+            
+            }
+        });
+
+    if ($('#passwordclubaroy').val() == readJSON(loginobj.data[0].password)) {
+        //console.log('Successful login for: ' + readJSON(loginobj.data[0].username));
+        $('#facebookname').html(readJSON(loginobj.data[0].firstname));
+        if (readJSON(loginobj.data[0].avatar) ==  "" || readJSON(loginobj.data[0].avatar) == null ) {
+            $('#userpicture').attr('src','assets/img/tmp/ava4.jpg');
+        } else {
+            $('#userpicture').attr('src','http://www.clubaroy.com/home/uploads/users/'+readJSON(loginobj.data[0].avatar));
+        }
+        sessionStorage.setItem('userid', readJSON(loginobj.data[0].id));
+        sessionStorage.setItem('loginstatus', 1);
+        $('#lifav').show();
+        $('#lilogin').hide();
+        $('#lireview').show();
+        $('#lilogout').show();
+        checkfavor();
+        myApp.closeModal();
+        var ucobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            console.log(data)
+
+            ucobj = JSON.parse(data);
+            var length = Object.keys(ucobj.data).length;
+            // console.log(length)
+            $('#bareview').html(length);
+            // console.log(html);
+            
+            }
+        });
+    }
+
+
+})
+//-------------------------------------------------
+
+    function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into Facebook.';
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+      window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '852855354835686',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.5' // use version 2.2
+  });
+
+    FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+    });
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me?scope=email', function(response) {
+        console.log(response)
+        facebookperson = response;
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+        $('#facebookname').html(facebookperson.name);
+        console.log("fid :: "+facebookperson.id);
+        var loginobj = "";
+        $.ajax({
+            async: false,
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/facebook2json.php", //Relative or absolute path to response.php file
+            data: { "facebook.id" : facebookperson.id },
+            success: function(data) {
+            console.log(data)
+
+            loginobj = JSON.parse(data);
+            var length = Object.keys(loginobj.data).length;
+            console.log(loginobj)
+            console.log('Successful login for: ' + readJSON(loginobj.data[0].username));
+            $('#facebookname').html(readJSON(loginobj.data[0].firstname));
+            if (readJSON(loginobj.data[0].avatar) ==  "" || readJSON(loginobj.data[0].avatar) == null ) {
+                $('#userpicture').attr('src','assets/img/tmp/ava4.jpg');
+            } else {
+                $('#userpicture').attr('src','http://www.clubaroy.com/home/uploads/users/'+readJSON(loginobj.data[0].avatar));
+            }
+            sessionStorage.setItem('userid', readJSON(loginobj.data[0].id));           
+
+            sessionStorage.setItem('loginstatus', 1);
+            $('#lifav').show();
+            $('#lireview').show();
+            $('#lilogin').hide();
+            $('#lilogout').show();
+            checkfavor();
+            myApp.closeModal();
+            // console.log(html);
+            
+            }
+        });
+        var ucobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            console.log(data)
+
+            ucobj = JSON.parse(data);
+            var length = Object.keys(ucobj.data).length;
+            // console.log(length)
+            $('#bareview').html(length);
+            // console.log(html);
+            
+            }
+        });
+    });
+    console.log(facebookperson)
+    FB.api('/1675743575970922?field=email' , function(response){
+        // console.log("test");
+        // console.log(response);
+    })
+    $('#facebookname').html(facebookperson.name);
+    myApp.closeModal
+        
+
+
+  }
+  // console.log('About Popup opened')
+});
+
+$$(".popup-splash").on("opened", function() {
+    myApp.swiper(".swiper-container", {
+        speed: 400,
+        pagination: ".swiper-pagination",
+        paginationBulletRender: function(index, className) {
+            return '<span class="' + className + '">' + (index + 1) + "</span>";
+        }
+    });
+}), $$(document).on("pageAfterAnimation", function(e) {
+    if ($(".page-on-center .chart-content").length > 0) {
+        var ctx = document.querySelector(".page-on-center .chart-content").getContext("2d");
+        showLineChart(ctx);
+    }
+    if ($(".page-on-center .line-chart-content").length > 0) {
+        var ctx = document.querySelector(".page-on-center .line-chart-content").getContext("2d");
+        showLineChartPage(ctx);
+    }
+    if ($(".page-on-center .bar-chart-content").length > 0) {
+        var ctx = document.querySelector(".page-on-center .bar-chart-content").getContext("2d");
+        showBarChartPage(ctx);
+    }
+    if ($(".page-on-center .pie-chart-content").length > 0) {
+        var ctx = document.querySelector(".page-on-center .pie-chart-content").getContext("2d");
+        showPieChartPage(ctx);
+    }
+    if ($(".page-on-center .doughnut-chart-content").length > 0) {
+        var ctx = document.querySelector(".page-on-center .doughnut-chart-content").getContext("2d");
+        showDoughnutChartPage(ctx);
+    }
+    if ($(".page-on-center .radar-chart-content").length > 0) {
+        var ctx = document.querySelector(".page-on-center .radar-chart-content").getContext("2d");
+        showRadarChartPage(ctx);
+    }
+    if ($(".page-on-center .polar-chart-content").length > 0) {
+        var ctx = document.querySelector(".page-on-center .polar-chart-content").getContext("2d");
+        showPolarChartPage(ctx);
+    }
+    naxvarBg();
+}), $$(document).on("pageInit", function(e) {
+
+
+    var page = e.detail.page;
+	console.log(page.name)
+    $(".zoom").swipebox(), $(".navbar").removeClass("navbar-clear"), ("index" === page.name || "menu" === page.name || "login" === page.name || "dashboard-1" === page.name || "panel" === page.name) && $(".navbar").addClass("navbar-clear"), 
+    $(".twitter-content").length > 0 && $(".twitter-content").twittie({
+        count: 10
+    }), $(".tweet").length > 0 && $(".tweet").twittie({
+        count: 1
+    }), $(".flickr-content").length > 0 && $(".flickr-content").jflickrfeed({
+        limit: 15,
+        qstrings: {
+            id: "44244432@N03"
+        },
+        itemTemplate: '<li><a href="{{image_m}}" class="flickr"><img src="{{image_s}}" alt="{{title}}" /></a></li>'
+    }, function(data) {
+        $(".flickr-content li a").swipebox();
+    }), $(".js-validate").length > 0 && $("body").on("click", ".js-form-submit", function() {
+        var form = $(this).parents("form"), valid = form.valid();
+        if ("contact" === page.name && valid) {
+            var data = form.serializeObject();
+            myApp.showPreloader(), $.post("/email.php", data).done(function(data) {
+                myApp.hidePreloader();
+                var response = JSON.parse(data);
+                response.error ? myApp.alert(response.msg, "") : (myApp.alert(response.msg, ""), 
+                form.find("input[type=text], input[type=email], textarea").val(""));
+            });
+        }
+    });
+    // Conversation flag
+    var conversationStarted = !1, myMessages = myApp.messages(".messages", {
+        autoLayout: !0
+    }), myMessagebar = myApp.messagebar(".messagebar");
+    // Handle message
+    $$(".messagebar .link").on("click", function() {
+        // Message text
+        var messageText = myMessagebar.value().trim();
+        // Exit if empy message
+        if (0 !== messageText.length) {
+            // Empty messagebar
+            myMessagebar.clear();
+            // Random message type
+            var avatar, name, messageType = [ "sent", "received" ][Math.round(Math.random())];
+            "received" === messageType && (avatar = "http://lorempixel.com/output/people-q-c-100-100-9.jpg", 
+            name = "Kate"), // Add message
+            myMessages.addMessage({
+                // Message text
+                text: messageText,
+                // Random message type
+                type: messageType,
+                // Avatar and name:
+                avatar: avatar,
+                name: name,
+                // Day
+                day: conversationStarted ? !1 : "Today",
+                time: conversationStarted ? !1 : new Date().getHours() + ":" + new Date().getMinutes()
+            }), // Update conversation flag
+            conversationStarted = !0;
+        }
+    });
+
+    if ("" == page.name || "index" == page.name) {
+        $('img[usemap]').rwdImageMaps();
+
+        $('map[name=clubaroi] area').click(function(){
+             // alert($(this).attr('href'));
+             if ($(this).attr('id') == "aroidara") {
+             mainView.router.loadPage('vdo.html?video_type=1&jsonfile=video&offset=0');
+             } else if ($(this).attr('id') == "aroiduni") {
+             mainView.router.loadPage('university.html?jsonfile=universities');
+             } else if ($(this).attr('id') == "aroiwanni") {
+             mainView.router.loadPage('favorite.html?offset=0&rand=1');
+             } else if ($(this).attr('id') == "aroisala") {
+             mainView.router.loadPage('salary.html');
+             } else if ($(this).attr('id') == "aroitravel") {
+             mainView.router.loadPage('travel.html');
+             } else if ($(this).attr('id') == "aroidstar") {
+             mainView.router.loadPage('#');
+             } else if ($(this).attr('id') == "aroidcat") {
+             mainView.router.loadPage('category2.html');
+             } else if ($(this).attr('id') == "aroidprov") {
+             mainView.router.loadPage('province.html');
+             } else if ($(this).attr('id') == "aroidsonjon") {
+             mainView.router.loadPage('vdo.html?video_type=0&jsonfile=video&offset=0');
+             }
+        })
+
+
+        $('#searchall').keypress(function(e) {
+            if(e.which == 13) {
+                mainView.router.loadPage('favorite.html?offset=0&rand=2&xstring='+$('#searchall').val());
+            }
+        });
+
+        var ucobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            console.log(data)
+
+            ucobj = JSON.parse(data);
+            var length = Object.keys(ucobj.data).length;
+            // console.log(length)
+            $('#bareview').html(length);
+            // console.log(html);
+            
+            }
+        });
+
+    }
+
+	if ("favorite" == page.name) { 
+
+        var postdata = {};
+        if ( page.query.rand == 1 ) {
+            postdata['offset'] = page.query.offset;
+            postdata['rand'] = page.query.rand;
+            $('#randheader').html('วันนี้กินอะไรดี');
+        } else if (page.query.rand == 2) {
+            postdata['offset'] = page.query.offset;
+            postdata['rand'] = page.query.rand;
+            postdata['xstring'] = page.query.xstring;
+            $('#randheader').html('ผลการค้นหา');
+
+        } else {
+            postdata['offset'] = 0;
+            $('#randheader').html('ร้านสุดโปรด');
+        }
+		console.log(postdata);
+	    
+
+
+		$.ajax({
+			type: "POST",
+			dataType: "html",
+			url: "http://www.clubaroy.com/mobile/json/restaurantshow2json.php", //Relative or absolute path to response.php file
+			data: postdata,
+			success: function(data) {
+			// console.log(data)
+
+			tmpobj = JSON.parse(data);
+			var length = Object.keys(tmpobj.data).length;
+			// console.log(length)
+			html="";
+
+			for (var i=0; i < length; i++) {
+                
+                
+                
+			// console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+			// console.log('i: '+i)	
+			//html+='<li class="swipeout"><div class="swipeout-content"><div class="item-content no-padding"><div class="item-inner blog-list"><div class="image"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'"><img src=http://www.clubaroy.com/home/uploads/galleries/'+readJSON(tmpobj.data[i].image)+' width="100%"><span class="rating blog-rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></span></a></div><div class="text"><h4 class="title mt-5 mb-0"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'">'+readJSON(tmpobj.data[i].title_th)+'</a></h4><small>'+readJSON(tmpobj.data[i].address_th)+'</small><small> | </small><small>'+readJSON(tmpobj.data[i].rname_th)+'</small></div></div></div></div><div class="swipeout-actions-left"><a href="#" class="action-red js-add-to-fav"><i class="fa fa-heart-o"></i></a></div></li>'
+
+                    html='<li class="card">';
+                    html+='<div class="card-header">';
+                    html+='<div class="facebook-name">'+readJSON(tmpobj.data[i].title_th)+'</div>';
+                    if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
+                        html+='<div class="facebook-date"></div>';
+                    } else {
+                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i class="link fa fa-heart"></i></a></div>';
+                    
+                    }
+                    html+='</div>';
+                    html+='<div class="card-content">';
+                    html+='<div class="card-content-inner">';
+                    html+='<p><i class="fa fa-map-marker"></i>'+readJSON(tmpobj.data[i].address_th)+'|'+readJSON(tmpobj.data[i].rname_th)+'</p>';
+                    html+='<img src="http://www.clubaroy.com/home/uploads/galleries/thumbnail/'+readJSON(tmpobj.data[i].image)+'" width="100%">';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='<div class="card-footer">';
+                    html+='<a href="#" class="link">';
+                    html+='<input type=hidden name=restaurant-hidden id="resthid'+i+'" value="'+tmpobj.data[i].restaurant_id+'">';
+                    html+='<span id="rating'+i+'" class="rating blog-rating">';
+                    
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    html+='</span>';
+                    html+='</a>';
+                    html+='<a href="#" class="link"></a>';
+                    html+='<a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'" class="link">View</a>';
+                    html+='</div>';
+                    html+='</li>';
+
+                    $("#fav").append(html);
+                    (function (i) {
+                    ratingcheck(tmpobj.data[i].restaurant_id, i);
+                    }(i))
+
+                    
+                    
+            }
+			// console.log(html);
+			
+			}
+		});
+
+        
+	// end new code
+		
+	}
+    if ("restaurant" == page.name) {
+        //console.log("Checkpoint #2");
+
+    if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
+            $('#loginfirst').hide();
+    } else {
+            $('#loginfirst').show();                    
+    }
+
+        var rid = page.query.rid;
+        var map = "";
+
+        var tmpobj=""
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/galleries-multiple2json.php", //Relative or absolute path to response.php file
+            data: { "restaurant_id" : rid },
+            success: function(data) {
+            //console.log(data)
+
+            tmpobj = JSON.parse(data);
+            var length = Object.keys(tmpobj.data).length;
+            // console.log(length)
+            html="";
+
+            for (var i=0; i < length; i++) {
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+                
+            html+='<div class=swiper-slide><img src=http://www.clubaroy.com/home/uploads/galleries/'+tmpobj.data[i].image+' alt="" width="100%"/></div>'
+            }
+            //console.log(html);
+            $("#restaurantslide").html(html);
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/restaurant-single2json.php", //Relative or absolute path to response.php file
+            data: { "restaurant_id" : rid },
+            success: function(data) {
+            //console.log(data)
+
+            tmpobj = JSON.parse(data);
+            var length = Object.keys(tmpobj.data).length;
+            // console.log(length)
+            html="";
+
+            for (var i=0; i < length; i++) {
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            $('#restaurantname').html(readJSON(tmpobj.data[i].title_th))
+            $('#ads').html(readJSON(tmpobj.data[i].address_th))
+            $('#res1').html(readJSON(tmpobj.data[i].title_th))
+            $('#res2').html(readJSON(tmpobj.data[i].menu_th))
+            $('#res3').html(readJSON("เปิด "+tmpobj.data[i].open_th)+" / ปิด "+readJSON(tmpobj.data[i].close_th))
+            $('#res4').html(useFa("res4",readJSON(tmpobj.data[i].parking)));
+            $('#res5').html(useFa("res5",readJSON(tmpobj.data[i].credit_card)));
+            $('#res6').html(useFa("res6",readJSON(tmpobj.data[i].delivery)));
+            $('#res7').html(useFa("res7",readJSON(tmpobj.data[i].discount)));
+            $('#res8').html(readJSON(tmpobj.data[i].seat))    
+            $('#res9').html(readJSON(tmpobj.data[i].average_price))
+            $('#res10').html(readJSON(tmpobj.data[i].direction_th))
+
+            google.maps.event.addDomListener(window, 'load', map = initialize(tmpobj.data[i].lat,tmpobj.data[i].lng)); 
+            var myLatLng = new google.maps.LatLng(tmpobj.data[i].lat, tmpobj.data[i].lon,map);
+            //console.log(tmpobj.data[i].lat)
+            //console.log(tmpobj.data[i].lon)
+            map.setCenter(myLatLng)
+            var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+            var marker = new google.maps.Marker({
+              position: myLatLng,
+              map: map,
+              icon: iconBase + 'schools_maps.png'
+            });
+            }
+
+            }
+        });
+        //loading map
+        var rcobj = "";
+        console.log(rid);
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcomment2json.php", //Relative or absolute path to response.php file
+            data: { "restaurant_id" : rid },
+            success: function(data) {
+            console.log(data)
+
+            rcobj = JSON.parse(data);
+            var length = Object.keys(rcobj.data).length;
+            html="";
+
+            for (var i=0; i < length; i++) {
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            html = '<li class="swipeout">';
+            html+= '<div class="swipeout-content">';
+            html+= '<div class="item-content">';
+            html+= '<div class="item-inner comments-list">';
+            html+= '<div class="image">';
+            html+= '<span class="ava">';
+            html+= '<img src="assets/img/tmp/ava1.jpg" alt="">';
+            html+= '</span>';
+            html+= '</div>';
+            html+= '<div class="text">';
+            html+= '<div class="info">';
+            var nickname = "";
+            if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
+                nickname = readJSON(rcobj.data[i].firstname);
+            } else {
+                nickname = readJSON(rcobj.data[i].username);
+            }
+            html+= '<span class="nick">'+nickname+'</span>';
+            html+= '<span class="data">'+readJSON(rcobj.data[i].created)+'</span>';
+            html+= '</div>';
+            html+= '<div class="comment">';
+            html+= readJSON(rcobj.data[i].detail).replace(/uploads/g,'..\/home\/uploads');
+            html+= '</div>';
+            html+= '</div>';
+            html+= '</div>';
+            html+= '</div>';
+            html+= '</div>';
+            html+= '<div class="swipeout-actions-right">';
+            html+= '<a href="#" class="action-green js-up">';
+            html+= '<i class="fa fa-thumbs-o-up"></i>';
+            html+= '</a>';
+            html+= '<a href="#" class="action-red js-down">';
+            html+= '<i class="fa fa-thumbs-o-down"></i>';
+            html+= '</a>';
+            html+= '</div>';
+            html+= '</li>';
+            $('#rcommentdiv').append(html);
+            
+            }
+        }
+    });
+        
+          
+    }
+
+if ("list" == page.name) {
+        //console.log("Checkpoint #1");
+        var myLoc = new google.maps.LatLng(13.760055, 100.4833093);
+
+        var offset = 0;
+        var rating = [];
+    // new code 
+        
+        var tmpobj=""
+
+
+        var loading = false;
+         
+        // Last loaded index
+        var lastIndex = 10;
+        //console.log('lastIndex: '+lastIndex)
+         
+        // Max items to load
+        var maxItems = 1000;
+         
+        // Append items per load
+        var itemsPerLoad = 10;
+
+        // Attach 'infinite' event handler
+       
+         
+          // Emulate 1s loading
+          
+
+            var postdata = {};
+
+        
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "http://www.clubaroy.com/mobile/json/"+page.query.file+".php", //Relative or absolute path to response.php file
+                data: { "offset" : offset , "cat" : page.query.cat , "salary" : page.query.salary},
+                success: function(data) {
+                // console.log(data)
+
+                tmpobj = JSON.parse(data);
+                var length = Object.keys(tmpobj.data).length;
+                // console.log(length)
+                shtml="";
+
+                for (var i=0; i < length; i++) {
+                (function(i){
+                    rating[i] = ratingcheck(tmpobj.data[i].restaurant_id);
+                    var shopLoc = new google.maps.LatLng(tmpobj.data[i].lat, tmpobj.data[i].lon);
+                    var distance = google.maps.geometry.spherical.computeDistanceBetween (myLoc, shopLoc);
+                    
+                    // console.log(rating[i]);
+                // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+                    // console.log('i: '+i)
+                    //console.log(tmpobj.data[i]);
+                    if (page.query.distance == null || page.query.distance == "" || page.query.distance === 'undefined') {
+                    // console.log("1"); 
+                    // html+='<li class="swipeout"><div class="swipeout-content"><div class="item-content no-padding"><div class="item-inner blog-list"><div class="image"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'"><img src=http://www.clubaroy.com/home/uploads/galleries/'+readJSON(tmpobj.data[i].image)+' width="100%"><span class="rating blog-rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></span></a></div><div class="text"><h4 class="title mt-5 mb-0"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'">'+readJSON(tmpobj.data[i].title_th)+'</a></h4><small>'+readJSON(tmpobj.data[i].address_th)+'</small><small> | </small><small>'+readJSON(tmpobj.data[i].rname_th)+'</small></div></div></div></div><div class="swipeout-actions-left"><a href="#" class="action-red js-add-to-fav"><i class="fa fa-heart-o"></i></a></div></li>'
+                    html='<li class="card">';
+                    html+='<div class="card-header">';
+                    html+='<div class="facebook-name">'+readJSON(tmpobj.data[i].title_th)+'</div>';
+                    if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
+                        html+='<div class="facebook-date"></div>';
+                    } else {
+                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i class="link fa fa-heart"></i></a></div>';
+                    
+                    }
+                    html+='</div>';
+                    html+='<div class="card-content">';
+                    html+='<div class="card-content-inner">';
+                    html+='<p><i class="fa fa-map-marker"></i>'+readJSON(tmpobj.data[i].address_th)+'|'+readJSON(tmpobj.data[i].rname_th)+'</p>';
+                    html+='<img src="http://www.clubaroy.com/home/uploads/galleries/thumbnail/'+readJSON(tmpobj.data[i].image)+'" width="100%">';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='<div class="card-footer">';
+                    html+='<a href="#" class="link">';
+                    html+='<input type=hidden name=restaurant-hidden id="resthid'+i+'" value="'+tmpobj.data[i].restaurant_id+'">';
+                    html+='<span id="lrating'+i+'" class="rating blog-rating">';
+                    
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    html+='</span>';
+                    html+='</a>';
+                    html+='<a href="#" class="link"></a>';
+                    html+='<a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'" class="link">View</a>';
+                    html+='</div>';
+                    html+='</li>';
+
+                    $("#lfav").append(html);
+                    (function (i) {
+                    lratingcheck(tmpobj.data[i].restaurant_id, i);
+                    }(i))
+
+
+                    } else { 
+                    // console.log("2")
+                    // console.log(distance);
+                        if (distance <= page.query.cat) {
+                            //html+='<li class="swipeout"><div class="swipeout-content"><div class="item-content no-padding"><div class="item-inner blog-list"><div class="image"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'"><img src=http://www.clubaroy.com/home/uploads/galleries/'+readJSON(tmpobj.data[i].image)+' width="100%"><span class="rating blog-rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></span></a></div><div class="text"><h4 class="title mt-5 mb-0"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'">'+readJSON(tmpobj.data[i].title_th)+'</a></h4><small>'+readJSON(tmpobj.data[i].address_th)+'</small><small> | </small><small>'+readJSON(tmpobj.data[i].rname_th)+'</small></div></div></div></div><div class="swipeout-actions-left"><a href="#" class="action-red js-add-to-fav"><i class="fa fa-heart-o"></i></a></div></li>'
+                            html='<li class="card">';
+                    html+='<div class="card-header">';
+                    html+='<div class="facebook-name">'+readJSON(tmpobj.data[i].title_th)+'</div>';
+                    if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
+                        html+='<div class="facebook-date"></div>';
+                    } else {
+                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i class="link fa fa-heart"></i></a></div>';
+                    
+                    }
+                    html+='</div>';
+                    html+='<div class="card-content">';
+                    html+='<div class="card-content-inner">';
+                    html+='<p><i class="fa fa-map-marker"></i>'+readJSON(tmpobj.data[i].address_th)+'|'+readJSON(tmpobj.data[i].rname_th)+'</p>';
+                    html+='<img src="http://www.clubaroy.com/home/uploads/galleries/thumbnail/'+readJSON(tmpobj.data[i].image)+'" width="100%">';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='<div class="card-footer">';
+                    html+='<a href="#" class="link">';
+                    html+='<input type=hidden name=restaurant-hidden id="resthid'+i+'" value="'+tmpobj.data[i].restaurant_id+'">';
+                    html+='<span id="lrating'+i+'" class="rating blog-rating">';
+                    
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    html+='</span>';
+                    html+='</a>';
+                    html+='<a href="#" class="link"></a>';
+                    html+='<a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'" class="link">View</a>';
+                    html+='</div>';
+                    html+='</li>';
+
+                    $("#lfav").append(html);
+                    (function (i) {
+                    lratingcheck(tmpobj.data[i].restaurant_id, i);
+                    }(i))
+                        }
+                    }    
+            
+                    }(i))
+                    
+                    }
+                    //console.log(shtml);
+                    $('#lfav').append(shtml);    
+                }
+            });
+            //console.log('loading: '+loading)
+            // Append new items
+            
+         
+            // Update last loaded index
+            
+        
+    // end new code
+        
+    }
+
+    if ("market" == page.name) {
+
+        var marketobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/market2json.php", //Relative or absolute path to response.php file
+            data: { offset : 0 },
+            success: function(data) {
+            // console.log(data)
+
+            marketobj = JSON.parse(data);
+            var length = Object.keys(marketobj.data).length;
+            console.log(marketobj)
+            var html1="";
+            var html2="";
+            var html3="";
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+            if (marketobj.data[i].price_type_id == 1 ) {
+                html1+='<li class="item-content">';
+                html1+='<div class="item-inner">';
+                html1+='<div class="item-title">'+readJSON(marketobj.data[i].name_th)+'</div>';
+                html1+='<div class="item-after">'+marketobj.data[i].price+' <img src="assets/themes/clubaroy/img/bath.jpg" alt=""/> '+readJSON(marketobj.data[i].unit_th)+'</div>';
+                html1+='</div>';
+                html1+='</li>';
+            } else if (marketobj.data[i].price_type_id == 2) {
+                html2+='<li class="item-content">';
+                html2+='<div class="item-inner">';
+                html2+='<div class="item-title">'+readJSON(marketobj.data[i].name_th)+'</div>';
+                html2+='<div class="item-after">'+marketobj.data[i].price+' <img src="assets/themes/clubaroy/img/bath.jpg" alt=""/> '+readJSON(marketobj.data[i].unit_th)+'</div>';
+                html2+='</div>';
+                html2+='</li>';
+            } else {
+                html3+='<li class="item-content">';
+                html3+='<div class="item-inner">';
+                html3+='<div class="item-title">'+readJSON(marketobj.data[i].name_th)+'</div>';
+                html3+='<div class="item-after">'+marketobj.data[i].price+' <img src="assets/themes/clubaroy/img/bath.jpg" alt=""/> '+readJSON(marketobj.data[i].unit_th)+'</div>';
+                html3+='</div>';
+                html3+='</li>';
+            }
+            }(i))
+            // console.log(html);
+
+            }
+            $("#market1").html(html1);
+            $("#market2").html(html2);
+            $("#market3").html(html3);
+        }
+        });
+    }
+
+    if ("promotion" == page.name) {
+        var promotionobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/coupon2json.php", //Relative or absolute path to response.php file
+            data: { offset : 0 },
+            success: function(data) {
+            // console.log(data)
+
+            promotionobj = JSON.parse(data);
+            var length = Object.keys(promotionobj.data).length;
+            console.log(promotionobj)
+            var html="";
+
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+                
+            if (i % 2 == 0 ) {
+                html+='<div class="left" style="width:48%; margin-left:auto; margin-right:auto; margin-bottom:50px;">';
+                html+='<a href="http://www.clubaroy.com/home/uploads/coupons/'+promotionobj.data[i].image_th+'" data-lightbox="lightbox'+i+'"><img class="example-image" src="http://www.clubaroy.com/home/uploads/coupons/'+promotionobj.data[i].image_th+'" alt=""/></a>';
+                html+='</div>';
+              
+            } else  {
+                html+='<div class="right" style="width:48%; margin-left:auto; margin-right:auto; margin-bottom:50px;">';
+                html+='<a href="http://www.clubaroy.com/home/uploads/coupons/'+promotionobj.data[i].image_th+'" data-lightbox="lightbox'+i+'"><img class="example-image" src="http://www.clubaroy.com/home/uploads/coupons/'+promotionobj.data[i].image_th+'" alt=""/></a>';
+                html+='</div>';
+            } 
+            }(i))
+            // console.log(html);
+
+            }
+            $("#promotion").html(html);
+
+        }
+        });
+
+
+    }
+
+    if ("news" == page.name) {
+
+        var newsobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/news2json.php", //Relative or absolute path to response.php file
+            data: { offset : 0 },
+            success: function(data) {
+            // console.log(data)
+
+            newsobj = JSON.parse(data);
+            var length = Object.keys(newsobj.data).length;
+            console.log(newsobj)
+            var html="";
+
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+                html+='<li>';
+                html+='<a href="content.html?id='+readJSON(newsobj.data[i].id)+'&jsonfile=news" class="item-link item-content">';
+                html+='<div class="item-media"><img src="http://www.clubaroy.com/home/uploads/contents/'+readJSON(newsobj.data[i].thumbnail_th)+'" width="80"></div>';
+                html+='<div class="item-inner">';
+                html+='<div class="item-title-row">';
+                html+='<div class="item-text-row" style="color: #000000; font-size: 16px;">'+readJSON(newsobj.data[i].title_th)+'</div>';
+                html+='<div class="item-after"></div>';
+                html+='</div>';
+                
+                html+='<div class="item-text-row">'+readJSON(newsobj.data[i].updated)+'</div>';
+                html+='<div class="item-text">'+readJSON(newsobj.data[i].intro_th)+'</div>';
+                html+='</div>';
+                html+='</li>';
+            
+            }(i))
+            // console.log(html);
+
+            }
+            $("#news").html(html);
+
+        }
+        });
+    }
+
+    if ("technic" == page.name) {
+
+        var technicobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/technic2json.php", //Relative or absolute path to response.php file
+            data: { offset : 0 },
+            success: function(data) {
+            // console.log(data)
+
+            technicobj = JSON.parse(data);
+            var length = Object.keys(technicobj.data).length;
+            console.log(technicobj)
+            var html="";
+
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+                html+='<li>';
+                html+='<a href="content.html?id='+readJSON(technicobj.data[i].id)+'&jsonfile=technic" class="item-link item-content">';
+                html+='<div class="item-media"><img src="http://www.clubaroy.com/home/uploads/contents/'+readJSON(technicobj.data[i].thumbnail_th)+'?id='+readJSON(technicobj.data[i].id)+'" width="80"></div>';
+                html+='<div class="item-inner">';
+                html+='<div class="item-title-row">';
+                html+='<div class="item-text-row" style="color: #000000; font-size: 16px;">'+readJSON(technicobj.data[i].title_th)+'</div>';
+                html+='<div class="item-after"></div>';
+                html+='</div>';
+                
+                html+='<div class="item-text-row">'+readJSON(technicobj.data[i].updated)+'</div>';
+                html+='<div class="item-text">'+readJSON(technicobj.data[i].intro_th)+'</div>';
+                html+='</div>';
+                html+='</li>';
+            
+            }(i))
+            // console.log(html);
+
+            }
+            $("#technic").html(html);
+
+        }
+        });
+    }
+
+    if ("travel" == page.name) {
+
+        var travelobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/travel2json.php", //Relative or absolute path to response.php file
+            data: { offset : 0 },
+            success: function(data) {
+            // console.log(data)
+
+            travelobj = JSON.parse(data);
+            var length = Object.keys(travelobj.data).length;
+            console.log(travelobj)
+            var html="";
+
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+                html+='<li>';
+                html+='<a href="content.html?id='+readJSON(travelobj.data[i].id)+'&jsonfile=travel" class="item-link item-content">';
+                html+='<div class="item-media"><img src="http://www.clubaroy.com/home/uploads/contents/'+readJSON(travelobj.data[i].thumbnail_th)+'?id='+readJSON(travelobj.data[i].id)+'" width="80"></div>';
+                html+='<div class="item-inner">';
+                html+='<div class="item-title-row">';
+                html+='<div class="item-text-row" style="color: #000000; font-size: 16px;">'+readJSON(travelobj.data[i].title_th)+'</div>';
+                html+='<div class="item-after"></div>';
+                html+='</div>';
+                
+                html+='<div class="item-text-row">'+readJSON(travelobj.data[i].updated)+'</div>';
+                html+='<div class="item-text">'+readJSON(travelobj.data[i].intro_th)+'</div>';
+                html+='</div>';
+                html+='</li>';
+            
+            }(i))
+            // console.log(html);
+
+            }
+            $("#travel").html(html);
+
+        }
+        });
+    }
+
+    if ("healthy" == page.name) {
+
+        var healthyobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/healthy2json.php", //Relative or absolute path to response.php file
+            data: { offset : 0 },
+            success: function(data) {
+            // console.log(data)
+
+            healthyobj = JSON.parse(data);
+            var length = Object.keys(healthyobj.data).length;
+            console.log(healthyobj)
+            var html="";
+
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+                html+='<li>';
+                html+='<a href="content.html?id='+readJSON(healthyobj.data[i].id)+'&jsonfile=healthy" class="item-link item-content">';
+                html+='<div class="item-media"><img src="http://www.clubaroy.com/home/uploads/contents/'+readJSON(healthyobj.data[i].thumbnail_th)+'?id='+readJSON(healthyobj.data[i].id)+'" width="80"></div>';
+                html+='<div class="item-inner">';
+                html+='<div class="item-title-row">';
+                html+='<div class="item-text-row" style="color: #000000; font-size: 16px;">'+readJSON(healthyobj.data[i].title_th)+'</div>';
+                html+='<div class="item-after"></div>';
+                html+='</div>';
+                
+                html+='<div class="item-text-row">'+readJSON(healthyobj.data[i].updated)+'</div>';
+                html+='<div class="item-text">'+readJSON(healthyobj.data[i].intro_th)+'</div>';
+                html+='</div>';
+                html+='</li>';
+            
+            }(i))
+            // console.log(html);
+
+            }
+            $("#healthy").html(html);
+
+        }
+        });
+    }
+
+    if ("content" == page.name) {
+        console.log(page.query.jsonfile);
+        if (page.query.jsonfile == 'news') {
+            $('#pageheader').html('ข่าวสาร');
+        } else if (page.query.jsonfile == 'technic') {
+            $('#pageheader').html('เทคนิคก้นรคัว');
+        } else if (page.query.jsonfile == 'travel') {
+            $('#pageheader').html('Travel');
+        } else {
+            $('#pageheader').html('อาหารสุขภาพ');
+        }
+
+        var contentobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/"+page.query.jsonfile+"2json.php", //Relative or absolute path to response.php file
+            data: { "id" : page.query.id },
+            success: function(data) {
+            // console.log(data)
+
+            contentobj = JSON.parse(data);
+            var length = Object.keys(contentobj.data).length;
+            console.log(contentobj)
+            var html="";
+
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+                html+='<img src="http://www.clubaroy.com/home/uploads/contents/'+readJSON(contentobj.data[i].thumbnail_th)+'" alt="" width="100%"/>';
+                html+='<div class="content-block mt-5">';
+                html+='<h1 class="mb-0">'+readJSON(contentobj.data[i].title_th)+'</h1>';
+                html+='<small>วันที่ '+readJSON(contentobj.data[i].updated)+'</small>';
+                html+='<p>'+readJSON(contentobj.data[i].detail_th)+'</p>';
+                html+='</div>';
+                html+='<div class="item-after"></div>';
+                html+='</div>';
+            
+            }(i))
+            // console.log(html);
+
+            }
+            $("#content").html(html);
+
+        }
+        });
+
+        $('#goback').on('click', function() {
+            if (page.query.jsonfile == 'news') {
+                $('#goback').attr('href','news.html');
+            } else if (page.query.jsonfile == 'technic') {
+                $('#goback').attr('href','technic.html');
+            } else {
+                $('#goback').attr('href','healthy.html');
+            }
+        })
+
+    }
+
+    if ("vdo" == page.name) {
+        console.log(page.query.video_type);
+        if (page.query.video_type == 0) {
+            $('#vdoheader').html('อร่อยสัญจร');
+        } else if (page.query.video_type == 1) {
+            $('#vdoheader').html('อร่อยกับดารา');
+        } else {
+            $('#vdoheader').html('อร่อยสัญจร');
+        }
+
+        var videoobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/"+page.query.jsonfile+"2json.php", //Relative or absolute path to response.php file
+            data: { "id" : page.query.id , "offset" : page.query.offset , "video_type" : page.query.video_type},
+            success: function(data) {
+            // console.log(data)
+
+            videoobj = JSON.parse(data);
+            var length = Object.keys(videoobj.data).length;
+            console.log(videoobj)
+            var html="";
+
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+                html+='<div class="card facebook-card">';
+                html+='<div class="card-header">';
+                html+='<div class="facebook-name">'+readJSON(videoobj.data[i].title)+'</div>';
+                html+='</div>';
+                html+='<div class="card-content">';
+                html+='<div class="card-content-inner">';
+                html+='<p>'+readJSON(videoobj.data[i].desc)+'</p>';
+                html+='<img src="http://img.youtube.com/vi/'+readJSON(videoobj.data[i].youtube_v)+'/0.jpg" width="100%">';
+                html+='</div>';
+                html+='</div>';
+                html+='<div class="card-footer">';
+                html+='<a href="#" class="link"></a>';
+                html+='<a href="#" class="link"></a>';
+                html+='<a href="vdo-detail.html?id='+readJSON(videoobj.data[i].id)+'&jsonfile=video&video_type='+page.query.video_type+'" class="link">View</a>';
+                html+='</div>';
+                html+='</div>';
+            
+            }(i))
+            // console.log(html);
+
+            }
+            $("#vdo").html(html);
+
+        }
+        });
+
+    }
+
+    if ("vdo-detail" == page.name) {
+        console.log(page.query.video_type);
+        if (page.query.video_type == 0) {
+            $('#vdoheader1').html('อร่อยสัญจร');
+        } else if (page.query.video_type == 1) {
+            $('#vdoheader1').html('อร่อยกับดารา');
+        } else {
+            $('#vdoheader1').html('อร่อยสัญจร');
+        }
+
+        var videodetailobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/"+page.query.jsonfile+"2json.php", //Relative or absolute path to response.php file
+            data: { "id" : page.query.id , "video_type" : page.query.video_type},
+            success: function(data) {
+            // console.log(data)
+
+            videodetailobj = JSON.parse(data);
+            var length = Object.keys(videodetailobj.data).length;
+            console.log(videodetailobj)
+            var html="";
+
+
+            for (var i=0; i < length; i++) {
+                
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+                html+='<div class="card facebook-card">';
+                html+='<div class="card-content">';
+                html+='<div class="card-content-inner">';
+                html+='<iframe width="100%" height="300px" src="https://www.youtube.com/embed/'+readJSON(videodetailobj.data[i].youtube_v)+'" frameborder="0" allowfullscreen></iframe>';
+                html+='<h3>'+readJSON(videodetailobj.data[i].title)+'</h3>';
+                html+='<p>'+readJSON(videodetailobj.data[i].desc)+'</p>';
+                html+='</div>';
+                html+='</div>';
+                html+='</div>';
+            
+            }(i))
+            // console.log(html);
+
+            }
+            $("#vdo-detail").html(html);
+
+        }
+        });
+
+    }
+
+    if ("university" == page.name) {
+        $('view').ready(function(){
+
+        var uniobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/"+page.query.jsonfile+"2json.php", //Relative or absolute path to response.php file
+            data: { "id" : page.query.id , "qtype" : 'q'},
+            success: function(data) {
+            // console.log(data)
+
+            uniobj = JSON.parse(data);
+            var length = Object.keys(uniobj.data).length;
+            // console.log(uniobj)
+           
+
+            
+            for (var i=0; i < length; i++) {
+            var html="";
+                // console.log(rating[i]);
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            (function (i) {
+
+
+                html+='<li>';
+                html+='<a href="list.html?para=cat&file=universities2json&cat='+readJSON(uniobj.data[i].id)+'" class="item-link item-content">';
+                html+='<div class="item-inner">';
+                html+='<div class="item-title">'+readJSON(uniobj.data[i].name_th)+'</div>';
+                html+='</div>';
+                html+='</a>';
+                html+='</li>';
+                $("#university").append(html).promise();
+            }(i))
+            // console.log(html);
+            
+            }
+            
+
+        }
+        });
+    })
+       
+    }
+
+    if ('favoriteuser' == page.name) {
+
+        var favorobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/favor2json.php", //Relative or absolute path to response.php file
+            data: { "id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            // console.log(data)
+
+            favorobj = JSON.parse(data);
+            var length = Object.keys(favorobj.data).length;
+            // console.log(length)
+            html="";
+
+            for (var i=0; i < length; i++) {
+                
+                
+                
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            // console.log('i: '+i) 
+            //html+='<li class="swipeout"><div class="swipeout-content"><div class="item-content no-padding"><div class="item-inner blog-list"><div class="image"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'"><img src=http://www.clubaroy.com/home/uploads/galleries/'+readJSON(tmpobj.data[i].image)+' width="100%"><span class="rating blog-rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></span></a></div><div class="text"><h4 class="title mt-5 mb-0"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'">'+readJSON(tmpobj.data[i].title_th)+'</a></h4><small>'+readJSON(tmpobj.data[i].address_th)+'</small><small> | </small><small>'+readJSON(tmpobj.data[i].rname_th)+'</small></div></div></div></div><div class="swipeout-actions-left"><a href="#" class="action-red js-add-to-fav"><i class="fa fa-heart-o"></i></a></div></li>'
+
+                    html='<li class="card" id="favorplace'+sessionStorage.getItem('userid')+favorobj.data[i].restaurant_id+'">';
+                    html+='<div class="card-header">';
+                    html+='<div class="facebook-name">'+readJSON(favorobj.data[i].title_th)+'</div>';
+                    html+='<div class="facebook-date"><a href="#" onclick="removefav('+sessionStorage.getItem('userid')+','+favorobj.data[i].restaurant_id+')"><i class="link fa fa-times"></i></a></div>';
+                    html+='</div>';
+                    html+='<div class="card-content">';
+                    html+='<div class="card-content-inner">';
+                    html+='<p><i class="fa fa-map-marker"></i>'+readJSON(favorobj.data[i].address_th)+'|'+readJSON(favorobj.data[i].rc_name_th)+'</p>';
+                    html+='<img src="http://www.clubaroy.com/home/uploads/galleries/thumbnail/'+readJSON(favorobj.data[i].image)+'" width="100%">';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='<div class="card-footer">';
+                    html+='<a href="#" class="link">';
+                    html+='<input type=hidden name=restaurant-hidden id="resthid'+i+'" value="'+favorobj.data[i].restaurant_id+'">';
+                    html+='<span id="frating'+i+'" class="rating blog-rating">';
+                    
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    //html+='<span class="icon-star"></span>';
+                    html+='</span>';
+                    html+='</a>';
+                    html+='<a href="#" class="link"></a>';
+                    html+='<a href="restaurant.html?rid='+favorobj.data[i].restaurant_id+'" class="link">View</a>';
+                    html+='</div>';
+                    html+='</li>';
+
+                    $("#favoriteuser").append(html);
+                    (function (i) {
+                    ratingcheck(favorobj.data[i].restaurant_id, i);
+                    }(i))
+
+                    
+            }
+            // console.log(html);
+            
+            }
+        });
+
+
+
+    }
+
+    if ('usercommentlogin' == page.name) {
+
+        var ucobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            console.log(data)
+
+            ucobj = JSON.parse(data);
+            var length = Object.keys(ucobj.data).length;
+            // console.log(length)
+            html="";
+
+            for (var i=0; i < length; i++) {
+                
+                
+                
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            // console.log('i: '+i) 
+            //html+='<li class="swipeout"><div class="swipeout-content"><div class="item-content no-padding"><div class="item-inner blog-list"><div class="image"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'"><img src=http://www.clubaroy.com/home/uploads/galleries/'+readJSON(tmpobj.data[i].image)+' width="100%"><span class="rating blog-rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></span></a></div><div class="text"><h4 class="title mt-5 mb-0"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'">'+readJSON(tmpobj.data[i].title_th)+'</a></h4><small>'+readJSON(tmpobj.data[i].address_th)+'</small><small> | </small><small>'+readJSON(tmpobj.data[i].rname_th)+'</small></div></div></div></div><div class="swipeout-actions-left"><a href="#" class="action-red js-add-to-fav"><i class="fa fa-heart-o"></i></a></div></li>'
+
+                    html='<div class="card facebook-card">';
+                    html+='<div class="card-header">';
+                    html+='<div class="facebook-avatar"><img src="http://www.clubaroy.com/home/uploads/restaurants/'+readJSON(ucobj.data[i].thumbnail_th)+'" width="34" height="34"></div>';
+                    html+='<div class="facebook-name">'+readJSON(ucobj.data[i].title_th)+'</div>';
+                    html+='<div class="facebook-date">'+readJSON(ucobj.data[i].created)+'</div>';
+                    html+='</div>';
+                    html+='<div class="card-content">';
+                    html+='<div class="card-content-inner">';
+                    html+='<p>'+readJSON(ucobj.data[i].detail)+'</p>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='<div class="card-footer">';
+                    html+='<a href="restaurant.html?rid='+readJSON(ucobj.data[i].restaurant_id)+'" class="link">View</a>';
+                    html+='</div>';
+                    html+='</div>';
+
+                    $("#usercommentlogin").append(html);
+                    (function (i) {
+                    
+                    }(i))
+
+                    
+            }
+            // console.log(html);
+            
+            }
+        });
+
+    }
+
+	}), $(document).ready(function() {
+	
+    $('img[usemap]').rwdImageMaps();
+
+
+    if ((null === localStorage.getItem("newOptions") || localStorage.getItem("newOptions") === !0) && (myApp.popup(".popup-splash"), 
+    localStorage.setItem("newOptions", !0)), $(".chart-content").length > 0) {
+        var obj = document.querySelector(".chart-content"), ctx = obj.getContext("2d");
+        showLineChart(ctx);
+    }
+    if ($(".line-chart-content").length > 0) {
+        var obj = document.querySelector(".line-chart-content"), ctx = obj.getContext("2d");
+        showLineChartPage(ctx);
+    }
+    if ($(".bar-chart-content").length > 0) {
+        var obj = document.querySelector(".bar-chart-content"), ctx = obj.getContext("2d");
+        showBarChartPage(ctx);
+    }
+    if ($(".pie-chart-content").length > 0) {
+        var obj = document.querySelector(".pie-chart-content"), ctx = obj.getContext("2d");
+        showPieChartPage(ctx);
+    }
+    if ($(".doughnut-chart-content").length > 0) {
+        var obj = document.querySelector(".doughnut-chart-content"), ctx = obj.getContext("2d");
+        showDoughnutChartPage(ctx);
+    }
+    if ($(".radar-chart-content").length > 0) {
+        var obj = document.querySelector(".radar-chart-content"), ctx = obj.getContext("2d");
+        showRadarChartPage(ctx);
+    }
+    if ($(".polar-chart-content").length > 0) {
+        var obj = document.querySelector(".polar-chart-content"), ctx = obj.getContext("2d");
+        showPolarChartPage(ctx);
+    }
+    naxvarBg(), $(".js-toggle-menu").on("click", function() {
+        $(this).next().slideToggle(200), $(this).find("span").toggleClass("icon-chevron-down").toggleClass("icon-chevron-up");
+    });
+}), $.fn.serializeObject = function() {
+    var o = {}, a = this.serializeArray();
+    return $.each(a, function() {
+        void 0 !== o[this.name] ? (o[this.name].push || (o[this.name] = [ o[this.name] ]), 
+        o[this.name].push(this.value || "")) : o[this.name] = this.value || "";
+    }), o;
+};
+
+var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strokeColor = "rgba(" + defColor + ", 1)", pointColor = "rgba(" + defColor + ", 1)", pointStrokeColor = "rgba(255, 255, 255, 1)", pointHighlightFill = "rgba(255, 255, 255, 1)", pointHighlightStroke = "rgba(" + defColor + ", 1)", pointColorHighlight = "rgba(" + defColor + ", 0.5)", defColor2 = "224, 61, 14", fillColor2 = "rgba(" + defColor2 + ", 0.2)", strokeColor2 = "rgba(" + defColor2 + ", 1)", pointColor2 = "rgba(" + defColor2 + ", 1)", pointStrokeColor2 = "rgba(255, 255, 255, 1)", pointHighlightFill2 = "rgba(255, 255, 255, 1)", pointHighlightStroke2 = "rgba(" + defColor2 + ", 1)", pointColorHighlight2 = "rgba(" + defColor2 + ", 0.5)";
+
+// sessionStorage.setItem('userid','1')
+        $('#facebookname').html("guest");
+        $('#userpicture').attr('src','assets/img/tmp/ava4.jpg');
+
+        $('#logout').click(function(){
+            sessionStorage.setItem('userid','');
+            sessionStorage.setItem('favor','');
+            $('#facebookname').html("guest");
+            $('#userpicture').attr('src','assets/img/tmp/ava4.jpg');
+            $('#lifav').hide();
+            $('#lireview').hide();
+            $('#lilogin').show();
+            $('#lilogout').hide();
+
+        })
+        
+        $('#lifav').hide();
+        $('#lireview').hide();
+        $('#lilogin').show();
+        $('#lilogout').hide();
+
+        $('map[name=clubaroi] area').click(function(){
+             // alert($(this).attr('href'));
+             if ($(this).attr('id') == "aroidara") {
+             mainView.router.loadPage('vdo.html?video_type=1&jsonfile=video&offset=0');
+             } else if ($(this).attr('id') == "aroiduni") {
+             mainView.router.loadPage('university.html?jsonfile=universities');
+             } else if ($(this).attr('id') == "aroiwanni") {
+             mainView.router.loadPage('favorite.html?offset=0&rand=1');
+             } else if ($(this).attr('id') == "aroisala") {
+             mainView.router.loadPage('salary.html');
+             } else if ($(this).attr('id') == "aroitravel") {
+             mainView.router.loadPage('travel.html');
+             } else if ($(this).attr('id') == "aroidstar") {
+             mainView.router.loadPage('#');
+             } else if ($(this).attr('id') == "aroidcat") {
+             mainView.router.loadPage('category2.html');
+             } else if ($(this).attr('id') == "aroidprov") {
+             mainView.router.loadPage('province.html');
+             } else if ($(this).attr('id') == "aroidsonjon") {
+             mainView.router.loadPage('vdo.html?video_type=0&jsonfile=video&offset=0');
+             }
+        })
+
+        $('#searchall').keypress(function(e) {
+            if(e.which == 13) {
+                mainView.router.loadPage('favorite.html?offset=0&rand=2&xstring='+$('#searchall').val());
+            }
+        });
+
+
+        var ucobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            console.log(data)
+
+            ucobj = JSON.parse(data);
+            var length = Object.keys(ucobj.data).length;
+            // console.log(length)
+            
+            // console.log(html);
+            
+            }
+        });
