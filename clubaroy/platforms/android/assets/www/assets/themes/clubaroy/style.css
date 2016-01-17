@@ -4739,8 +4739,24 @@ blockquote .author {
   border-color: #056839;
   color: #056839;
 }
+.button.button-secondary2 {
+  border-color: #078a4c;
+  color: #ffffff;
+}
+.button.button-secondary3 {
+  border-color: #09a95d;
+  color: #ffffff;
+}
 .button.button-secondary.active, .button.button-secondary.button-fill, .button.button-secondary.active-state {
   background: #056839;
+  color: #ffffff;
+}
+.button.button-secondary2.active, .button.button-secondary2.button-fill, .button.button-secondary2.active-state {
+  background: #078a4c;
+  color: #ffffff;
+}
+.button.button-secondary3.active, .button.button-secondary3.button-fill, .button.button-secondary3.active-state {
+  background: #09a95d;
   color: #ffffff;
 }
 
@@ -5156,7 +5172,10 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .picker-modal,
 .popup {
   color: #412412;
-  background: rgba(255, 255, 255, 1);
+  background-image:url("http://www.clubaroy.com/mobile/assets/themes/clubaroy/img/bg2.jpg");
+  background-repeat:no-repeat;
+  background-position:top;
+  background-size: cover;
 }
 .picker-modal h2,
 .popup h2 {
