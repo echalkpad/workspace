@@ -1,0 +1,1148 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline' http:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:"/>
+	<link rel="stylesheet" href="css/progressbar.css" />
+	<script type="text/javascript" src="cordova.js"></script>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="js/progressbar.js"></script>
+	<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+	<script src="js/socket.io.js"></script>
+	<script>
+		var devicestring = "";
+		var DEBUG_STATE = 1;
+		var DEBUG_LEVEL = 100;
+		var circle;
+		var current_server_version;
+		var msgqueue = 0;
+		var program_state = 0;
+		var audio_state = 0; // 0=stop, 1=play, 2=pause
+		var trackList = [];
+		var my_media;
+		var current_command = 0;
+		var firstOnline = 0;
+		var offlineStatus = 0;
+		var mediaTimer;
+		var current_sound_duration = 0;
+	
+		
+		function trackInfo(id,did,url,playlist) {
+    		this.id = id;
+    		this.did = did
+    		this.url = url;
+    		this.playlist = playlist;
+		}
+
+
+		function debugJSON_print(data, level, obj) {
+			if (DEBUG_STATE == 1 && DEBUG_LEVEL > level) {
+                	console.log("---- GET data from JSON ("+obj+")----");
+                    console.log(data);
+                    console.log("---- END data from JSON ("+obj+")----");
+			}
+		}
+
+		function debug_print(data, level) {
+			if (DEBUG_STATE == 1 && DEBUG_LEVEL > level) {
+                    console.log(data);
+			}
+		}
+
+		function sum_percent(data) {
+        	var total = 0;
+		        for (var i=0; i < data.length; i++) {
+		            total = total + data[i];
+		        }
+		        return total;
+    	
+    	}
+
+    	function SortByID(x,y) {
+      		return x.did - y.did; 
+    	}
+
+    	function ssidHandler(s){
+    		$('#SSID').html('Current SSID: ' + s);
+		}
+		
+		function ssidHandlerfail(e){
+    		$('#SSID').html('Failed getting SSID: ' + e);
+		}
+		
+		function getCurrentSSID(){
+    		WifiWizard.getCurrentSSID(ssidHandler, ssidHandlerfail);
+		}
+
+    	function checkConnection() {
+		    var networkState = navigator.connection.type;
+
+		    var states = {};
+		    states[Connection.UNKNOWN]  = 'Unknown connection';
+		    states[Connection.ETHERNET] = 'Ethernet connection';
+		    states[Connection.WIFI]     = 'WiFi connection';
+		    states[Connection.CELL_2G]  = 'Cell 2G connection';
+		    states[Connection.CELL_3G]  = 'Cell 3G connection';
+		    states[Connection.CELL_4G]  = 'Cell 4G connection';
+		    states[Connection.CELL]     = 'Cell generic connection';
+		    states[Connection.NONE]     = 'No network connection';
+
+		    debug_print("Network state ::" + networkState, 20);
+
+		    if (networkState == "wifi") {
+		    	getCurrentSSID();
+		    	$('#netcon').html('Connection type: ' + states[networkState]);
+		    	$('#wifi-icon').attr('src','img/wifi-icon.png');
+		    	$('#agent-wifi-icon').attr('src','img/wifi-icon.png');
+		    } else {
+		    	
+		    	$('#netcon').html('Connection type: ' + states[networkState]);
+		    	$('#wifi-icon').attr('src','img/no-connection.png');
+		    	$('#agent-wifi-icon').attr('src','img/no-connection.png');
+		    }
+		}
+
+		function checkServer() {
+
+			$.ajax({
+	                    type: "POST",
+	                    dataType: "html",
+	                    url: "http://192.168.129.1/node_server/online.html", //Relative or absolute path to response.php file
+	                    data: { "devicestring" : "0" },
+	                    success: function(data) {
+	                    debugJSON_print(data,10,'Device register');
+
+		                    if (data != "OK") {
+		                    	$('#footer').html('Connection to server ERRORs');
+		                    	$('#server-icon').attr('src','img/no-server.png');
+		                    	$('#agent-server-icon').attr('src','img/no-server.png');
+		                    } else {
+		                    	$('#footer').html('');
+		                    	$('#server-icon').attr('src','img/server.png');
+		                    	$('#agent-server-icon').attr('src','img/server.png');
+		                    	firstOnline++;
+		                    }
+
+	                	},
+	                	error: function (error) {
+                  				$('#footer').html('Connection to server ERRORs');
+                  				$('#server-icon').attr('src','img/no-server.png');
+                  				$('#agent-server-icon').attr('src','img/no-server.png');
+                  				firstOnline = 0;
+                  				offlineStatus = 1;
+              			}
+	                });
+		}
+
+		function download_sound_files() {
+			var d = new Date();
+			debug_print("start download function "+d,5);
+			var sync = [];
+			debug_print("[PhoneGap] Creating current version in localStorage",3);
+			if (localStorage["download_status"]) {
+                if (localStorage["download_status"] == 0) {
+
+                } else {
+                    debug_print("[PhoneGap] Rewriting download status in localStorage",3);
+                	window.localStorage.setItem("download_status", 0);	
+                }
+
+            } else {
+                debug_print("[PhoneGap] Creating download status in localStorage",3);
+                window.localStorage.setItem("download_status", 0);
+            }
+
+			var soundfile_list_obj = "";
+                $.ajax({
+                	async: false,
+                    type: "POST",
+                    dataType: "html",
+                    url: "http://192.168.129.1/node_server/getsoundlist.php", //Relative or absolute path to response.php file
+                    data: { "params" : "0"},
+                    success: function(data) {
+                    debugJSON_print(data,5,"Sound files");
+                    
+                    soundfile_list_obj = JSON.parse(data);
+                    var length = Object.keys(soundfile_list_obj.data).length;
+                    var loadcompleted = [];
+                    var progressBar = new ProgressBar("progress", {'width':'95%', 'height':'20px'});
+                    
+					var notrack = 0;
+					
+						$('#progress_state').html('initializing sound files...');
+                    	for (var i=0; i < length; i++) {
+                    		
+                    		(function (i) {
+                    	    sync[i] = ContentSync.sync({ src: soundfile_list_obj.data[i].note.replace(/\%3A/g,':').replace(/\%2F/g,'/'), id: 'track'+i });
+
+			                sync[i].on('progress', function(data) {
+			                	
+			                	loadcompleted[i] = (100/soundfile_list_obj.data.length)*(data.progress/100);
+                    			progressBar.setPercent(sum_percent(loadcompleted));
+                    			$('#progress_text').html(Math.round(sum_percent(loadcompleted))+' %');
+
+			                });
+
+			                sync[i].on('complete', function(data) {
+			                	notrack = notrack + 1;
+			                	var tInfo = new trackInfo(i,soundfile_list_obj.data[i].id,data.localPath,soundfile_list_obj.data[i].tlist);
+			                	trackList.push(tInfo);
+			                   	debug_print("[SYNC PLUGIN] DONE ::: "+data.localPath,3);
+			                   	if (notrack == soundfile_list_obj.data.length) {
+			                   		$('#progress_state').html('Complete initialized');
+			                   		$('#progress').hide();
+			                   		$('#progress_text').hide();
+			                   		window.localStorage.setItem("current_version", current_server_version);
+			                   		window.localStorage.setItem("download_status", 1);
+			                   		// going to group state
+			                   		$('#progress_state').html('Group selection...');
+			                   		$('#group_div').show();
+			                   		debugJSON_print(trackList,5,"Sound files List");
+			                   		window.localStorage.setItem("soundlist", JSON.stringify(trackList));
+			                   	}
+			                });
+
+			                sync[i].on('error', function(e) {
+			                    // e
+			                    debug_print('[SYNC PLUGIN] ERROR: '+e.message,1);
+			     
+			                });
+
+			                sync[i].on('cancel', function() {
+
+			                });
+			            }) (i);
+
+                    	}
+                    }
+                });
+
+
+
+
+		}
+
+		// Play audio
+		//
+		function playAudio(url) {
+		    // Play the audio file at url
+		    var main_progressBar = new ProgressBar("main_progressbar", {'width':'95%', 'height':'5px'});
+		    my_media = new Media(url,
+		        // success callback
+		        function () {
+		        	debug_print("playAudio():Audio Success",1);
+		        	
+		        	if (localStorage['selected_role'] == 1) {
+		        		debug_print("device role = 1",1);
+		        		audio_state = 0;
+		        		clearInterval(mediaTimer);
+            			mediaTimer = null;
+		        		// $('#track_state').html("stop");
+		        		$('#stop_button').click();
+		        	} else {
+						debug_print("device role = 0",1);
+						clearInterval(mediaTimer);
+            			mediaTimer = null;
+		         	}
+		        },
+		        // error callback
+		        function (err) {
+		        	debug_print("playAudio():Audio Error: " + err,3);
+		            
+		        }
+		    );
+		    // Play audio
+		    
+		    
+		    my_media.play();
+		    
+		    audio_state = 1;
+		    // $('#track_state').html("play");
+		    // $('#agent_track_state').html("play");
+		    mediaTimer = setInterval(function () {
+				    // get media position
+				    if (my_media) {
+					    my_media.getCurrentPosition(
+
+					        // success callback
+					        function (position) {
+					            if (position > -1) {
+					            	current_sound_duration = my_media.getDuration();
+					            	if (current_sound_duration > 0) {
+					            		main_progressBar.setPercent(Math.round(position/current_sound_duration*100));
+					            	}
+					            	$('#track_position').html((position) + " sec");
+					            	$('#agent_track_position').html((position) + " sec");
+					                debug_print((position) + " sec",10);
+					                if (localStorage["selected_role"] == 1) {
+	 					                $.ajax({
+
+						                    type: "POST",
+						                    dataType: "html",
+						                    url: "http://192.168.129.1/node_server/command.php", //Relative or absolute path to response.php file
+						                    data: { "type_command" : "update_position", "group_id" : $('#group_text').val(), "track_position" : position},
+						                    success: function(data) {
+						                    debugJSON_print(data,10,'position updated');
+						                    
+
+						                	}
+						                });
+ 					            	}
+					            } else {
+					            	console.log("position::" + position);
+					            }
+					        },
+					        // error callback
+					        function (e) {
+					            debug_print("Error getting pos=" + e,3);
+					        }
+					    );
+					}
+				}, 1000);
+
+		}
+
+ 		function showfooter(msg) {
+ 			msgqueue++;
+ 			var d = new Date();
+ 			debug_print(msg, 3);
+ 			debug_print("setfooter "+d,3);
+ 			$('#agent_footer').html(msg);
+ 			$('#main_footer').html(msg);
+ 			$('#footer').html(msg);
+			msgqueue--;
+			if (msgqueue > 1 ) {
+
+			} else {
+				setTimeout(function() {
+				
+					var d = new Date();
+					debug_print("setblank "+d,3);
+					$('#agent_footer').html('');
+					$('#main_footer').html('');
+					$('#footer').html('');
+				
+				}, 2000);
+			}
+		}
+
+		function onBatteryStatus(info) {
+		    // Handle the online event
+		    // debug_print("Level: " + info.level + " isPlugged: " + info.isPlugged,20);
+		    $('#agent-battery-text').html(info.level + "%");
+		    $('#battery-text').html(info.level + "%");
+		}
+
+		function onDeviceReady() {
+			
+			debug_print("[PhoneGap] Device initialized.",3);
+			debug_print("[PhoneGap] Loading plugins.",3);
+
+            devicemodel = device.model;
+			devicestring = device.uuid;
+			deviceserial = device.serial;
+			debug_print("Device string :: "+ devicestring,3);
+			debug_print("Device model :: "+ devicemodel,3);
+			debug_print("Device serial :: "+ deviceserial,3);
+			window.addEventListener("batterystatus", onBatteryStatus, false);
+
+		}
+
+		$(document).ready(function(){
+			var d = new Date();
+			debug_print("start program "+d,5);
+			document.addEventListener("deviceready", onDeviceReady, false);
+			
+			
+
+			// initialized GUI
+			$('#index_div').show();
+			$('#group_div').hide();
+			$('#group_text_div').hide();
+			$('#role_selection').hide();
+			$('#language_selection').hide();
+			$('#main_overlay').hide();
+			$('#agent_overlay').hide();
+			document.getElementById('group_text').style.height="50px";
+			document.getElementById('group_text').style.fontSize="14pt";
+			document.getElementById('group_text').style.verticalAlign="bottom";
+			document.getElementById('group_button').style.verticalAlign="bottom";
+			document.getElementById('soundlist_select').style.height="50px";
+			document.getElementById('soundlist_select').style.fontSize="14pt";
+			document.getElementById('soundlist_select').style.width="100%";
+			document.getElementById('soundlist_select').style.position = "relative";
+			document.getElementById('soundlist_select').style.top="50px";
+			document.getElementById('main_progressbar').style.position = "relative";
+			document.getElementById('main_progressbar').style.top="85px";
+			document.getElementById('main_progressbar').style.textAlign = "center";
+			document.getElementById('audiocontrol').style.position = "relative";
+			document.getElementById('audiocontrol').style.top="200px";
+			document.getElementById('audiocontrol').style.textAlign = "center";
+			document.getElementById('main_group_id').style.position = "relative";
+			document.getElementById('main_group_id').style.top="150px";
+			document.getElementById('main_group_id').style.fontSize="60pt";
+			document.getElementById('main_group_id').style.color="gray";
+			document.getElementById('main_group_id').style.marginLeft = 'auto';
+			document.getElementById('main_group_id').style.marginRight = 'auto';
+			document.getElementById('agent_group_id').style.position = "relative";
+			document.getElementById('agent_group_id').style.top="150px";
+			document.getElementById('agent_group_id').style.fontSize="60pt";
+			document.getElementById('agent_group_id').style.color="gray";
+			document.getElementById('agent_group_id').style.marginLeft = 'auto';
+			document.getElementById('agent_group_id').style.marginRight = 'auto';
+			document.getElementById('agent-track-info').style.position = "relative";
+			document.getElementById('agent-track-info').style.top="150px";
+			program_state = 1;
+
+			// initialized touch control
+
+
+			// check version on server
+			var current_version_obj = "";
+                $.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: "http://192.168.129.1/node_server/checkversion.php", //Relative or absolute path to response.php file
+                    data: { "params" : "0"},
+                    success: function(data) {
+                    debugJSON_print(data,5,"current version");
+
+                    current_version_obj = JSON.parse(data);
+                    current_server_version = current_version_obj.data[0].current_version;
+                    var length = Object.keys(current_version_obj.data).length;
+                    	if (localStorage["current_version"]) {
+                    		debug_print("[PhoneGap] Checking existing version",3);
+                    		if (current_version_obj.data[0].current_version > localStorage["current_version"] || localStorage["download_status"] == 0) {
+                    			debug_print("[PhoneGap] Updating sound files",3);
+                    			downloadFileID = setTimeout(function () {
+                    				download_sound_files()
+                    				}, 4000);
+	                 
+                    		} else {
+                    			debug_print("[PhoneGap] Installed version is newer",3);
+                    			// going to group state
+                    			$('#progress_state').html('Group selection...');
+			                   	$('#group_div').show();
+                    		}
+                    	} else {
+                    		
+                    		downloadFileID = setTimeout(function () {
+                    				download_sound_files()
+                    				}, 4000);
+	                 
+                    		
+                    	}
+                    },
+                    error: function() {
+                    	window.location.reload();
+                    }
+                });
+				program_state = 2;
+
+				
+
+				// GUI CONTROL
+				$('#group_button').on('click', function() {
+					debug_print('group_button press',3);
+					// going to next state
+					$('#progress_state').html('Registering device');
+					$('#group_div').hide();
+					$('#group_id').html($('#group_text').val());
+					$('#main_group_id').html("<center>"+$('#group_text').val()+"</center>");
+					$('#agent_group_id').html("<center>"+$('#group_text').val()+"</center>");
+					$('#group_text_div').show();
+					debug_print('group ID :: '+ $('#group_text').val(),3);
+					$('#device_string').html(devicestring);
+					$('#device_model').html(devicemodel);
+					$('#device_serial').html(deviceserial);
+					window.sessionStorage.setItem('groupID', $('#group_text').val());
+					if (localStorage["selected_role"]) {
+						if (localStorage["selected_role"] == 1) {
+							$('#role_label').html("Main");
+							$('#language_selection').show();
+						} else {
+							$('#role_label').html("Agent");
+							$('#agent_overlay').delay(500).fadeIn();
+						}
+					} else {
+						$('#role_selection').show();
+					}
+					var device_obj = "";
+	                $.ajax({
+	                    type: "POST",
+	                    dataType: "html",
+	                    url: "http://192.168.129.1/node_server/register.php", //Relative or absolute path to response.php file
+	                    data: { "devicestring" : devicestring, "devicemodel" : devicemodel, "deviceserial" : deviceserial, "current_socket" : "none", "current_state" : "init" , "regdate" : "0000-00-00"},
+	                    success: function(data) {
+	                    debugJSON_print(data,5,'Device register');
+
+		                    if (data == null || data == '' || data == undefined ) {
+		                    	$('#progress_state').html('Registered..');
+		                    } else if (data.substring(0,data.indexOf(' ')).trim() == 'Duplicate') {
+		            			$('#progress_state').html('Device already registered');
+		                    } else {
+		                    	$('#progress_state').html('Register errors');
+		                    }
+
+	                	}
+	                });
+	                clearTimeout(reloadtimerID);
+	                program_state = 4;
+	                
+				});
+
+				$("#radio1, #radio2" ).change(function () {
+					debug_print('radio press',3);
+			        if ($("#radio1").is(":checked")) {
+			            window.localStorage.setItem('selected_role','1');
+			            $('#role_selection').hide();
+			            $('#role_label').html("Main");
+			            $('#language_selection').show();
+			          	
+			        }
+			        else if ($("#radio2").is(":checked")) {
+			            window.localStorage.setItem('selected_role','0');
+			            $('#role_selection').hide();
+			            $('#role_label').html("Agent");
+			            $('#agent_overlay').delay(500).fadeIn();
+			        }
+			       	
+			       	program_state = 5;
+			    });
+
+				$("#language_radio1, #language_radio2, #language_radio3, #language_radio4, #language_radio5" ).change(function () {
+					trackList = JSON.parse(window.localStorage.getItem('soundlist'));
+					trackList.sort(SortByID);
+					debugJSON_print(trackList,3,"sorted track")
+					debug_print('language_radio press',3);
+			        if ($("#language_radio1").is(":checked")) {
+			            window.sessionStorage.setItem('selected_language','1');
+			            $('#language_selection').hide();
+			            $('#mainLanguage').html("Thai");
+			            $('#language_label').html("Thai");
+			          
+			        }
+			        else if ($("#language_radio2").is(":checked")) {
+						window.sessionStorage.setItem('selected_language','2');
+			            $('#language_selection').hide();
+			            $('#mainLanguage').html("English");
+			            $('#language_label').html("English");
+
+			        }
+			        else if ($("#language_radio3").is(":checked")) {
+						window.sessionStorage.setItem('selected_language','3');
+			            $('#language_selection').hide();
+			            $('#mainLanguage').html("Chinese");
+			            $('#language_label').html("Chinese");
+
+			        }
+			        else if ($("#language_radio4").is(":checked")) {
+						window.sessionStorage.setItem('selected_language','4');
+			            $('#language_selection').hide();
+			            $('#mainLanguage').html("Japanese");
+			            $('#language_label').html("Japanese");
+
+			        }
+			        else if ($("#language_radio5").is(":checked")) {
+						window.sessionStorage.setItem('selected_language','5');
+			            $('#language_selection').hide();
+			            $('#mainLanguage').html("Taiwanese");
+			            $('#language_label').html("Taiwanese");
+
+			        }
+			        $.ajax({
+	                    type: "POST",
+	                    dataType: "html",
+	                    url: "http://192.168.129.1/node_server/command.php", //Relative or absolute path to response.php file
+	                    data: { "type_command" : "new_position", "group_id" : $('#group_text').val(), "track_position" : "-1", "language" : sessionStorage["selected_language"]},
+	                    success: function(data) {
+	                    debugJSON_print(data,5,'Group Registered');
+
+		                    if (data == null || data == '' || data == undefined || data == 1) {
+		                    	$('#progress_state').html('Registered..');
+		                    } else if (data.substring(0,data.indexOf(' ')).trim() == 'Duplicate') {
+		            			$('#progress_state').html('Group already registered');
+		                    } else {
+		                    	$('#progress_state').html('Register errors');
+		                    }
+
+	                	}
+	                });
+	                program_state = 6;
+			       	if (localStorage["selected_role"] == 1) {
+			       		$('#main_overlay').delay(500).fadeIn();
+			       	} else if (localStorage["selected_role"] == 0) {
+			       		$('#agent_overlay').delay(500).fadeIn();
+			       	}
+			       	program_state = 7;
+			       	var html = "";
+			       	var currentID = 1;
+			       	for (var i=0; i < trackList.length; i++) {
+			       		if (trackList[i].playlist == sessionStorage["selected_language"] ) {
+			       			html += "<option value='"+trackList[i].did+"."+trackList[i].url+"''>";
+			       			html += "Track " + currentID;
+			       			html += "</option>";
+			       			currentID++;
+			       		}
+			       	}
+			       	debug_print(html,3);
+			       	$('#soundlist_select').html(html);
+			       	program_state = 8;
+			    });
+				
+				$('#play_button').on('click', function(){
+					var trackUrl = $('#soundlist_select').val().substring($('#soundlist_select').val().indexOf('.'));
+					var did = $('#soundlist_select').val().substring(0, $('#soundlist_select').val().indexOf('.'));
+						
+					var postdata = {};
+					if (audio_state == 0) {
+						audio_state = 1;	
+						postdata['command'] = "play";
+						playAudio(trackUrl);	
+					} else if (audio_state == 1) {
+						audio_state = 2;	
+						postdata['command'] = "pause";
+						my_media.pause();
+					} else if (audio_state == 2) {
+						audio_state = 1;	
+						postdata['command'] = "play";
+						my_media.play();
+					} 
+				    postdata['params'] = did;
+				    postdata['group_id'] = sessionStorage['groupID'];
+				    postdata['extra_field'] = '';
+				    postdata['type_command'] = 'new';
+
+				    $('#trackID').html($('#soundlist_select').prop("selectedIndex")+1);
+					$('#track_path').html(trackUrl);
+					// $('#track_state').html(postdata['command']);	
+					
+					$.ajax({
+	                    type: "POST",
+	                    dataType: "html",
+	                    url: "http://192.168.129.1/node_server/command.php", //Relative or absolute path to response.php file
+	                    data: postdata,
+	                    success: function(data) {
+	                    debugJSON_print(data ,5,'send command')
+	                    debugJSON_print(postdata ,5,'command info')
+	                	}
+	                });
+
+
+				})
+
+				$('#stop_button').on('click', function(){
+					debug_print("stop button press",1);
+					var postdata = {};
+					audio_state = 0;
+					my_media.stop();
+					my_media.release();
+					postdata['command'] = "stop"; 
+				    postdata['params'] = '';
+				    postdata['group_id'] = sessionStorage['groupID'];
+				    postdata['extra_field'] = '';
+				    postdata['type_command'] = 'new';
+
+				    // $('#track_state').html(postdata['command']);	
+
+					$.ajax({
+	                    type: "POST",
+	                    dataType: "html",
+	                    url: "http://192.168.129.1/node_server/command.php", //Relative or absolute path to response.php file
+	                    data: postdata,
+	                    success: function(data) {
+	                    debugJSON_print(data ,5,'send command')
+	                    debugJSON_print(postdata ,5,'command info')
+	                	}
+	                });
+				})
+
+				// END GUI CONTROL
+
+				// BEGIN TOUCH CONTROL
+				$("#main_overlay").swipe( {
+			        //Generic swipe handler for all directions
+			        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+			          showfooter("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          // $('#main_footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          // $('#footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          if (direction == "left") {
+			          	if (localStorage["selected_role"] == 1) {
+			          		$('#main_overlay').delay(500).fadeOut();
+			          		$('#index_div').show();
+			          	}
+			          }
+			        },
+			        //Default is 75px, set to 0 for demo so any distance triggers swipe
+			         threshold:0,
+			         fingers:1
+			      });
+
+				$("#agent_overlay").swipe( {
+			        //Generic swipe handler for all directions
+			        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+			          showfooter("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          // $('#main_footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          // $('#footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          if (direction == "left") {
+			          	if (localStorage["selected_role"] == 0) {
+			          		$('#agent_overlay').delay(500).fadeOut();
+			          		$('#index_div').show();
+			          	}
+			          }
+			        },
+			        //Default is 75px, set to 0 for demo so any distance triggers swipe
+			         threshold:0,
+			         fingers:1
+			      });
+
+				$("#index_div").swipe( {
+			        //Generic swipe handler for all directions
+			        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+			          showfooter("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          // $('#main_footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          // $('#footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          if (direction == "right") {
+			          	if (localStorage["selected_role"] == 1) {
+			          		$('#main_overlay').delay(500).fadeIn();
+			          	} else if (localStorage["selected_role"] == 0) {
+			          		$('#agent_overlay').delay(500).fadeIn();
+			          	}
+			          }
+
+			          if (direction == "down") {
+			          	if (localStorage["selected_role"] == 1) {
+			          		$('#language_selection').show();
+			          	}
+			          }
+			        },
+			        //Default is 75px, set to 0 for demo so any distance triggers swipe
+			         threshold:0,
+			         fingers:1
+			      });
+
+				if( $('#group_button').length )  {
+  					// Handler for .load() called.
+  					program_state = 3;
+				};
+
+				// Interval check
+				setInterval(function() {
+			        checkConnection();
+			        checkServer();
+			        $('#program_state').html("Program State :: "+program_state);
+			        $('#audio_label').html(" "+audio_state);
+			        onBatteryStatus();
+			        if (audio_state == 0) {
+			        	$('#track_state').html("Stop");
+			        	$('#agent_track_state').html("Stop");
+			        } else if (audio_state == 1) {
+			        	$('#track_state').html("Play");
+			        	$('#agent_track_state').html("Play");
+			        } else if (audio_state == 2) {
+			        	$('#track_state').html("Pause");
+			        	$('#agent_track_state').html("Pause");
+			        } 
+			    }, 1000);
+
+				setInterval(function() {
+			        if (audio_state == 0) {
+			        	$('#track_state').html("Stop");
+			        	$('#agent_track_state').html("Stop");
+			        } else if (audio_state == 1) {
+			        	$('#track_state').html("Play");
+			        	$('#agent_track_state').html("Play");
+			        } else if (audio_state == 2) {
+			        	$('#track_state').html("Pause");
+			        	$('#agent_track_state').html("Pause");
+			        } 
+			    }, 1000);
+				
+
+			    setInterval(function() {
+			    	var trackUrl;
+			    	if (program_state >= 4) {
+			        	if (localStorage["selected_role"] == 0) {
+			        		if (sessionStorage['selected_language']) {
+
+			        		} else {
+			        			$.ajax({
+							        type: "POST",
+							        dataType: "html",
+							        url: "http://192.168.129.1/node_server/getposition.php", //Relative or absolute path to response.php file
+							        data: { "group_id" : $('#group_text').val() },
+							        success: function(data) {
+							        debugJSON_print(data,10,'get position');
+							        var language_obj = JSON.parse(data);
+								        if (language_obj.data[0].language == 1) {
+								        	$('#language_label').html("Thai");
+								        	$('#agent_language').html("Thai");
+								        } else if (language_obj.data[0].language == 2) {
+								        	$('#language_label').html("English");
+								        	$('#agent_language').html("English");
+								        } else if (language_obj.data[0].language == 3) {
+								        	$('#language_label').html("Chinese");
+								        	$('#agent_language').html("Chinese");
+								        } else if (language_obj.data[0].language == 4) {
+								        	$('#language_label').html("Japanese");
+								        	$('#agent_language').html("Japanese");
+								        } else if (language_obj.data[0].language == 5) {
+								        	$('#language_label').html("Taiwanese");
+								        	$('#agent_language').html("Taiwanese");
+								        }
+								        window.sessionStorage.setItem('selected_language',language_obj.data[0].language)
+							        }
+						        });
+			        		}
+
+			        		trackList = JSON.parse(window.localStorage.getItem('soundlist'));
+							trackList.sort(SortByID);
+			          		$.ajax({
+					                    type: "POST",
+					                    dataType: "html",
+					                    url: "http://192.168.129.1/node_server/getcommand.php", //Relative or absolute path to response.php file
+					                    data: { "group_id" : $('#group_text').val() },
+					                    success: function(data) {
+					                    debugJSON_print(data,10,'get last command');
+					                    var command_obj = JSON.parse(data);
+					                    debugJSON_print(command_obj,10,'convert command');
+					                    for (var i=0; i < trackList.length; i++) {
+					                    	if (trackList[i].did == command_obj.data[0].params) {
+					                    		debug_print("get trackUrl",5);
+					                    		trackUrl = trackList[i].url;
+					                    		debug_print(trackUrl,5);
+					                    	}
+					                    }
+					                    $('#agent_track_path').html(trackUrl);
+					                    if (current_command < command_obj.data[0].id) {
+
+					                    	debug_print("run command",5);
+					                    	if (command_obj.data[0].command == "play") {
+
+					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command)
+					                    		if (audio_state == 0) {
+					                    			debug_print("audiostate 0",1);
+					                    			audio_state = 1;
+					                    			playAudio(trackUrl);
+					                    		
+					                    			// $('#agent_track_state').html("play");
+					                    		} else if (audio_state == 1) {
+					                    			debug_print("audiostate 1",1);
+					                    			my_media.stop();
+					               
+       
+					                    			audio_state = 1;
+					                    			playAudio(trackUrl);
+					                    			// $('#agent_track_state').html("play");
+					                    		} else if (audio_state == 2) {
+					                    			debug_print("audiostate 2",1);
+					                    			my_media.play();
+					                    			audio_state = 1;
+					                    			// $('#agent_track_state').html("play");
+					                    		} 
+
+					                    	} else if (command_obj.data[0].command == "pause") {
+					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command)
+					                    		my_media.pause();
+					                    		audio_state = 2;
+					                    		// $('#agent_track_state').html("pause");
+
+					                    	} else if (command_obj.data[0].command == "stop") {
+					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command)
+					                    		if (my_media) {
+					                    			my_media.stop();
+					                    			my_media.release();
+					                    			clearInterval(mediaTimer);
+            										mediaTimer = null;
+					                    			audio_state = 0;
+					                    			// $('#agent_track_state').html("stop");
+
+					                    		} 
+					                    	} 
+					                    	current_command = command_obj.data[0].id;
+					                    	window.sessionStorage.setItem('current-command',command_obj.data[0].command);
+					                    } else {
+					                    	debug_print("current :: "+ current_command + " database_command :: "+ command_obj.data[0].command);
+					                    }
+	
+					                }
+					            });
+								
+								if (offlineStatus == 1 && audio_state == 1) {
+										debug_print("seekTo position",5);
+					                		$.ajax({
+							                    type: "POST",
+							                    dataType: "html",
+							                    url: "http://192.168.129.1/node_server/getposition.php", //Relative or absolute path to response.php file
+							                    data: { "group_id" : $('#group_text').val() },
+							                    success: function(data) {
+							                    debugJSON_print(data,1,'get position');
+							                    var position_obj = JSON.parse(data);
+							                    debugJSON_print(position_obj.data[0].track_position,5,"debug position obj");
+							                    my_media.seekTo(position_obj.data[0].track_position*1000);
+
+							                	}
+						                	});
+						                	offlineStatus = 0; 
+						                	
+					             }
+
+			          	}
+			        }
+			    }, 500);
+
+			    reloadtimerID = setTimeout(function() {
+				
+					var d = new Date();
+					debug_print("checkobjectloaded "+d,5);
+					if (program_state < 3) {
+						window.location.reload();
+					}
+				
+				}, 10000);
+
+			    
+
+				//
+		});
+		
+		
+
+		
+
+		
+
+	</script>
+	<style type="text/css">
+		.overlay-div {
+			width: 100%; height: 100%;
+			position:absolute;
+		    top:0; right:0;
+		    bottom:0; left:0;
+		    background: white;
+		   	 
+		}
+
+		.wifi
+			{
+			position:absolute;
+			top:0px;
+			left:0px;
+			
+			}
+
+		.battery-text
+			{
+			position:absolute;
+			top:17px;
+			left:72px;
+			font-size:small;
+			z-index: 100;
+			}
+
+		.battery
+			{
+			position:absolute;
+			top:0px;
+			left:55px;
+			
+			}
+
+		.server
+			{
+			position:absolute;
+			top:0px;
+			right:0px;
+			
+			}
+
+		.footer
+			{
+			position:absolute;
+			bottom:10px;
+			width:100%;
+			
+			}
+
+		.forradio {
+		  width: 200px;
+		  border-radius: 3px;
+		  border: 1px solid #D1D3D4
+		}
+
+		/* hide input */
+		input.radio:empty {
+			margin-left: -999px;
+		}
+
+		/* style label */
+		input.radio:empty ~ label {
+			position: relative;
+			float: left;
+			line-height: 2.5em;
+			text-indent: 3.25em;
+			margin-top: 2em;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		input.radio:empty ~ label:before {
+			position: absolute;
+			display: block;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			content: '';
+			width: 2.5em;
+			background: #D1D3D4;
+			border-radius: 3px 0 0 3px;
+		}
+
+		/* toggle hover */
+		input.radio:hover:not(:checked) ~ label:before {
+			content:'\2714';
+			text-indent: .9em;
+			color: #C2C2C2;
+		}
+
+		input.radio:hover:not(:checked) ~ label {
+			color: #888;
+		}
+
+		/* toggle on */
+		input.radio:checked ~ label:before {
+			content:'\2714';
+			text-indent: .9em;
+			color: #9CE2AE;
+			background-color: #4DCB6D;
+		}
+
+		input.radio:checked ~ label {
+			color: #777;
+		}
+
+		/* radio focus */
+	</style>
+</head>
+<body>
+	<br>
+
+	<div id="index_div" class="overlay-div">
+		<div id="netcon"></div>
+		<div id="SSID"></div>
+		<div id="program_state"></div>
+		<div id="progress_state"></div>
+		<div id="progress"></div>
+		<div id="progress_text"></div>
+		<div id="group_div">
+			<input type="text" id="group_text" value="1" height='50px'/> <a href='#' id="group_button"/> <img src=img/next.png width='50px' height='50px'></a>
+		</div>
+		<div id="group_text_div">
+			<div>
+				<div><label> Device String :: </label> <label id="device_string"></label></div>
+				<div><label> Device Model  :: </label> <label id="device_model"></label></div>
+				<div><label> Device Serial :: </label> <label id="device_serial"></label></div>
+				<div><label> Group :: </label> <label id="group_id"></label></div>
+				<div><label> Role :: </label> <label id="role_label"></label></div>
+				<div><label> Language :: </label> <label id="language_label"></label></div>
+				<div><label> Audio State :: </label> <label id="audio_label"></label></div>
+			</div>
+		</div>
+		<br>
+		<div id="role_selection">
+			Please kindly select your device role::
+	      	<div>
+				<input type="radio" name="role_radio" id="radio1" class="radio"/>
+				<label for="radio1" class="forradio">Main</label>
+			</div>
+			<div>
+				<input type="radio" name="role_radio" id="radio2" class="radio"/>
+				<label for="radio2" class="forradio">Agent</label>
+			</div>
+		</div>
+		
+		<div id="language_selection">
+			Please kindly select your device role::
+	      	<div>
+				<input type="radio" name="role_radio" id="language_radio1" class="radio"/>
+				<label for="language_radio1" class="forradio">Thai</label>
+			</div>
+			<div>
+				<input type="radio" name="role_radio" id="language_radio2" class="radio"/>
+				<label for="language_radio2" class="forradio">English</label>
+			</div>
+			<div>
+				<input type="radio" name="role_radio" id="language_radio3" class="radio"/>
+				<label for="language_radio3" class="forradio">Chinese</label>
+			</div>
+			<div>
+				<input type="radio" name="role_radio" id="language_radio4" class="radio"/>
+				<label for="language_radio4" class="forradio">Japanese</label>
+			</div>
+			<div>
+				<input type="radio" name="role_radio" id="language_radio5" class="radio"/>
+				<label for="language_radio5" class="forradio">Taiwanese</label>
+			</div>
+		</div>
+		<div id="footer" class="footer"></div>
+	</div>
+	<div id="main_overlay" class="overlay-div">
+		<div id="wifi-div" class="wifi">
+			&nbsp;<img src=img/no-connection.png width='50px' height='50px' id="wifi-icon">&nbsp;
+		</div>
+		<div id="battery-div" class="battery">
+			&nbsp;<img src=img/empty-battery.png width='50px' height='50px' id="battery-icon">&nbsp;
+		</div>
+		<div id="battery-text" class="battery-text">
+		</div>
+		<div id="server-div" class="server">
+			&nbsp;<img src=img/no-server.png width='50px' height='50px' id="server-icon">&nbsp;
+		</div>
+		<div id="soundlist_div">
+			<select id="soundlist_select">
+			</select>
+		</div>
+		<div id="audiocontrol">
+			<a href='#' id="play_button"/> <img src=img/play.png width='100px' height='100px'></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' id="stop_button"/> <img src=img/stop.png width='100px' height='100px'></a>
+		</div>
+		<div id="Track Infomation">
+			<div>
+				<div><label> Language :: </label> <label id="mainLanguage"></label></div>
+				<div><label> TrackID :: </label> <label id="trackID"></label></div>
+				<div><label> Path  :: </label> <label id="track_path"></label></div>
+				<div><label> State :: </label> <label id="track_state"></label></div>
+				<div><label> Position :: </label> <label id="track_position"></label></div>
+			</div>
+		</div>
+		<div id="main_progressbar"></div>
+		<div id="main_group_id"></div>
+		<div id="main_footer" class="footer"></div>
+	</div>
+	<div id="agent_overlay" class="overlay-div">
+		<div id="agent-wifi-div" class="wifi">
+			&nbsp;<img src=img/no-connection.png width='50px' height='50px' id="agent-wifi-icon">&nbsp;
+		</div>
+		<div id="agent-battery-div" class="battery">
+			&nbsp;<img src=img/empty-battery.png width='50px' height='50px' id="agent-battery-icon">&nbsp;
+		</div>
+		<div id="agent-battery-text" class="battery-text">
+		</div>
+		<div id="agent-server-div" class="server">
+			&nbsp;<img src=img/no-server.png width='50px' height='50px' id="agent-server-icon">&nbsp;
+		</div>
+		<div id="agent-track-info">
+			<div>
+				<div><label> Language :: </label> <label id="agent_language"></label></div>
+				<div><label> Path  :: </label> <label id="agent_track_path"></label></div>
+				<div><label> State :: </label> <label id="agent_track_state"></label></div>
+				<div><label> Position :: </label> <label id="agent_track_position"></label></div>
+			</div>
+		</div>
+		<div id="agent_group_id"></div>
+		<div id="agent_footer" class="footer"></div>
+	</div>
+	
+</body>
+</html>
