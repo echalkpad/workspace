@@ -1,13 +1,35 @@
 var facebookperson = {};
 var fbloginstatus = 0;
+
+var onGeoSuccess = function(position) {
+    console.log('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + position.timestamp                + '\n');
+           window.sessionStorage.setItem('lng',position.coords.longitude);
+           window.sessionStorage.setItem('lat',position.coords.latitude);
+};
+
+// onError Callback receives a PositionError object
+//
+function onGeoError(error) {
+    console.log('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+
 function onDeviceReady() {
    
     devicestring = device.uuid;
     console.log(devicestring);
     console.log("on device start");
-    //if (localStorage['fbloginflag'] == 1) {
+    if (localStorage['fbloginflag'] == 1) {
         facebookStatus();
-    //}
+    }
 
 
 }
@@ -1242,6 +1264,8 @@ var mainView = myApp.addView(".view-main", {
 
 $$('.popup-login').on('opened', function () {
 
+
+
 // ----------------login part ---------------------
 var buttonpress = 0;
 $('#facebookLogin').on('click', function() {
@@ -1252,6 +1276,10 @@ $('#facebookLogin').on('click', function() {
 
 $('#loginclubaroy').click(function() {
     // console.log($('#usernameclubaroy').val());
+    if ($('#usernameclubaroy').val() == "" || $('#usernameclubaroy').val() == null || $('#usernameclubaroy').val() == undefined || $('#passwordclubaroy').val() == "" || $('#passwordclubaroy').val() == null || $('#passwordclubaroy').val() == undefined) {
+    myApp.alert("Please input username or password","");
+    return false;
+    }
     var loginobj = "";
         $.ajax({
             async: false,
@@ -1330,6 +1358,10 @@ $('#loginclubaroy').click(function() {
         window.localStorage.setItem("logintype", 'normal');
         window.localStorage.setItem("username", $('#usernameclubaroy').val());
         window.localStorage.setItem("userpw", $('#passwordclubaroy').val());
+    } else {
+    myApp.alert("Incorrect username or password","");
+    return false;
+        
     }
 
 
@@ -1367,6 +1399,38 @@ $$(".popup-splash").on("opened", function() {
             // And if we need scrollbar
             
           })
+    }
+
+    if ("" == page.name || "index" == page.name) {
+        $('#imagemap1').hide();
+        $('#imagemap2').show();
+        $('map').imageMapResize();
+        
+        $('map[name=clubaroi1] area').click(function(){
+            console.log('1');
+             //alert($(this).attr('id'));
+             if ($(this).attr('id') == "aroidara") {
+             mainView.router.loadPage('vdo.html?video_type=1&jsonfile=video&offset=0');
+             } else if ($(this).attr('id') == "aroiduni") {
+             mainView.router.loadPage('university.html?jsonfile=universities');
+             } else if ($(this).attr('id') == "aroiwanni") {
+             mainView.router.loadPage('favorite.html?offset=0&rand=1');
+             } else if ($(this).attr('id') == "aroisala") {
+             mainView.router.loadPage('salary.html');
+             } else if ($(this).attr('id') == "aroitravel") {
+             mainView.router.loadPage('travel.html');
+             } else if ($(this).attr('id') == "aroidstar") {
+             mainView.router.loadPage('#');
+             } else if ($(this).attr('id') == "aroidcat") {
+             mainView.router.loadPage('category2.html');
+             } else if ($(this).attr('id') == "aroidprov") {
+             mainView.router.loadPage('province.html');
+             } else if ($(this).attr('id') == "aroidsonjon") {
+             mainView.router.loadPage('vdo.html?video_type=0&jsonfile=video&offset=0');
+             } else if ($(this).attr('id') == "aroical") {
+             mainView.router.loadPage('cal.html');
+             }
+        })
     }
     if ($(".page-on-center .chart-content").length > 0) {
         var ctx = document.querySelector(".page-on-center .chart-content").getContext("2d");
@@ -1460,35 +1524,7 @@ $$(".popup-splash").on("opened", function() {
     });
 
     if ("" == page.name || "index" == page.name) {
-        $('#imagemap1').hide();
-        $('#imagemap2').show();
-        $('map').imageMapResize();
-
-        $('map[name=clubaroi1] area').click(function(){
-            console.log('1');
-             //alert($(this).attr('id'));
-             if ($(this).attr('id') == "aroidara") {
-             mainView.router.loadPage('vdo.html?video_type=1&jsonfile=video&offset=0');
-             } else if ($(this).attr('id') == "aroiduni") {
-             mainView.router.loadPage('university.html?jsonfile=universities');
-             } else if ($(this).attr('id') == "aroiwanni") {
-             mainView.router.loadPage('favorite.html?offset=0&rand=1');
-             } else if ($(this).attr('id') == "aroisala") {
-             mainView.router.loadPage('salary.html');
-             } else if ($(this).attr('id') == "aroitravel") {
-             mainView.router.loadPage('travel.html');
-             } else if ($(this).attr('id') == "aroidstar") {
-             mainView.router.loadPage('#');
-             } else if ($(this).attr('id') == "aroidcat") {
-             mainView.router.loadPage('category2.html');
-             } else if ($(this).attr('id') == "aroidprov") {
-             mainView.router.loadPage('province.html');
-             } else if ($(this).attr('id') == "aroidsonjon") {
-             mainView.router.loadPage('vdo.html?video_type=0&jsonfile=video&offset=0');
-             } else if ($(this).attr('id') == "aroical") {
-             mainView.router.loadPage('cal.html');
-             }
-        })
+        
 
 
         $('#searchall').keypress(function(e) {
@@ -1540,6 +1576,10 @@ $$(".popup-splash").on("opened", function() {
     }
 
 	if ("favorite" == page.name) { 
+
+        $('#backfavorite').on('click', function() {
+            mainView.router.back();
+        });
 
         var postdata = {};
         if ( page.query.rand == 1 ) {
@@ -2020,8 +2060,9 @@ $.ajax({
     }
 
 if ("list" == page.name) {
+
         //console.log("Checkpoint #1");
-        var myLoc = new google.maps.LatLng(13.760055, 100.4833093);
+        var myLoc = new google.maps.LatLng(sessionStorage['lat'], sessionStorage['lng']);
 
         var offset = 0;
         var rating = [];
@@ -2182,7 +2223,9 @@ if ("list" == page.name) {
     }
 
     if ("market" == page.name) {
-
+        $('#backmarket').on('click', function() {
+            mainView.router.back();
+        });
         var marketobj = "";
         $.ajax({
             type: "POST",
@@ -2238,6 +2281,9 @@ if ("list" == page.name) {
     }
 
     if ("promotion" == page.name) {
+        $('#backpromotion').on('click', function() {
+            mainView.router.back();
+        });
         var promotionobj = "";
         $.ajax({
             type: "POST",
@@ -2282,7 +2328,9 @@ if ("list" == page.name) {
     }
 
     if ("news" == page.name) {
-
+        $('#backnews').on('click', function() {
+            mainView.router.back();
+        });
         var newsobj = "";
         $.ajax({
             type: "POST",
@@ -2328,7 +2376,9 @@ if ("list" == page.name) {
     }
 
     if ("technic" == page.name) {
-
+        $('#backtechnic').on('click', function() {
+            mainView.router.back();
+        });
         var technicobj = "";
         $.ajax({
             type: "POST",
@@ -2374,7 +2424,9 @@ if ("list" == page.name) {
     }
 
     if ("travel" == page.name) {
-
+        $('#backtravel').on('click', function() {
+            mainView.router.back();
+        });
         var travelobj = "";
         $.ajax({
             type: "POST",
@@ -2418,13 +2470,13 @@ if ("list" == page.name) {
         }
         });
 
-        $('#travelback').on('click', function() {
-            mainView.router.back();
-        })
+        
     }
 
     if ("healthy" == page.name) {
-
+        $('#backhealthy').on('click', function() {
+            mainView.router.back();
+        });
         var healthyobj = "";
         $.ajax({
             type: "POST",
@@ -2527,6 +2579,9 @@ if ("list" == page.name) {
     }
 
     if ("vdo" == page.name) {
+        $('#backvdo').on('click', function() {
+            mainView.router.back();
+        });
         console.log(page.query.video_type);
         if (page.query.video_type == 0) {
             $('#vdoheader').html('อร่อยสัญจร');
@@ -2585,6 +2640,9 @@ if ("list" == page.name) {
     }
 
     if ("vdo-detail" == page.name) {
+        $('#backvdodetail').on('click', function() {
+            mainView.router.back();
+        });
         console.log(page.query.video_type);
         if (page.query.video_type == 0) {
             $('#vdoheader1').html('อร่อยสัญจร');
@@ -2636,6 +2694,9 @@ if ("list" == page.name) {
     }
 
     if ("university" == page.name) {
+        $('#backuniversity').on('click', function() {
+            mainView.router.back();
+        });
         $('view').ready(function(){
 
         var uniobj = "";
@@ -2681,7 +2742,9 @@ if ("list" == page.name) {
     }
 
     if ('favoriteuser' == page.name) {
-
+        $('#backfavoriteuser').on('click', function() {
+            mainView.router.back();
+        });
         var favorobj = "";
         $.ajax({
             type: "POST",
@@ -2748,7 +2811,9 @@ if ("list" == page.name) {
     }
 
     if ('usercommentlogin' == page.name) {
-
+        $('#backcommentuser').on('click', function() {
+            mainView.router.back();
+        });
         var ucobj = "";
         $.ajax({
             type: "POST",
@@ -2802,7 +2867,7 @@ if ("list" == page.name) {
     }
 
     if ('recipe' == page.name) {
-        $('#tumang').on('click', function() {
+        $('#backrecipe').on('click', function() {
             mainView.router.back();
         })
 
@@ -2894,7 +2959,7 @@ if ("list" == page.name) {
     }
 
     if ("recipedetails" == page.name) {
-        $('#tumangd').on('click', function() {
+        $('#backrecipedetails').on('click', function() {
             mainView.router.back();
         })
         var rcpxobj = "";
@@ -3013,7 +3078,9 @@ if ("list" == page.name) {
     }
 
     if ("cal" == page.name) {
-
+        $('#backcal').on('click', function() {
+            mainView.router.back();
+        });
         var ccobj = "";
         $.ajax({
             type: "POST",
@@ -3057,6 +3124,19 @@ if ("list" == page.name) {
             }
         });
 
+    }
+
+    if ("province" == page.name) {
+        $('#backprovince').on('click', function() {
+            mainView.router.back();
+        });
+        navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
+    }
+
+    if ("category" == page.name) {
+        $('#backcategory2').on('click', function() {
+            mainView.router.back();
+        });
     }
 
 	}), $(document).ready(function() {

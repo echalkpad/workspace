@@ -33,5 +33,13 @@
             "APP_ID": "852851048169450",
             "APP_NAME": "www.clubaroy.com"
         }
+    },
+    "cordova-plugin-geolocation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-geolocation"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

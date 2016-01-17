@@ -33,7 +33,8 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.2.0",
     "com.pylonproducts.wifiwizard": "0.2.11",
     "cordova-plugin-device": "1.1.0",
-    "phonegap-facebook-plugin": "0.12.0"
+    "phonegap-facebook-plugin": "0.12.0",
+    "cordova-plugin-geolocation": "1.0.1"
 }
 // BOTTOM OF METADATA
 });
