@@ -17,6 +17,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"FacebookConnectPlugin\"><param name=\"android-package\" value=\"org.apache.cordova.facebook.ConnectPlugin\" /></feature>",
                             "count": 1
                         },
@@ -38,10 +42,6 @@
                         },
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -98,12 +98,12 @@
         "com.pylonproducts.wifiwizard": {
             "PACKAGE_NAME": "com.clubaroy"
         },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.clubaroy"
+        },
         "phonegap-facebook-plugin": {
             "APP_ID": "852851048169450",
             "APP_NAME": "www.clubaroy.com",
-            "PACKAGE_NAME": "com.clubaroy"
-        },
-        "cordova-plugin-device": {
             "PACKAGE_NAME": "com.clubaroy"
         }
     },

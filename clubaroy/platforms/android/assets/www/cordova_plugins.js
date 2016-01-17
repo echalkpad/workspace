@@ -13,17 +13,17 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/phonegap-facebook-plugin/facebookConnectPlugin.js",
-        "id": "phonegap-facebook-plugin.FacebookConnectPlugin",
-        "clobbers": [
-            "facebookConnectPlugin"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-device/www/device.js",
         "id": "cordova-plugin-device.device",
         "clobbers": [
             "device"
+        ]
+    },
+    {
+        "file": "plugins/phonegap-facebook-plugin/facebookConnectPlugin.js",
+        "id": "phonegap-facebook-plugin.FacebookConnectPlugin",
+        "clobbers": [
+            "facebookConnectPlugin"
         ]
     }
 ];
@@ -32,8 +32,8 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.2.0",
     "com.pylonproducts.wifiwizard": "0.2.11",
-    "phonegap-facebook-plugin": "0.12.0",
-    "cordova-plugin-device": "1.1.0"
+    "cordova-plugin-device": "1.1.0",
+    "phonegap-facebook-plugin": "0.12.0"
 }
 // BOTTOM OF METADATA
 });

@@ -15,6 +15,14 @@
         "is_top_level": true,
         "variables": {}
     },
+    "cordova-plugin-device": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-device"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
     "phonegap-facebook-plugin": {
         "source": {
             "type": "registry",
@@ -25,13 +33,5 @@
             "APP_ID": "852851048169450",
             "APP_NAME": "www.clubaroy.com"
         }
-    },
-    "cordova-plugin-device": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-device"
-        },
-        "is_top_level": true,
-        "variables": {}
     }
 }

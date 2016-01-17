@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+     <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline' https: 'www.clubaroy.com'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: 'www.clubaroy.com'"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
@@ -359,10 +360,9 @@
                     </div>
                 </div>
             </form>
-            
                  <div class="form-row">
                     <div class="input-submit">
-                        <a href="#" data-popup=".popup-register" class="open-popup button button-big js-form-submit button-fill button-primary" id="loginclubaroy">สมัครสมาชิก</a>
+                        <a href="#" data-popup=".popup-register" class="open-popup button button-big js-form-submit  button-fill button-primary2" id="loginclubaroy">สมัครสมาชิก</a>
                     </div>
                 </div>
                 
@@ -375,6 +375,11 @@
                     <div class="input-submit">
 
                         <div class="fb-login-button" onClick="facebookLongin" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false" style="width:100%"></div>
+                    </div>
+                </div>
+                 <div class="form-row">
+                    <div class="input-submit">
+                        <a href="#" class="button button-big button-fill button-primary3" id="facebookLogin">Facebook</a>
                     </div>
                 </div>
         </div>
@@ -466,7 +471,7 @@
 </div>
 
 
-
+<script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
 <script type="text/javascript" src="bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>

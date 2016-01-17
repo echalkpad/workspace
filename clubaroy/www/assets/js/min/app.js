@@ -1,4 +1,139 @@
 var facebookperson = {};
+var fbloginstatus = 0;
+function onDeviceReady() {
+   
+    devicestring = device.uuid;
+    console.log(devicestring);
+    console.log("on device start");
+    //if (localStorage['fbloginflag'] == 1) {
+        facebookStatus();
+    //}
+
+
+}
+
+function facebookLogin() {
+    var fbLoginSuccess = function (userData) {
+        console.log("login facebook");
+        facebookStatus();
+        console.log("UserInfo: " + JSON.stringify(userData));
+        window.localStorage.setItem('fbloginflag',1);
+    }
+
+    facebookConnectPlugin.login(["public_profile"],
+        fbLoginSuccess,
+        function (error) { //alert("" + error) 
+        }
+    );
+}
+
+function facebookStatus() {
+    console.log("run facebook status");
+    
+    //alert("UserInfo: " + JSON.stringify(userData));
+    facebookConnectPlugin.getLoginStatus(
+        function (status) {
+            fbloginstatus = 1;
+            console.log("current status: " + JSON.stringify(status));
+            //fconsole.log(status.authResponse.userID);
+            if (status.status == 'connected') {
+                var loginobj = "";
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    dataType: "html",
+                    url: "http://www.clubaroy.com/mobile/json/facebook2json.php", //Relative or absolute path to response.php file
+                    data: { "facebook.id" : status.authResponse.userID },
+                    success: function(data) {
+                    console.log(data)
+
+                    loginobj = JSON.parse(data);
+                    var length = Object.keys(loginobj.data).length;
+                    if (length > 0 ) {
+                    console.log(loginobj)
+                    console.log('Successful login for: ' + readJSON(loginobj.data[0].username));
+                    $('#facebookname').html(readJSON(loginobj.data[0].firstname));
+                    if (readJSON(loginobj.data[0].avatar) ==  "" || readJSON(loginobj.data[0].avatar) == null ) {
+                        $('#userpicture').attr('src','assets/img/tmp/ava4.jpg');
+                    } else {
+                        $('#userpicture').attr('src','http://www.clubaroy.com/home/uploads/users/'+readJSON(loginobj.data[0].avatar));
+                    }
+                    sessionStorage.setItem('userid', readJSON(loginobj.data[0].id));           
+
+                    sessionStorage.setItem('loginstatus', 1);
+                    $('#lifav').show();
+                    $('#lireview').show();
+                    $('#lilogin').hide();
+                    
+                    $('#limyrec').show();
+                    $('#userrecipe').attr('href','recipes.html?uid='+sessionStorage.getItem('userid')+'&method=2');
+                    checkfavor();
+                    
+                    myApp.closeModal();
+                    // console.log(html);
+                    }
+                    }
+                });
+                $('#lilogout').show();
+                var ucobj = "";
+                $.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+                    data: { "user_id" : sessionStorage.getItem('userid')},
+                    success: function(data) {
+                    //console.log(data)
+
+                    ucobj = JSON.parse(data);
+                    var length = Object.keys(ucobj.data).length;
+                    // console.log(length)
+                    $('#bareview').html(length);
+                    // console.log(html);
+                    
+                    }
+                });
+
+                var rxobj = "";
+                $.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: "http://www.clubaroy.com/mobile/json/recipe2json.php", //Relative or absolute path to response.php file
+                    data: { "uid" : sessionStorage.getItem('userid')},
+                    success: function(data) {
+                    //console.log(data)
+
+                    rxobj = JSON.parse(data);
+                    var length = Object.keys(rxobj.data).length;
+                    // console.log(length)
+                    $('#bamyrec').html(length);
+                    // console.log(html);
+                    
+                    }
+                })
+
+                facebookConnectPlugin.api( "me/?fields=id,name", ["public_profile"],
+                    function (response) { $('#facebookname').html(response.name); },
+                    function (response) { // alert(JSON.stringify(response)) 
+                    }); 
+                myApp.closeModal();
+                
+            } else {
+                facebookLogin();
+            }
+            //var options = { method:"feed" };
+            //facebookConnectPlugin.showDialog(options,
+            //    function (result) {
+             //       //alert("Posted. " + JSON.stringify(result));             },
+            //function (e) {
+            //    alert("Failed: " + e);
+            //    });
+            }
+        );
+        
+
+
+}
+
 
 // Initialize app
 function naxvarBg() {
@@ -1109,7 +1244,11 @@ $$('.popup-login').on('opened', function () {
 
 // ----------------login part ---------------------
 var buttonpress = 0;
-        
+$('#facebookLogin').on('click', function() {
+    facebookStatus();
+
+
+})        
 
 $('#loginclubaroy').click(function() {
     // console.log($('#usernameclubaroy').val());
@@ -1197,159 +1336,9 @@ $('#loginclubaroy').click(function() {
 })
 //-------------------------------------------------
 
-    function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    //console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      testAPI();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
-    }
-  }
-
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-      window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '852855354835686',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.5' // use version 2.2
-  });
-
-    FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-    });
-
-  };
-
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
-
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me?scope=email', function(response) {
-        console.log(response)
-        facebookperson = response;
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-        $('#facebookname').html(facebookperson.name);
-        console.log("fid :: "+facebookperson.id);
-        var loginobj = "";
-        $.ajax({
-            async: false,
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/facebook2json.php", //Relative or absolute path to response.php file
-            data: { "facebook.id" : facebookperson.id },
-            success: function(data) {
-            console.log(data)
-
-            loginobj = JSON.parse(data);
-            var length = Object.keys(loginobj.data).length;
-            console.log(loginobj)
-            console.log('Successful login for: ' + readJSON(loginobj.data[0].username));
-            $('#facebookname').html(readJSON(loginobj.data[0].firstname));
-            if (readJSON(loginobj.data[0].avatar) ==  "" || readJSON(loginobj.data[0].avatar) == null ) {
-                $('#userpicture').attr('src','assets/img/tmp/ava4.jpg');
-            } else {
-                $('#userpicture').attr('src','http://www.clubaroy.com/home/uploads/users/'+readJSON(loginobj.data[0].avatar));
-            }
-            sessionStorage.setItem('userid', readJSON(loginobj.data[0].id));           
-
-            sessionStorage.setItem('loginstatus', 1);
-            $('#lifav').show();
-            $('#lireview').show();
-            $('#lilogin').hide();
-            $('#lilogout').show();
-            $('#limyrec').show();
-            $('#userrecipe').attr('href','recipes.html?uid='+sessionStorage.getItem('userid')+'&method=2');
-            checkfavor();
-            myApp.closeModal();
-            // console.log(html);
-            
-            }
-        });
-        var ucobj = "";
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
-            data: { "user_id" : sessionStorage.getItem('userid')},
-            success: function(data) {
-            //console.log(data)
-
-            ucobj = JSON.parse(data);
-            var length = Object.keys(ucobj.data).length;
-            // console.log(length)
-            $('#bareview').html(length);
-            // console.log(html);
-            
-            }
-        });
-
-        var rxobj = "";
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/recipe2json.php", //Relative or absolute path to response.php file
-            data: { "uid" : window.sessionStorage.getItem('userid')},
-            success: function(data) {
-            //console.log(data)
-
-            rxobj = JSON.parse(data);
-            var length = Object.keys(rxobj.data).length;
-            // console.log(length)
-            $('#bamyrec').html(length);
-            // console.log(html);
-            
-            }
-        })
-    });
-    console.log(facebookperson)
-    FB.api('/1675743575970922?field=email' , function(response){
-        // console.log("test");
-        // console.log(response);
-    })
-    $('#facebookname').html(facebookperson.name);
-    window.localStorage.setItem("userid", window.sessionStorage.getItem('userid'));
-    window.localStorage.setItem("logintype", window.sessionStorage.getItem('facebook'));
-    myApp.closeModal
-        
 
 
-  }
-  // console.log('About Popup opened')
+
 });
 
 $$(".popup-splash").on("opened", function() {
@@ -3071,7 +3060,7 @@ if ("list" == page.name) {
     }
 
 	}), $(document).ready(function() {
-	
+	document.addEventListener("deviceready", onDeviceReady, false);
 
 
 
@@ -3135,6 +3124,9 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
         window.localStorage.removeItem("logintype");
         window.localStorage.removeItem("username");
         window.localStorage.removeItem("userpw");
+         facebookConnectPlugin.logout( 
+                function (response) {  },
+                function (response) {  });
         })
         
         $('#lifav').hide();
@@ -3219,158 +3211,18 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
         })
 
 
-    function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    //console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      testAPI();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
-    }
-  }
 
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
 
-      window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '852855354835686',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.5' // use version 2.2
-  });
 
-    FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-    });
-
-  };
 
   // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+
 
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
-
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me?scope=email', function(response) {
-        console.log(response)
-        facebookperson = response;
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-        $('#facebookname').html(facebookperson.name);
-        console.log("fid :: "+facebookperson.id);
-        var loginobj = "";
-        $.ajax({
-            async: false,
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/facebook2json.php", //Relative or absolute path to response.php file
-            data: { "facebook.id" : facebookperson.id },
-            success: function(data) {
-            console.log(data)
-
-            loginobj = JSON.parse(data);
-            var length = Object.keys(loginobj.data).length;
-            console.log(loginobj)
-            console.log('Successful login for: ' + readJSON(loginobj.data[0].username));
-            $('#facebookname').html(readJSON(loginobj.data[0].firstname));
-            if (readJSON(loginobj.data[0].avatar) ==  "" || readJSON(loginobj.data[0].avatar) == null ) {
-                $('#userpicture').attr('src','assets/img/tmp/ava4.jpg');
-            } else {
-                $('#userpicture').attr('src','http://www.clubaroy.com/home/uploads/users/'+readJSON(loginobj.data[0].avatar));
-            }
-            sessionStorage.setItem('userid', readJSON(loginobj.data[0].id));           
-
-            sessionStorage.setItem('loginstatus', 1);
-            $('#lifav').show();
-            $('#lireview').show();
-            $('#lilogin').hide();
-            $('#lilogout').show();
-            $('#limyrec').show();
-            $('#userrecipe').attr('href','recipes.html?uid='+sessionStorage.getItem('userid')+'&method=2');
-            checkfavor();
-            myApp.closeModal();
-            // console.log(html);
-            
-            }
-        });
-        var ucobj = "";
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
-            data: { "user_id" : sessionStorage.getItem('userid')},
-            success: function(data) {
-            //console.log(data)
-
-            ucobj = JSON.parse(data);
-            var length = Object.keys(ucobj.data).length;
-            // console.log(length)
-            $('#bareview').html(length);
-            // console.log(html);
-            
-            }
-        });
-
-        var rxobj = "";
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/recipe2json.php", //Relative or absolute path to response.php file
-            data: { "uid" : window.sessionStorage.getItem('userid')},
-            success: function(data) {
-            //console.log(data)
-
-            rxobj = JSON.parse(data);
-            var length = Object.keys(rxobj.data).length;
-            // console.log(length)
-            $('#bamyrec').html(length);
-            // console.log(html);
-            
-            }
-        })
-    });
-    console.log(facebookperson)
-    FB.api('/1675743575970922?field=email' , function(response){
-        // console.log("test");
-        // console.log(response);
-    })
-    $('#facebookname').html(facebookperson.name);
-    window.localStorage.setItem("userid", window.sessionStorage.getItem('userid'));
-    window.localStorage.setItem("logintype", window.sessionStorage.getItem('facebook'));
-    myApp.closeModal
-        
-
-
-  }
 
   if (window.localStorage.getItem('logintype') == 'normal' && window.localStorage.getItem("username") != undefined ) {
     // console.log($('#usernameclubaroy').val());

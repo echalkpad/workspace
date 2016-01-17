@@ -5,9 +5,9 @@ function onDeviceReady() {
     devicestring = device.uuid;
     console.log(devicestring);
     console.log("on device start");
-    if (localStorage['fbloginflag'] == 1) {
+    //if (localStorage['fbloginflag'] == 1) {
         facebookStatus();
-    }
+    //}
 
 
 }
@@ -133,6 +133,7 @@ function facebookStatus() {
 
 
 }
+
 
 // Initialize app
 function naxvarBg() {
@@ -341,6 +342,114 @@ function sendFile(fileData, rid, filename) {
 
 }
 
+function sendcomment(rid) {
+    var formData = new FormData();
+
+    formData.append('imageData', "");
+    //myApp.alert("$('#commentbox1').val()","");
+    formData.append('comment', $('#commentbox1').val());
+    formData.append('userid', sessionStorage.getItem('userid'));
+    formData.append('rid', rid);
+    formData.append('filename', "");
+    formData.append('rating', $('#commentrating').val())
+    //console.log(formData)
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://www.clubaroy.com/mobile/json/addrcomment2json.php',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            if (data == 1) {
+                // alert('Your file was successfully uploaded!');
+                $('#rcommentdiv').html("");
+                var rcobj = "";
+        
+                    $.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        url: "http://www.clubaroy.com/mobile/json/rcomment2json.php", //Relative or absolute path to response.php file
+                        data: { "restaurant_id" : rid },
+                        success: function(data) {
+                        //console.log(data)
+
+                        rcobj = JSON.parse(data);
+                        var length = Object.keys(rcobj.data).length;
+                        html="";
+                        var avatar = "";
+                        for (var i=0; i < length; i++) {
+                        // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+                        html = '<li class="swipeout">';
+                        html+= '<div class="swipeout-content">';
+                        html+= '<div class="item-content">';
+                        html+= '<div class="item-inner comments-list">';
+                        html+= '<div class="image">';
+                        html+= '<span class="ava">';
+                        if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
+                            avatar = "assets/img/tmp/ava1.jpg";
+                        } else {
+                            avatar = "http://www.clubaroy.com/home/uploads/users/"+readJSON(rcobj.data[i].avatar);
+                        }
+                        html+= '<img src="'+avatar+'" alt="">';
+                        html+= '</span>';
+                        html+= '</div>';
+                        html+= '<div class="text">';
+                        html+= '<div class="info">';
+                        var nickname = "";
+                        if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
+                            nickname = readJSON(rcobj.data[i].firstname);
+                        } else {
+                            nickname = readJSON(rcobj.data[i].username);
+                        }
+                        html+= '<span class="nick">'+nickname+'</span>';
+                        html+= '<span class="data">'+readJSON(rcobj.data[i].created)+'</span>';
+                        html+= '</div>';
+                        html+= '<div class="comment">';
+                        html+= '<span id=crating></span>'
+                                    var xxhtml = "";
+                            for ( var j=0; j < rcobj.data[i].rating; j++ ) {
+                                if (j < rcobj.data[i].rating) {
+                                    xxhtml += "<i class='fa fa-star'></i>";
+                                } else {
+                                    xxhtml += "<i class='fa fa-star-o'></i>";
+                                }
+                            }
+                            html+= xxhtml+"<br><br>";
+
+                        html+= readJSON(rcobj.data[i].detail).replace(/uploads/g,'..\/home\/uploads');
+                        html+= '</div>';
+                        html+= '</div>';
+                        html+= '</div>';
+                        html+= '</div>';
+                        html+= '</div>';
+                        html+= '<div class="swipeout-actions-right">';
+                        html+= '<a href="#" class="action-green js-up">';
+                        html+= '<i class="fa fa-thumbs-o-up"></i>';
+                        html+= '</a>';
+                        html+= '<a href="#" class="action-red js-down">';
+                        html+= '<i class="fa fa-thumbs-o-down"></i>';
+                        html+= '</a>';
+                        html+= '</div>';
+                        html+= '</li>';
+                        $('#rcommentdiv').append(html);
+                        
+                        }
+                    }
+                });
+            } else {
+                //alert('There was an error uploading your file!');
+            }
+        },
+        error: function (data) {
+            //alert('There was an error uploading your file!');
+        }
+    });
+
+
+}
+
 // ---------end comment -----------------------------------------------------------------
 
 
@@ -448,6 +557,40 @@ function fsendFile(fileData, filename) {
 
 }
 
+function fsendcomment() {
+    var formData = new FormData();
+
+    // formData.append('imageData', fileData);
+    //myApp.alert("$('#commentbox1').val()","");
+    formData.append('userid', sessionStorage.getItem('userid'));
+    //formData.append('filename', filename);
+    formData.append('title', $('#recipebox1').val())
+    formData.append('detail', $('#recipebox2').val())
+    formData.append('filename', "");
+    //console.log(formData)
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://www.clubaroy.com/mobile/json/addrecipe2json.php',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            if (data == 1) {
+                mainView.router.loadPage('recipes.html');
+            } else {
+                //alert('There was an error uploading your file!');
+            }
+        },
+        error: function (data) {
+            //alert('There was an error uploading your file!');
+        }
+    });
+
+
+}
+
 // ---------end recipe -----------------------------------------------------------------
 
 
@@ -467,7 +610,7 @@ function mreadFile(file) {
     }
 
     reader.onerror = function () {
-        alert('There was an error reading the file!');
+        //alert('There was an error reading the file!');
     }
 
     reader.readAsDataURL(file);
@@ -516,7 +659,7 @@ function mprocessFile(dataURL, fileType, filename) {
     };
 
     image.onerror = function () {
-        alert('There was an error processing your file!');
+        //alert('There was an error processing your file!');
     };
 }
 
@@ -544,11 +687,11 @@ function msendFile(fileData, filename) {
             if (data == 1) {
                 mainView.router.loadPage('recipes.html');
             } else {
-                alert('There was an error uploading your file!');
+                //alert('There was an error uploading your file!');
             }
         },
         error: function (data) {
-            alert('There was an error uploading your file!');
+            //alert('There was an error uploading your file!');
         }
     });
 
@@ -776,26 +919,54 @@ function removefav(userid,restid) {
              }
         });
     $('#favorplace'+userid+restid).hide();
-    checkfavor();
 
 }
 
 function addfav(userid,restid) {
-    $.ajax({
+
+     var tmpobj=""
+        $.ajax({
         
             type: "POST",
             dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/addfav2json.php", //Relative or absolute path to response.php file
-            data: { "userid" : userid, "restaurant_id" : restid },
+            url: "http://www.clubaroy.com/mobile/json/heart2json.php", //Relative or absolute path to response.php file
+            data: { "restaurant_id" : restid , "userid" : window.sessionStorage.getItem('userid') },
             success: function(data) {
-            console.log(data)
+            //console.log(data)
 
+            tmpobj = JSON.parse(data);
+            var length = Object.keys(tmpobj.data).length;
+            // console.log(length)
+            html="";
+            if (length == 1) {
+                //console.log("checked")
+                //$('#heart'+restaurant_id).removeClass('link fa fa-heart-o').addClass('link fa fa-heart');
+                removefav(userid,restid);
+                $('#heart'+restid).removeClass('link fa fa-heart').addClass('link fa fa-heart-o');
+                $('#lheart'+restid).removeClass('link fa fa-heart').addClass('link fa fa-heart-o');
+            } else {
+                $.ajax({
+        
+                    type: "POST",
+                    dataType: "html",
+                    url: "http://www.clubaroy.com/mobile/json/addfav2json.php", //Relative or absolute path to response.php file
+                    data: { "userid" : userid, "restaurant_id" : restid },
+                    success: function(data) {
+                    // console.log(data)
+
+                    
+
+                     }
+                });
+                myApp.alert("Favorite have been added", "");
+                $('#heart'+restid).removeClass('link fa fa-heart-o').addClass('link fa fa-heart');
+                $('#lheart'+restid).removeClass('link fa fa-heart-o').addClass('link fa fa-heart');
+            }
+        }
             
-
-             }
         });
- myApp.alert("Favorite have been added", "");
- checkfavor();
+    
+ 
 
 }
 
@@ -883,6 +1054,65 @@ function ratingcheck(restaurant_id, x){
         
 
 }
+
+function favcheck(restaurant_id, x){ 
+        //console.log("start check fav");
+        var rating = 0;
+        var tmpobj=""
+        $.ajax({
+        
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/heart2json.php", //Relative or absolute path to response.php file
+            data: { "restaurant_id" : restaurant_id , "userid" : window.sessionStorage.getItem('userid') },
+            success: function(data) {
+            //console.log(data)
+
+            tmpobj = JSON.parse(data);
+            var length = Object.keys(tmpobj.data).length;
+            // console.log(length)
+            html="";
+            if (length == 1) {
+                console.log("checked")
+                $('#heart'+restaurant_id).removeClass('link fa fa-heart-o').addClass('link fa fa-heart');
+            }
+        }
+            
+        });
+        
+        
+
+}
+
+function lfavcheck(restaurant_id, x){ 
+        //console.log("start check fav");
+        var rating = 0;
+        var tmpobj=""
+        $.ajax({
+        
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/heart2json.php", //Relative or absolute path to response.php file
+            data: { "restaurant_id" : restaurant_id , "userid" : window.sessionStorage.getItem('userid') },
+            success: function(data) {
+            //console.log(data)
+
+            tmpobj = JSON.parse(data);
+            var length = Object.keys(tmpobj.data).length;
+            // console.log(length)
+            html="";
+            if (length == 1) {
+                console.log("checked")
+                $('#lheart'+restaurant_id).removeClass('link fa fa-heart-o').addClass('link fa fa-heart');
+            }
+        }
+            
+        });
+        
+        
+
+}
+
 
 function lratingcheck(restaurant_id, x){ 
         //console.log("start check ratiing");
@@ -1014,12 +1244,11 @@ $$('.popup-login').on('opened', function () {
 
 // ----------------login part ---------------------
 var buttonpress = 0;
-
-$('#testfb').on('click', function() {
+$('#facebookLogin').on('click', function() {
     facebookStatus();
 
 
-})
+})        
 
 $('#loginclubaroy').click(function() {
     // console.log($('#usernameclubaroy').val());
@@ -1097,6 +1326,10 @@ $('#loginclubaroy').click(function() {
             
             }
         });
+        window.localStorage.setItem("userid", window.sessionStorage.getItem('userid'));
+        window.localStorage.setItem("logintype", 'normal');
+        window.localStorage.setItem("username", $('#usernameclubaroy').val());
+        window.localStorage.setItem("userpw", $('#passwordclubaroy').val());
     }
 
 
@@ -1105,19 +1338,7 @@ $('#loginclubaroy').click(function() {
 
 
 
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
 
-
-
-
-
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
- 
-  // console.log('About Popup opened')
 });
 
 $$(".popup-splash").on("opened", function() {
@@ -1239,16 +1460,6 @@ $$(".popup-splash").on("opened", function() {
     });
 
     if ("" == page.name || "index" == page.name) {
-
-        $('#backhome').on('click', function() {
-            mainView.router.loadPage('index.html');
-        })
-
-
-        $('#backhome1').on('click', function() {
-            mainView.router.loadPage('index.html');
-        })
-
         $('#imagemap1').hide();
         $('#imagemap2').show();
         $('map').imageMapResize();
@@ -1274,6 +1485,8 @@ $$(".popup-splash").on("opened", function() {
              mainView.router.loadPage('province.html');
              } else if ($(this).attr('id') == "aroidsonjon") {
              mainView.router.loadPage('vdo.html?video_type=0&jsonfile=video&offset=0');
+             } else if ($(this).attr('id') == "aroical") {
+             mainView.router.loadPage('cal.html');
              }
         })
 
@@ -1409,7 +1622,7 @@ $$('.infinite-scroll').on('infinite', function () {
                     if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
                         html+='<div class="facebook-date"></div>';
                     } else {
-                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i class="link fa fa-heart"></i></a></div>';
+                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i id=heart'+tmpobj.data[i].restaurant_id+' class="link fa fa-heart-o"></i></a></div>';
                     
                     }
                     html+='</div>';
@@ -1437,6 +1650,7 @@ $$('.infinite-scroll').on('infinite', function () {
 
                     $("#fav").append(html);
                     (function (i) {
+                    favcheck(tmpobj.data[i].restaurant_id, i);
                     ratingcheck(tmpobj.data[i].restaurant_id, i);
                     }(i))
 
@@ -1480,7 +1694,7 @@ $.ajax({
                     if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
                         html+='<div class="facebook-date"></div>';
                     } else {
-                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i class="link fa fa-heart"></i></a></div>';
+                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i id=heart'+tmpobj.data[i].restaurant_id+' class="link fa fa-heart-o"></i></a></div>';
                     
                     }
                     html+='</div>';
@@ -1508,6 +1722,7 @@ $.ajax({
 
                     $("#fav").append(html);
                     (function (i) {
+                        favcheck(tmpobj.data[i].restaurant_id, i);
                     ratingcheck(tmpobj.data[i].restaurant_id, i);
                     }(i))
 
@@ -1523,6 +1738,9 @@ $.ajax({
 	}
     if ("restaurant" == page.name) {
         //console.log("Checkpoint #2");
+        $('#favback').on('click', function() {
+            mainView.router.back();
+        })
 
 
     if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
@@ -1677,81 +1895,107 @@ $.ajax({
             }
         }
     });
-        
+    $('#addcomment').on('click', function () {  
+    console.log('click 0');
+    var file = ""  
     if (window.File && window.FileReader && window.FormData) {
         var $inputField = $('#file');
 
         $inputField.on('change', function (e) {
-            var file = e.target.files[0];
+            file = e.target.files[0];
 
-        $('#addcomment').on('click', function () {
+        
+            console.log('click 1');
             if (file) {
                 if (/^image\//i.test(file.type)) {
                     readFile(file, page.query.rid);
+                    console.log('click 2');
                 } else {
-                    alert('Not a valid image!');
+                   alert('Not a valid image!');
+                   console.log('click 3');
+                    
                 }
-            }
+            } 
         })    
             
-        });
-    } else {
-        alert("File upload is not supported!");
-    }   
+        
+    } 
+    console.log(file);
+    if (file == "" || file == null) {
 
-    $('#r1').on('mouseleave', function() {
-        $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-    });
-    $('#r1').on('mouseenter', function() {
+        sendcomment(page.query.rid);
+        console.log('click 4');
+    }
+       
+});
+    //$('#r1').on('mouseleave', function() {
+    //    $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //});
+    $('#r1').on('mouseenter touchstart', function() {
         $('#r1').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
+        $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#r3').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#r4').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#r5').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#commentrating').val("1");
     });
 
-    $('#r2').on('mouseleave', function() {
-        $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-    });
-    $('#r2').on('mouseenter', function() {
+    //$('#r2').on('mouseleave', function() {
+    //    $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //});
+    $('#r2').on('mouseenter touchstart', function() {
         $('#r1').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r2').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
+        $('#r3').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#r4').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#r5').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#commentrating').val("2");
     });
 
-    $('#r3').on('mouseleave', function() {
-        $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r3').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-    });
-    $('#r3').on('mouseenter', function() {
+    //$('#r3').on('mouseleave', function() {
+    //    $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r3').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //});
+    $('#r3').on('mouseenter touchstart', function() {
         $('#r1').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r2').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r3').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
+        $('#r4').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#r5').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#commentrating').val("3");
     });
 
-    $('#r4').on('mouseleave', function() {
-        $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r3').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r4').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-    });
-    $('#r4').on('mouseenter', function() {
+    //$('#r4').on('mouseleave', function() {
+    //    $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r3').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r4').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //});
+    $('#r4').on('mouseenter touchstart', function() {
         $('#r1').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r2').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r3').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r4').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
+        $('#r5').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x')
+        $('#commentrating').val("4");
     });
 
-    $('#r5').on('mouseleave', function() {
-        $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r3').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r4').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-        $('#r5').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
-    });
-    $('#r5').on('mouseenter', function() {
+    //$('#r5').on('mouseleave', function() {
+    //    $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r2').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r3').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r4').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //    $('#r5').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
+    //});
+    $('#r5').on('mouseenter touchstart', function() {
         $('#r1').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r2').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r3').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r4').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
         $('#r5').removeClass('fa fa-star-o fa-2x').addClass('fa fa-star fa-2x');
+        $('#commentrating').val("5");
     });
 
     $('#r1').on('click', function() { 
@@ -1839,7 +2083,7 @@ if ("list" == page.name) {
                     if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
                         html+='<div class="facebook-date"></div>';
                     } else {
-                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i class="link fa fa-heart"></i></a></div>';
+                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i id=lheart'+tmpobj.data[i].restaurant_id+' class="link fa fa-heart-o"></i></a></div>';
                     
                     }
                     html+='</div>';
@@ -1867,6 +2111,7 @@ if ("list" == page.name) {
 
                     $("#lfav").append(html);
                     (function (i) {
+                        lfavcheck(tmpobj.data[i].restaurant_id, i);
                     lratingcheck(tmpobj.data[i].restaurant_id, i);
                     }(i))
 
@@ -1882,7 +2127,7 @@ if ("list" == page.name) {
                     if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
                         html+='<div class="facebook-date"></div>';
                     } else {
-                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i class="link fa fa-heart"></i></a></div>';
+                        html+='<div class="facebook-date"><a href="#" onclick="addfav('+sessionStorage.getItem('userid')+','+tmpobj.data[i].restaurant_id+')"><i class="link fa fa-heart-o"></i></a></div>';
                     
                     }
                     html+='</div>';
@@ -1910,6 +2155,7 @@ if ("list" == page.name) {
 
                     $("#lfav").append(html);
                     (function (i) {
+                        lfavcheck(tmpobj.data[i].restaurant_id, i);
                     lratingcheck(tmpobj.data[i].restaurant_id, i);
                     }(i))
                         }
@@ -2466,7 +2712,7 @@ if ("list" == page.name) {
                     html+='<div class="card-content">';
                     html+='<div class="card-content-inner">';
                     html+='<p><i class="fa fa-map-marker"></i>'+readJSON(favorobj.data[i].address_th)+'|'+readJSON(favorobj.data[i].rc_name_th)+'</p>';
-                    html+='<img src="http://www.clubaroy.com/home/uploads/galleries/thumbnail/'+readJSON(favorobj.data[i].image)+'" width="100%">';
+                    html+='<img src="http://www.clubaroy.com/home/uploads/galleries/'+readJSON(favorobj.data[i].image)+'" width="100%">';
                     html+='</div>';
                     html+='</div>';
                     html+='<div class="card-footer">';
@@ -2556,7 +2802,9 @@ if ("list" == page.name) {
     }
 
     if ('recipe' == page.name) {
-
+        $('#tumang').on('click', function() {
+            mainView.router.back();
+        })
 
         if ( sessionStorage.getItem('userid') == "" || sessionStorage.getItem('userid') == null ) {
                 $('#loginfirst1').hide();
@@ -2582,7 +2830,7 @@ if ("list" == page.name) {
             url: "http://www.clubaroy.com/mobile/json/recipe2json.php", //Relative or absolute path to response.php file
             data: postdata,
             success: function(data) {
-            console.log(data)
+            //console.log(data)
 
             rcpobj = JSON.parse(data);
             var length = Object.keys(rcpobj.data).length;
@@ -2618,7 +2866,12 @@ if ("list" == page.name) {
                     html+='<div class="card-content">';
                     html+='<div class="card-content-inner">';
 					html+='<p>'+readJSON(rcpobj.data[i].title)+'</p>';
-					html+='<img src="http://www.clubaroy.com/home/uploads/recipes/'+readJSON(rcpobj.data[i].thumbnail)+'" width=100%>'
+                    //console.log(rcpobj.data[i].thumbnail)
+                    if (rcpobj.data[i].thumbnail.trim() == "" || rcpobj.data[i].thumbnail == null || rcpobj.data[i].thumbnail == undefined) {
+
+                    } else {
+					   html+='<img src="http://www.clubaroy.com/home/uploads/recipes/'+readJSON(rcpobj.data[i].thumbnail)+'" width=100%>'
+                    }
 					html+='<p class="color-gray">VIEW: '+readJSON(rcpobj.data[i].counter)+' </p>';
                     html+='</div>';
                     html+='</div>';
@@ -2641,6 +2894,9 @@ if ("list" == page.name) {
     }
 
     if ("recipedetails" == page.name) {
+        $('#tumangd').on('click', function() {
+            mainView.router.back();
+        })
         var rcpxobj = "";
         $.ajax({
             type: "POST",
@@ -2648,7 +2904,7 @@ if ("list" == page.name) {
             url: "http://www.clubaroy.com/mobile/json/recipe2json.php", //Relative or absolute path to response.php file
             data: { "id" : page.query.id },
             success: function(data) {
-            console.log(data)
+            //console.log(data)
 
             rcpxobj = JSON.parse(data);
             var length = Object.keys(rcpxobj.data).length;
@@ -2709,7 +2965,7 @@ if ("list" == page.name) {
             url: "http://www.clubaroy.com/mobile/json/updatecounter2json.php", //Relative or absolute path to response.php file
             data: { "id" : page.query.id },
             success: function(data) {
-            console.log(data)
+            //console.log(data)
 
 
             // console.log(length)
@@ -2718,14 +2974,17 @@ if ("list" == page.name) {
     }
 
     if ("recipeadd" == page.name) {
+        var file = "";
+        $('#addrecipe').on('click', function () {
         console.log(page.name);
         if (window.File && window.FileReader && window.FormData) {
+            console.log('test 2')
         var $inputField = $('#recipeimage');
 
         $inputField.on('change', function (e) {
-            var file = e.target.files[0];
-
-        $('#addrecipe').on('click', function () {
+            file = e.target.files[0];
+            console.log('test 3')
+        
             console.log('clicked')
             if (file) {
                 if (/^image\//i.test(file.type)) {
@@ -2734,19 +2993,76 @@ if ("list" == page.name) {
                     alert('Not a valid image!');
                 }
             }
-        })    
+            
             
         });
+        if (file == "" || file == null) {
+            console.log('test 1')
+            fsendcomment();
+            }
     } else {
-        alert("File upload is not supported!");
+        console.log('test 3');
     }  
+    
+    }) 
+     
+     $('#tumangadd').on('click', function() {
+        mainView.router.back();
+     })
+
+    }
+
+    if ("cal" == page.name) {
+
+        var ccobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/cal2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : "xx"},
+            success: function(data) {
+            console.log(data)
+
+            ccobj = JSON.parse(data);
+            var length = Object.keys(ccobj.data).length;
+            // console.log(length)
+            html="";
+
+            for (var i=0; i < length; i++) {
+                
+                
+                
+            // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+            // console.log('i: '+i) 
+            //html+='<li class="swipeout"><div class="swipeout-content"><div class="item-content no-padding"><div class="item-inner blog-list"><div class="image"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'"><img src=http://www.clubaroy.com/home/uploads/galleries/'+readJSON(tmpobj.data[i].image)+' width="100%"><span class="rating blog-rating"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span></span></a></div><div class="text"><h4 class="title mt-5 mb-0"><a href="restaurant.html?rid='+tmpobj.data[i].restaurant_id+'">'+readJSON(tmpobj.data[i].title_th)+'</a></h4><small>'+readJSON(tmpobj.data[i].address_th)+'</small><small> | </small><small>'+readJSON(tmpobj.data[i].rname_th)+'</small></div></div></div></div><div class="swipeout-actions-left"><a href="#" class="action-red js-add-to-fav"><i class="fa fa-heart-o"></i></a></div></li>'
+
+                    html='<li class="item-content">';
+                    html+='<div class="item-inner">';
+                    html+='<div class="item-title">'+readJSON(ccobj.data[i].menu)+'</div>';
+                    html+='<div class="item-after">'+readJSON(ccobj.data[i].calorie)+'</div>';
+                    html+='</div>';
+                    html+='</li>';
+                    //html+='<div class="facebook-avatar"><img src="http://www.clubaroy.com/home/uploads/restaurants/'+readJSON(ucobj.data[i].thumbnail_th)+'" width="34" height="34"></div>';
+                  
+
+                    $("#caldiv").append(html);
+                    (function (i) {
+                    
+                    }(i))
+
+                    
+            }
+            // console.log(html);
+            
+            }
+        });
+
     }
 
 	}), $(document).ready(function() {
+	document.addEventListener("deviceready", onDeviceReady, false);
 
-	 document.addEventListener("deviceready", onDeviceReady, false);
 
-  
 
     if ((null === localStorage.getItem("newOptions") || localStorage.getItem("newOptions") === !0) && (myApp.popup(".popup-splash"), 
     localStorage.setItem("newOptions", !0)), $(".chart-content").length > 0) {
@@ -2804,10 +3120,13 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
             $('#limyrec').hide();
             $('#lilogin').show();
             $('#lilogout').hide();
-            facebookConnectPlugin.logout( 
+        window.localStorage.removeItem("userid");
+        window.localStorage.removeItem("logintype");
+        window.localStorage.removeItem("username");
+        window.localStorage.removeItem("userpw");
+         facebookConnectPlugin.logout( 
                 function (response) {  },
                 function (response) {  });
-
         })
         
         $('#lifav').hide();
@@ -2837,6 +3156,8 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
              mainView.router.loadPage('province.html');
              } else if ($(this).attr('id') == "aroidsonjon") {
              mainView.router.loadPage('vdo.html?video_type=0&jsonfile=video&offset=0');
+             } else if ($(this).attr('id') == "aroical") {
+             mainView.router.loadPage('cal.html');
              }
         })
 
@@ -2856,7 +3177,7 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
             url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
             data: { "user_id" : sessionStorage.getItem('userid')},
             success: function(data) {
-            console.log(data)
+            //console.log(data)
 
             ucobj = JSON.parse(data);
             var length = Object.keys(ucobj.data).length;
@@ -2866,7 +3187,7 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
             
             }
         });
-        
+
         $('#registeruser1').on('click', function () {
             $.ajax({
             type: "POST",
@@ -2888,3 +3209,97 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
             }
         });
         })
+
+
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+
+
+
+  // Load the SDK asynchronously
+
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+
+  if (window.localStorage.getItem('logintype') == 'normal' && window.localStorage.getItem("username") != undefined ) {
+    // console.log($('#usernameclubaroy').val());
+    var loginobj = "";
+        $.ajax({
+            async: false,
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/username2json.php", //Relative or absolute path to response.php file
+            data: { "username" : window.localStorage.getItem("username")},
+            success: function(data) {
+            //console.log(data)
+
+            loginobj = JSON.parse(data);
+            var length = Object.keys(loginobj.data).length;
+             //console.log(loginobj)
+           
+
+            
+            // console.log(html);
+            
+            }
+        });
+
+    if ( window.localStorage.getItem("userpw") == readJSON(loginobj.data[0].password)) {
+        //console.log('Successful login for: ' + readJSON(loginobj.data[0].username));
+        $('#facebookname').html(readJSON(loginobj.data[0].firstname));
+        if (readJSON(loginobj.data[0].avatar) ==  "" || readJSON(loginobj.data[0].avatar) == null ) {
+            $('#userpicture').attr('src','assets/img/tmp/ava4.jpg');
+        } else {
+            $('#userpicture').attr('src','http://www.clubaroy.com/home/uploads/users/'+readJSON(loginobj.data[0].avatar));
+        }
+        sessionStorage.setItem('userid', readJSON(loginobj.data[0].id));
+        sessionStorage.setItem('loginstatus', 1);
+        $('#lifav').show();
+        $('#lilogin').hide();
+        $('#lireview').show();
+        $('#limyrec').show();
+        $('#lilogout').show();
+        $('#userrecipe').attr('href','recipes.html?uid='+sessionStorage.getItem('userid')+'&method=2');
+        checkfavor();
+        myApp.closeModal();
+        var ucobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            //console.log(data)
+
+            ucobj = JSON.parse(data);
+            var length = Object.keys(ucobj.data).length;
+            // console.log(length)
+            $('#bareview').html(length);
+            // console.log(html);
+            
+            }
+        });
+
+        var rxobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/recipe2json.php", //Relative or absolute path to response.php file
+            data: { "uid" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            //console.log(data)
+
+            rxobj = JSON.parse(data);
+            var length = Object.keys(rxobj.data).length;
+            // console.log(length)
+            $('#bamyrec').html(length);
+            // console.log(html);
+            
+            }
+        });
+
+    }
+  }

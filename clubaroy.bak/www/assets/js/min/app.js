@@ -5,9 +5,9 @@ function onDeviceReady() {
     devicestring = device.uuid;
     console.log(devicestring);
     console.log("on device start");
-    if (localStorage['fbloginflag'] == 1) {
+    // if (localStorage['fbloginflag'] == 1) {
         facebookStatus();
-    }
+    // }
 
 
 }

@@ -4710,13 +4710,31 @@ blockquote .author {
 }
 
 .button.button-primary {
-  border-color: #3F6581;
-  color: #3F6581;
+  border-color: #27ae60;
+  color: #27ae60;
 }
+.button.button-primary2 {
+  border-color: #ff9500;
+  color: #ff9500;
+}
+.button.button-primary3 {
+  border-color: #2980b9;
+  color: #2980b9;
+}
+
 .button.button-primary.active, .button.button-primary.button-fill, .button.button-primary.active-state {
-  background: #3F6581;
+  background: #27ae60;
   color: #ffffff;
 }
+.button.button-primary2.active, .button.button-primary2.button-fill, .button.button-primary2.active-state {
+  background: #ff9500;
+  color: #ffffff;
+}
+.button.button-primary3.active, .button.button-primary3.button-fill, .button.button-primary3.active-state {
+  background: #2980b9;
+  color: #ffffff;
+}
+
 .button.button-secondary {
   border-color: #056839;
   color: #056839;
@@ -4771,7 +4789,7 @@ img {
 }
 
 .badge-secondary {
-  background: #3F6581;
+  background: #27ae60;
   color: #FFFFFF;
 }
 
@@ -5138,7 +5156,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .picker-modal,
 .popup {
   color: #412412;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 1);
 }
 .picker-modal h2,
 .popup h2 {

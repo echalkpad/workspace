@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+     <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline' https: 'www.clubaroy.com'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: 'www.clubaroy.com'"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline' https: 'www.clubaroy.com'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: 'www.clubaroy.com'"/>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
@@ -29,7 +29,7 @@
     <title>CLUBAROY</title>
 
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.min.css">
+    <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.css">
     <link rel="stylesheet" href="bower_components/swipebox/src/css/swipebox.css">
     <link rel="stylesheet" href="bower_components/swiper/dist/css/swiper.min.css">
     <link rel="stylesheet" href="assets/css/lightbox.css">
@@ -93,7 +93,7 @@
                         Menu
                     </li>
                     <li>
-                        <a href="#" class="item-link close-panel item-content" id="backhome">
+                        <a href="index.html" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-file-text-o"></i>
                             </div>
@@ -265,7 +265,7 @@
 
                 <div class="toolbar">
                     <div class="toolbar-inner">
-                        <a href="#" class="link" id='backhome1'>
+                        <a href="index.html" class="link">
                         <img src="assets/themes/clubaroy/img/icon1.png" alt=""/> 
                         </a>
                         <a href="favorite.html" class="link">
@@ -287,9 +287,9 @@
                 <div class="page-content">
                   <nav class="dashboard-menu">
                         <div class="row text-center">
-                            <div class="col-100" style="margin-top: 40px;">
+                            <div class="col-100"">
                             
-							<img src="assets/themes/clubaroy/img/splash1.png" alt="" width="800" usemap="#clubaroi" id="imagemap1"/>
+							<img src="http://www.clubaroy.com/mobile/assets/themes/clubaroy/img/splash1.png" alt="" width="800" usemap="#clubaroi" id="imagemap1"/>
                             <map name="clubaroi">
  						 	<area shape="poly" coords="400,469,207,235,402,165" class="link" id="aroidara">
   							<area shape="poly" coords="403,466,404,167,593,235" class="link" id="aroiwanni">
@@ -300,8 +300,9 @@
   							<area shape="poly" coords="400,476,300,748,146,617" class="link" id="aroidprov">
   							<area shape="poly" coords="397,472,139,618,102,417" class="link" id="aroidsonjon">
   							<area shape="poly" coords="396,471,206,235,101,410" class="link" id="aroiduni">
-							</map> 
-                            <img src="assets/themes/clubaroy/img/splash1.png" alt="" width="800" usemap="#clubaroi1" id="imagemap2"/>
+							<area shape="circle" coords="709,901,44" class="link" id="aroical">
+                            </map> 
+                            <img src="http://www.clubaroy.com/mobile/assets/themes/clubaroy/img/splash1.png" alt="" width="800" usemap="#clubaroi1" id="imagemap2"/>
                             <map name="clubaroi1">
                             <area shape="poly" coords="400,469,207,235,402,165" class="link" id="aroidara">
                             <area shape="poly" coords="403,466,404,167,593,235" class="link" id="aroiwanni">
@@ -312,6 +313,7 @@
                             <area shape="poly" coords="400,476,300,748,146,617" class="link" id="aroidprov">
                             <area shape="poly" coords="397,472,139,618,102,417" class="link" id="aroidsonjon">
                             <area shape="poly" coords="396,471,206,235,101,410" class="link" id="aroiduni">
+							<area shape="circle" coords="709,901,44" class="link" id="aroical">
                             </map>
                             
                             </div>
@@ -358,23 +360,28 @@
                     </div>
                 </div>
             </form>
-            
                  <div class="form-row">
                     <div class="input-submit">
-                        <a href="#" data-popup=".popup-register" class="open-popup button button-big js-form-submit button-fill button-primary" id="loginclubaroy">สมัครสมาชิก</a>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="input-submit">
-                        <a href="#" id="testfb" ><img src='assets/img/fb_login.png'></a>
+                        <a href="#" data-popup=".popup-register" class="open-popup button button-big js-form-submit  button-fill button-primary2" id="loginclubaroy">สมัครสมาชิก</a>
                     </div>
                 </div>
                 
            		
 
 
+<div id="status">
+</div>
+                <div class="form-row">
+                    <div class="input-submit">
 
+                        <div class="fb-login-button" onClick="facebookLongin" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false" style="width:100%"></div>
+                    </div>
+                </div>
+                 <div class="form-row">
+                    <div class="input-submit">
+                        <a href="#" class="button button-big button-fill button-primary3" id="facebookLogin">Facebook</a>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
@@ -465,7 +472,6 @@
 
 
 <script type="text/javascript" src="cordova.js"></script>
-
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
 <script type="text/javascript" src="bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>
@@ -477,11 +483,9 @@
 <script type="text/javascript" src="assets/js/imageMapResizer.min.js"></script>
 <script type="text/javascript" src="assets/js/min/app.js"></script>
 <script type="text/javascript" src="bower_components/swiper/dist/js/swiper.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+<script src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
         
 <script type="text/javascript" src="assets/js/lightbox.js"></script>
-
-
 
 
 </body>
