@@ -1014,6 +1014,46 @@ function checkfavor() {
      
 }
 
+  function checkrecipe() {
+    var rxobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/recipe2json.php", //Relative or absolute path to response.php file
+            data: { "uid" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            //console.log(data)
+
+            rxobj = JSON.parse(data);
+            var length = Object.keys(rxobj.data).length;
+            // console.log(length)
+            $('#bamyrec').html(length);
+            // console.log(html);
+            
+            }
+        });
+  }
+
+  function checkreview() {
+    var ucobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            //console.log(data)
+
+            ucobj = JSON.parse(data);
+            var length = Object.keys(ucobj.data).length;
+            // console.log(length)
+            $('#bareview').html(length);
+            // console.log(html);
+            
+            }
+        });
+  }
+
 function ratingcheck(restaurant_id, x){ 
         //console.log("start check ratiing");
         var rating = 0;
@@ -1264,7 +1304,27 @@ var mainView = myApp.addView(".view-main", {
 
 $$('.popup-login').on('opened', function () {
 
+$('#registeruser1').on('click', function () {
+            $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/adduser2json.php", //Relative or absolute path to response.php file
+            data: { "name" : $('#name').val(), "lastname" : $('#lastname').val(), "email" : $('#email').val(), "gender" : $('#gender').val(), "userpassword" : $('#password').val() },
+            success: function(data) {
+            console.log(data)
+            if (data == 1) {
+              console.log("finish")
+              myApp.closeModal();
+              mainView.router.loadPage('index.html');
+            }
 
+            // console.log(length)
+            
+            // console.log(html);
+            
+            }
+        });
+        })
 
 // ----------------login part ---------------------
 var buttonpress = 0;
@@ -1383,6 +1443,13 @@ $$(".popup-splash").on("opened", function() {
     });
 }), $$(document).on("pageAfterAnimation", function(e) {
     var page = e.detail.page;
+
+    $('#crefresh').on('click', function() {
+        checkfavor();
+        checkrecipe();
+        checkreview();
+    })
+
     if ("restaurant" == page.name) {
         var mySwiper = new Swiper ('.swiper-container', {
             // Optional parameters
@@ -1431,6 +1498,8 @@ $$(".popup-splash").on("opened", function() {
              mainView.router.loadPage('cal.html');
              }
         })
+
+        
     }
     if ($(".page-on-center .chart-content").length > 0) {
         var ctx = document.querySelector(".page-on-center .chart-content").getContext("2d");
@@ -1552,27 +1621,6 @@ $$(".popup-splash").on("opened", function() {
         });
 
 
-        $('#registeruser1').on('click', function () {
-            $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/adduser2json.php", //Relative or absolute path to response.php file
-            data: { "name" : $('#name').val(), "lastname" : $('#lastname').val(), "email" : $('#email').val(), "gender" : $('#gender').val(), "userpassword" : $('#password').val() },
-            success: function(data) {
-            console.log(data)
-            if (data == 1) {
-              console.log("finish")
-              myApp.closeModal();
-              mainView.router.loadPage('index.html');
-            }
-
-            // console.log(length)
-            
-            // console.log(html);
-            
-            }
-        });
-        })
     }
 
 	if ("favorite" == page.name) { 
@@ -3331,27 +3379,7 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
             }
         });
 
-        $('#registeruser1').on('click', function () {
-            $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/adduser2json.php", //Relative or absolute path to response.php file
-            data: { "name" : $('#name').val(), "lastname" : $('#lastname').val(), "email" : $('#email').val(), "gender" : $('#gender').val(), "userpassword" : $('#password').val() },
-            success: function(data) {
-            console.log(data)
-            if (data == 1) {
-              console.log("finish")
-              myApp.closeModal();
-              mainView.router.loadPage('index.html');
-            }
-
-            // console.log(length)
-            
-            // console.log(html);
-            
-            }
-        });
-        })
+        
 
 
 
@@ -3448,3 +3476,4 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
   }
 
   myApp.popup(".popup-login");
+
