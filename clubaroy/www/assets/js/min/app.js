@@ -1289,7 +1289,9 @@ var myApp = new Framework7({
 }), $$ = Dom7;
 
                                 
-
+$$("#lefthome").on('click', function() {
+    mainView.router.load("index.html");
+})
 
 
 $$("body").on("click", ".js-add-to-fav", function() {
@@ -1304,27 +1306,7 @@ var mainView = myApp.addView(".view-main", {
 
 $$('.popup-login').on('opened', function () {
 
-$('#registeruser1').on('click', function () {
-            $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/adduser2json.php", //Relative or absolute path to response.php file
-            data: { "name" : $('#name').val(), "lastname" : $('#lastname').val(), "email" : $('#email').val(), "gender" : $('#gender').val(), "userpassword" : $('#password').val() },
-            success: function(data) {
-            console.log(data)
-            if (data == 1) {
-              console.log("finish")
-              myApp.closeModal();
-              mainView.router.loadPage('index.html');
-            }
 
-            // console.log(length)
-            
-            // console.log(html);
-            
-            }
-        });
-        })
 
 // ----------------login part ---------------------
 var buttonpress = 0;
@@ -1433,6 +1415,38 @@ $('#loginclubaroy').click(function() {
 
 });
 
+$$('#searchall').keypress(function(e) {
+            if(e.which == 13) {
+                mainView.router.loadPage('favorite.html?offset=0&rand=2&xstring='+$('#searchall').val());
+            }
+        });
+
+$$(".popup-register").on("opened", function(){
+$('#registeruser1').on('click', function () {
+            $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/adduser2json.php", //Relative or absolute path to response.php file
+            data: { "name" : $('#name').val(), "lastname" : $('#lastname').val(), "email" : $('#email').val(), "gender" : $('#gender').val(), "userpassword" : $('#password').val() },
+            success: function(data) {
+            console.log(data)
+            if (data == 1) {
+              console.log("finish")
+              alert("Register successfully");
+              myApp.closeModal();
+              mainView.router.loadPage('index.html');
+            }
+
+            // console.log(length)
+            
+            // console.log(html);
+            
+            }
+        });
+        })
+
+});
+
 
 $$(".popup-splash").on("opened", function() {
     myApp.swiper(".swiper-container", {
@@ -1466,6 +1480,9 @@ $$(".popup-splash").on("opened", function() {
     }
 
     if ("" == page.name || "index" == page.name) {
+        console.log("this page ::"+page.name);
+        var el = document.getElementById('imagemap1').style.visibility='hidden';
+        var el1 = document.getElementById('imagemap2').style.visibility='visible';
         $('#imagemap1').hide();
         $('#imagemap2').show();
         $('map').imageMapResize();
@@ -1496,7 +1513,27 @@ $$(".popup-splash").on("opened", function() {
              }
         })
 
+        $('#imagemap1').hide();
+
         
+
+        var ucobj = "";
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
+            data: { "user_id" : sessionStorage.getItem('userid')},
+            success: function(data) {
+            //console.log(data)
+
+            ucobj = JSON.parse(data);
+            var length = Object.keys(ucobj.data).length;
+            // console.log(length)
+            $('#bareview').html(length);
+            // console.log(html);
+            
+            }
+        });
     }
     if ($(".page-on-center .chart-content").length > 0) {
         var ctx = document.querySelector(".page-on-center .chart-content").getContext("2d");
@@ -1589,36 +1626,6 @@ $$(".popup-splash").on("opened", function() {
         }
     });
 
-    if ("" == page.name || "index" == page.name) {
-        
-
-
-        $('#searchall').keypress(function(e) {
-            if(e.which == 13) {
-                mainView.router.loadPage('favorite.html?offset=0&rand=2&xstring='+$('#searchall').val());
-            }
-        });
-
-        var ucobj = "";
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
-            data: { "user_id" : sessionStorage.getItem('userid')},
-            success: function(data) {
-            //console.log(data)
-
-            ucobj = JSON.parse(data);
-            var length = Object.keys(ucobj.data).length;
-            // console.log(length)
-            $('#bareview').html(length);
-            // console.log(html);
-            
-            }
-        });
-
-
-    }
 
 	if ("favorite" == page.name) { 
 
@@ -3247,6 +3254,12 @@ if ("list" == page.name) {
         });
     }
 
+    if ("salary" == page.name) {
+        $('#backsalary').on('click', function() {
+            mainView.router.back();
+        });
+    }
+
 	}), $(document).ready(function() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -3349,11 +3362,11 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
              }
         })
 
-        $('#searchall').keypress(function(e) {
-            if(e.which == 13) {
-                mainView.router.loadPage('favorite.html?offset=0&rand=2&xstring='+$('#searchall').val());
-            }
-        });
+     //   $('#searchall').keypress(function(e) {
+     //       if(e.which == 13) {
+     //           mainView.router.loadPage('favorite.html?offset=0&rand=2&xstring='+$('#searchall').val());
+     //       }
+     //   });
 
 
 
