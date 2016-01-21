@@ -468,7 +468,7 @@ function sendcomment(rid) {
             //alert('There was an error uploading your file!');
         }
     });
-
+    checkreview();
 
 }
 
@@ -609,7 +609,7 @@ function fsendcomment() {
             //alert('There was an error uploading your file!');
         }
     });
-
+    checkrecipe();
 
 }
 
@@ -928,7 +928,7 @@ function initialize(lat,lng,map) {
 
 function removefav(userid,restid) {
     $.ajax({
-        
+            async: false,
             type: "POST",
             dataType: "html",
             url: "http://www.clubaroy.com/mobile/json/remove2json.php", //Relative or absolute path to response.php file
@@ -941,14 +941,14 @@ function removefav(userid,restid) {
              }
         });
     $('#favorplace'+userid+restid).hide();
-
+    checkfavor();
 }
 
 function addfav(userid,restid) {
 
      var tmpobj=""
         $.ajax({
-        
+            async: false,
             type: "POST",
             dataType: "html",
             url: "http://www.clubaroy.com/mobile/json/heart2json.php", //Relative or absolute path to response.php file
@@ -988,7 +988,7 @@ function addfav(userid,restid) {
             
         });
     
- 
+        checkfavor();
 
 }
 
@@ -1433,6 +1433,7 @@ $('#loginclubaroy').click(function() {
 
 });
 
+
 $$(".popup-splash").on("opened", function() {
     myApp.swiper(".swiper-container", {
         speed: 400,
@@ -1444,11 +1445,7 @@ $$(".popup-splash").on("opened", function() {
 }), $$(document).on("pageAfterAnimation", function(e) {
     var page = e.detail.page;
 
-    $('#crefresh').on('click', function() {
-        checkfavor();
-        checkrecipe();
-        checkreview();
-    })
+
 
     if ("restaurant" == page.name) {
         var mySwiper = new Swiper ('.swiper-container', {
