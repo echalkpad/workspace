@@ -45,6 +45,9 @@
         },
         "phonegap-plugin-contentsync": {
             "PACKAGE_NAME": "com.tour.mainv2"
+        },
+        "org.bcsphere.wifi": {
+            "PACKAGE_NAME": "com.tour.mainv2"
         }
     },
     "dependent_plugins": {

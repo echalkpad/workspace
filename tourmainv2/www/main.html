@@ -24,6 +24,11 @@
 		var offlineStatus = 0;
 		var mediaTimer;
 		var current_sound_duration = 0;
+		var currentBSSID;
+		var signallevel;
+		var resetstatus = 0;
+		var currentSSID;
+		var resettimerID;
 	
 		
 		function trackInfo(id,did,url,playlist) {
@@ -63,14 +68,54 @@
 
     	function ssidHandler(s){
     		$('#SSID').html('Current SSID: ' + s);
+    		currentSSID = s;
 		}
 		
 		function ssidHandlerfail(e){
     		$('#SSID').html('Failed getting SSID: ' + e);
 		}
 		
+		function cHandler(s){
+    		// console.log(s);
+    		currentBSSID = s.BSSID
+    		console.log(currentBSSID);
+		}
+		
+		function cHandlerfail(e){
+    		console.log('Failed getting SSID: ' + e);
+		}
+
 		function getCurrentSSID(){
     		WifiWizard.getCurrentSSID(ssidHandler, ssidHandlerfail);
+		}
+
+		function loghandler(a) {
+			console.log(a);
+		}
+
+		function listHandler2(a){
+    		//console.log(a);
+    		for (var i=0; i < a.length; i++) {
+    			if (a[i].BSSID == currentBSSID) {
+    				signallevel = a[i].level;
+    			}
+
+    		}
+    		console.log(signallevel);
+    		$('#signal_label').html(signallevel);
+		}
+
+		function getScanResultFail(e) {
+			debug_print("scanresult error :: " + e,10);
+		}
+
+		function getScanResult(){
+			navigator.wifi.getConnectedWifiInfo(cHandler,cHandlerfail);
+    		WifiWizard.getScanResults(listHandler2, getScanResultFail);
+ 		}
+		
+		function getRSSI() {
+			getScanResult();			
 		}
 
     	function checkConnection() {
@@ -728,7 +773,23 @@
 				// Interval check
 				setInterval(function() {
 			        checkConnection();
+			        getRSSI();
 			        checkServer();
+			        console.log("resetstatus ::" + resetstatus);
+			        if (signallevel < -75 && resetstatus == 0 && currentBSSID != "00:00:00:00:00:00") {
+			        	if (resettimerID) {
+			        		clearTimeout(resettimerID);
+			        	}
+			        	resetstatus = 1;
+			        	WifiWizard.disconnect(loghandler, loghandler);
+			        	
+			        	resettimerID = setTimeout(function() {
+						var d = new Date();
+						debug_print("checkreset ------------------------------------------------------------->"+d,5);
+						resetstatus = 0;
+						WifiWizard.connectNetwork("Royalgem-1",loghandler,loghandler);
+						}, 5000);
+			        }
 			        $('#program_state').html("Program State :: "+program_state);
 			        $('#audio_label').html(" "+audio_state);
 			        onBatteryStatus();
@@ -1048,6 +1109,7 @@
 				<div><label> Role :: </label> <label id="role_label"></label></div>
 				<div><label> Language :: </label> <label id="language_label"></label></div>
 				<div><label> Audio State :: </label> <label id="audio_label"></label></div>
+				<div><label> Signal :: </label> <label id="signal_label"></label></div>
 			</div>
 		</div>
 		<br>

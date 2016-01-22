@@ -65,6 +65,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.bcsphere.wifi/www/wifi.js",
+        "id": "org.bcsphere.wifi.wifi",
+        "merges": [
+            "navigator.wifi"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
         "id": "cordova-plugin-file.DirectoryEntry",
         "clobbers": [
@@ -222,6 +229,7 @@ module.exports.metadata =
     "com.pylonproducts.wifiwizard": "0.2.11",
     "cordova-plugin-battery-status": "1.1.1",
     "phonegap-plugin-contentsync": "1.2.3",
+    "org.bcsphere.wifi": "0.0.1",
     "cordova-plugin-file": "3.0.0"
 }
 // BOTTOM OF METADATA
