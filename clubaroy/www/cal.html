@@ -18,20 +18,36 @@
     <!-- Pages -->
     <div class="pages">
         <div class="page no-toolbar" data-page="cal">
+        
+  <!-- Search Bar -->
+  <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
+    <div class="searchbar-input">
+      <input type="search" placeholder="Search"><a href="#" class="searchbar-clear"></a>
+    </div><a href="#" class="searchbar-cancel">Cancel</a>
+  </form>
+ 
+  <!-- Search Bar overlay -->
+  <div class="searchbar-overlay"></div>
+  
+    <div class="page-content">
+    <!-- This block will be displayed if nothing found -->
+    <div class="content-block searchbar-not-found">
+      <div class="content-block-inner">Nothing found</div>
+    </div>        
             <div class="page-content" style="background-image:url(assets/themes/clubaroy/img/bg.jpg); background-size: cover;">
             
  				<div class="content-block">
-                <div style="margin-bottom:10px;">
+                <div style="margin-bottom:0px; margin-top:-40px;">
                  <img src="assets/themes/clubaroy/img/themecontent4.png" width="100%">
                 </div>
                 </div>
-       <div class="list-block inset">
+       <div class="list-block list-block-search searchbar-found">
  	   <ul id="caldiv">
        
   	   <li class="item-content">
        <div class="item-inner">
        <div class="item-title">ชื่อ</div>
-       <div class="item-after">จำนวน</div>
+       <div class="item-after">Kcal</div>
        </div>
        </li>
        
