@@ -1,6 +1,8 @@
 var facebookperson = {};
 var fbloginstatus = 0;
 var fb_id;
+var cfformData = new FormData();
+var formData = new FormData();
 
 function ValidateEmail(mail) 
 {
@@ -233,27 +235,22 @@ function useFa(object,value) {
 
 // ----comment-------------------------------------------------------------------------------------------------------------------
 
-function readFile(file, rid) {
+function readFile(file) {
+    console.log(file);
     var reader = new FileReader();
-    var filename = "";
-    reader.fileName = file.name;
-    reader.onload = function(readerEvt) {
-    
-    filename = readerEvt.target.fileName;
-    };
-    reader.onloadend = function (readerEvt) {
-        console.log(readerEvt.target.fileName);
-        processFile(reader.result, file.type, rid, readerEvt.target.fileName);
+
+    reader.onloadend = function () {
+        processFile(reader.result, file.type, file.name);
     }
 
     reader.onerror = function () {
-        alert('There was an error reading the file!');
+        console.log('There was an error reading the file!');
     }
 
     reader.readAsDataURL(file);
 }
 
-function processFile(dataURL, fileType, rid, filename) {
+function processFile(dataURL, fileType, filename) {
     var maxWidth = 8000;
     var maxHeight = 8000;
 
@@ -266,7 +263,7 @@ function processFile(dataURL, fileType, rid, filename) {
         var shouldResize = (width > maxWidth) || (height > maxHeight);
 
         if (!shouldResize) {
-            sendFile(dataURL, rid, filename);
+            sendFile(dataURL, filename);
             return;
         }
 
@@ -292,7 +289,7 @@ function processFile(dataURL, fileType, rid, filename) {
 
         dataURL = canvas.toDataURL(fileType);
 
-        sendFile(dataURL, rid, filename);
+        sendFile(dataURL, filename);
     };
 
     image.onerror = function () {
@@ -309,113 +306,17 @@ function isUploadSupported() {
     return !elem.disabled;
 };
 
-function sendFile(fileData, rid, filename) {
-    var formData = new FormData();
+function sendFile(fileData, filename) {
+    
 
-    formData.append('imageData', fileData);
+    cfformData.append('imageData', fileData);
     //myApp.alert("$('#commentbox1').val()","");
-    formData.append('comment', $('#commentbox1').val());
-    formData.append('userid', sessionStorage.getItem('userid'));
-    formData.append('rid', rid);
-    formData.append('filename', filename);
-    formData.append('rating', $('#commentrating').val())
-    //console.log(formData)
+  
 
-    $.ajax({
-        type: 'POST',
-        url: 'http://www.clubaroy.com/mobile/json/addrcomment2json.php',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            console.log(data);
-            if (data == 1) {
-                // alert('Your file was successfully uploaded!');
-                $('#rcommentdiv').html("");
-                var rcobj = "";
-        
-                    $.ajax({
-                        type: "POST",
-                        dataType: "html",
-                        url: "http://www.clubaroy.com/mobile/json/rcomment2json.php", //Relative or absolute path to response.php file
-                        data: { "restaurant_id" : rid },
-                        success: function(data) {
-                        //console.log(data)
+    cfformData.append('filename', filename);
 
-                        rcobj = JSON.parse(data);
-                        var length = Object.keys(rcobj.data).length;
-                        html="";
-                        var avatar = "";
-                        for (var i=0; i < length; i++) {
-                        // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
-                        html = '<li class="swipeout">';
-                        html+= '<div class="swipeout-content">';
-                        html+= '<div class="item-content">';
-                        html+= '<div class="item-inner comments-list">';
-                        html+= '<div class="image">';
-                        html+= '<span class="ava">';
-                       if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
-                            avatar = 'http://graph.facebook.com/' + rcobj.data[i].facebook_id + '/picture?type=square'
-                        } else if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
-                            avatar = "assets/img/tmp/ava1.jpg";
-                        } else {
-                            avatar = "http://www.clubaroy.com/home/uploads/users/"+readJSON(rcobj.data[i].avatar);
-                        }
-                        html+= '<img src="'+avatar+'" alt="">';
-                        html+= '</span>';
-                        html+= '</div>';
-                        html+= '<div class="text">';
-                        html+= '<div class="info">';
-                        var nickname = "";
-                        if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
-                            nickname = readJSON(rcobj.data[i].firstname);
-                        } else {
-                            nickname = readJSON(rcobj.data[i].username);
-                        }
-                        html+= '<span class="nick">'+nickname+'</span>';
-                        html+= '<span class="data">'+readJSON(rcobj.data[i].created)+'</span>';
-                        html+= '</div>';
-                        html+= '<div class="comment">';
-                        html+= '<span id=crating></span>'
-                                    var xxhtml = "";
-                            for ( var j=0; j < rcobj.data[i].rating; j++ ) {
-                                if (j < rcobj.data[i].rating) {
-                                    xxhtml += "<i class='fa fa-star'></i>";
-                                } else {
-                                    xxhtml += "<i class='fa fa-star-o'></i>";
-                                }
-                            }
-                            html+= xxhtml+"<br><br>";
-
-                        html+= readJSON(rcobj.data[i].detail).replace(/home\/uploads/g,'uploads').replace(/uploads/g,'http:\/\/www.clubaroy.com\/home\/uploads\/');
-                        html+= '</div>';
-                        html+= '</div>';
-                        html+= '</div>';
-                        html+= '</div>';
-                        html+= '</div>';
-                        html+= '<div class="swipeout-actions-right">';
-                        html+= '<a href="#" class="action-green js-up">';
-                        html+= '<i class="fa fa-thumbs-o-up"></i>';
-                        html+= '</a>';
-                        html+= '<a href="#" class="action-red js-down">';
-                        html+= '<i class="fa fa-thumbs-o-down"></i>';
-                        html+= '</a>';
-                        html+= '</div>';
-                        html+= '</li>';
-                        $('#rcommentdiv').append(html);
-                        
-                        }
-                    }
-                });
-            } else {
-                alert('There was an error uploading your file!');
-            }
-        },
-        error: function (data) {
-            alert('There was an error uploading your file!');
-        }
-    });
-
+    console.log(cfformData);
+           
 
 }
 
@@ -529,26 +430,134 @@ function sendcomment(rid) {
 
 }
 
+function commentupload(rid) {
+    
+
+    
+    //myApp.alert("$('#commentbox1').val()","");
+    cfformData.append('comment', $('#commentbox1').val());
+    cfformData.append('userid', sessionStorage.getItem('userid'));
+    cfformData.append('rid', rid);
+    
+    cfformData.append('rating', $('#commentrating').val())
+    //console.log(formData)
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://www.clubaroy.com/mobile/json/addrcomment2json.php',
+        data: cfformData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            if (data == 1) {
+                // alert('Your file was successfully uploaded!');
+                $('#rcommentdiv').html("");
+                var rcobj = "";
+        
+                    $.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        url: "http://www.clubaroy.com/mobile/json/rcomment2json.php", //Relative or absolute path to response.php file
+                        data: { "restaurant_id" : rid },
+                        success: function(data) {
+                        //console.log(data)
+
+                        rcobj = JSON.parse(data);
+                        var length = Object.keys(rcobj.data).length;
+                        html="";
+                        var avatar = "";
+                        for (var i=0; i < length; i++) {
+                        // console.log(decodeURI(tmpobj.data[i].title_th).replace(/\+/g,' '));
+                        html = '<li class="swipeout">';
+                        html+= '<div class="swipeout-content">';
+                        html+= '<div class="item-content">';
+                        html+= '<div class="item-inner comments-list">';
+                        html+= '<div class="image">';
+                        html+= '<span class="ava">';
+                        if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
+                            avatar = 'http://graph.facebook.com/' + rcobj.data[i].facebook_id + '/picture?type=square'
+                        } else if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
+                            avatar = "assets/img/tmp/ava1.jpg";
+                        } else {
+                            avatar = "http://www.clubaroy.com/home/uploads/users/"+readJSON(rcobj.data[i].avatar);
+                        }
+                        html+= '<img src="'+avatar+'" alt="">';
+                        html+= '</span>';
+                        html+= '</div>';
+                        html+= '<div class="text">';
+                        html+= '<div class="info">';
+                        var nickname = "";
+                        if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
+                            nickname = readJSON(rcobj.data[i].firstname);
+                        } else {
+                            nickname = readJSON(rcobj.data[i].username);
+                        }
+                        html+= '<span class="nick">'+nickname+'</span>';
+                        html+= '<span class="data">'+readJSON(rcobj.data[i].created)+'</span>';
+                        html+= '</div>';
+                        html+= '<div class="comment">';
+                        html+= '<span id=crating></span>'
+                                    var xxhtml = "";
+                            for ( var j=0; j < rcobj.data[i].rating; j++ ) {
+                                if (j < rcobj.data[i].rating) {
+                                    xxhtml += "<i class='fa fa-star'></i>";
+                                } else {
+                                    xxhtml += "<i class='fa fa-star-o'></i>";
+                                }
+                            }
+                            html+= xxhtml+"<br><br>";
+
+                        html+= readJSON(rcobj.data[i].detail).replace(/home\/uploads/g,'uploads').replace(/uploads/g,'http:\/\/www.clubaroy.com\/home\/uploads\/');
+                        html+= '</div>';
+                        html+= '</div>';
+                        html+= '</div>';
+                        html+= '</div>';
+                        html+= '</div>';
+                        html+= '<div class="swipeout-actions-right">';
+                        html+= '<a href="#" class="action-green js-up">';
+                        html+= '<i class="fa fa-thumbs-o-up"></i>';
+                        html+= '</a>';
+                        html+= '<a href="#" class="action-red js-down">';
+                        html+= '<i class="fa fa-thumbs-o-down"></i>';
+                        html+= '</a>';
+                        html+= '</div>';
+                        html+= '</li>';
+                        $('#rcommentdiv').append(html);
+                        
+                        }
+                    }
+                });
+            } else {
+                //alert('There was an error uploading your file!');
+            }
+        },
+        error: function (data) {
+            //alert('There was an error uploading your file!');
+        }
+    });
+
+    checkreview();
+    mainView.router.refreshPage();
+
+}
+
+
 // ---------end comment -----------------------------------------------------------------
 
 
 // ----recipe-------------------------------------------------------------------------------------------------------------------
 
 function freadFile(file) {
+    console.log(file);
     var reader = new FileReader();
-    var filename = "";
-    reader.fileName = file.name;
-    reader.onload = function(readerEvt) {
-    
-    filename = readerEvt.target.fileName;
-    };
-    reader.onloadend = function (readerEvt) {
-        console.log(readerEvt.target.fileName);
-        fprocessFile(reader.result, file.type, readerEvt.target.fileName);
+
+    reader.onloadend = function () {
+        fprocessFile(reader.result, file.type, file.name);
     }
 
     reader.onerror = function () {
-        alert('There was an error reading the file!');
+        console.log('There was an error reading the file!');
     }
 
     reader.readAsDataURL(file);
@@ -597,47 +606,26 @@ function fprocessFile(dataURL, fileType, filename) {
     };
 
     image.onerror = function () {
-        alert('There was an error processing your file!');
+        console.log('There was an error processing your file!');
     };
 }
 
 
 
 function fsendFile(fileData, filename) {
-    var formData = new FormData();
+    
 
     formData.append('imageData', fileData);
     //myApp.alert("$('#commentbox1').val()","");
-    formData.append('userid', sessionStorage.getItem('userid'));
     formData.append('filename', filename);
-    formData.append('title', $('#recipebox1').val())
-    formData.append('detail', $('#recipebox2').val())
-    //console.log(formData)
 
-    $.ajax({
-        type: 'POST',
-        url: 'http://www.clubaroy.com/mobile/json/addrecipe2json.php',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            console.log(data);
-            if (data == 1) {
-                mainView.router.loadPage('recipes.html');
-            } else {
-                alert('There was an error uploading your file!');
-            }
-        },
-        error: function (data) {
-            alert('There was an error uploading your file!');
-        }
-    });
+    console.log(formData)
 
 
 }
 
-function fsendcomment() {
-    var formData = new FormData();
+function uploadrecipe() {
+
 
     // formData.append('imageData', fileData);
     //myApp.alert("$('#commentbox1').val()","");
@@ -645,10 +633,11 @@ function fsendcomment() {
     //formData.append('filename', filename);
     formData.append('title', $('#recipebox1').val())
     formData.append('detail', $('#recipebox2').val())
-    formData.append('filename', "");
+    
     //console.log(formData)
 
     $.ajax({
+        async: false,
         type: 'POST',
         url: 'http://www.clubaroy.com/mobile/json/addrecipe2json.php',
         data: formData,
@@ -663,6 +652,7 @@ function fsendcomment() {
             }
         },
         error: function (data) {
+            console.log(data);
             //alert('There was an error uploading your file!');
         }
     });
@@ -2050,39 +2040,30 @@ $.ajax({
             }
         }
     });
+    
     $('#addcomment').on('click', function () {  
     console.log('click 0');
-    var file = ""  
-    if (window.File && window.FileReader && window.FormData) {
-        var $inputField = $('#file');
 
-        $inputField.on('change', function (e) {
-            file = e.target.files[0];
+        commentupload(page.query.rid);
+       
+    });
 
-        
-            console.log('click 1');
+    $('#file').on('change', function (e) {
+            var file = e.target.files[0];
+
+            
+            console.log('file step 1');
             if (file) {
                 if (/^image\//i.test(file.type)) {
-                    readFile(file, page.query.rid);
-                    console.log('click 2');
+                    readFile(file);
+                    console.log('file step 2');
                 } else {
                    alert('Not a valid image!');
-                   console.log('click 3');
+                   console.log('file step 3');
                     
                 }
             } 
-        })    
-            
-        
-    } 
-    console.log(file);
-    if (file == "" || file == null) {
-
-        sendcomment(page.query.rid);
-        console.log('click 4');
-    }
-       
-});
+        })
     //$('#r1').on('mouseleave', function() {
     //    $('#r1').removeClass('fa fa-star fa-2x').addClass('fa fa-star-o fa-2x');
     //});
@@ -3162,37 +3143,31 @@ if ("list" == page.name) {
     }
 
     if ("recipeadd" == page.name) {
-        var file1 = "";
+        console.log("recipe add page");
+        formData = new FormData;
+  
         $('#addrecipe').on('click', function () {
-        console.log(page.name);
-        if (window.File && window.FileReader && window.FormData) {
-            console.log('test 2')
-        
+    
+            uploadrecipe();
 
-        $('#recipefile').on('change', function (e) {
-            file1 = e.target.files[0];
-            console.log('test 3')
-        
-            console.log('clicked')
-            if (file1) {
-                if (/^image\//i.test(file1.type)) {
-                    freadFile(file1);
+    
+        });
+
+     $('#recipefile').on('change', function (e) {
+            console.log('test2');
+            var file = e.target.files[0];
+    
+            
+                if (/^image\//i.test(file.type)) {
+                    freadFile(file);
+                    console.log(file);
                 } else {
                     alert('Not a valid image!');
                 }
-            }
             
             
-        });
-        if (file1 == "" || file1 == null) {
-            console.log('test 1')
-            fsendcomment();
-            }
-    } else {
-        console.log('test 3');
-    }  
-    
-    }) 
+            
+        }); 
      
      $('#tumangadd').on('click', function() {
         mainView.router.back();
@@ -3554,8 +3529,10 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 
     }
   }
-myApp.popup(".popup-login");
 
+if (localStorage['fbloginflag'] != 1) {
+myApp.popup(".popup-login");
+}
 setTimeout(function() {
                 
                 if (localStorage['fbloginflag'] == 1) {
