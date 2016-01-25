@@ -1,5 +1,19 @@
 var facebookperson = {};
 var fbloginstatus = 0;
+var fb_id;
+
+function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return (true)
+  }
+    alert("You have entered an invalid email address!")
+    return (false)
+}
+
+
+
 
 var onGeoSuccess = function(position) {
     console.log('Latitude: '          + position.coords.latitude          + '\n' +
@@ -27,9 +41,8 @@ function onDeviceReady() {
     devicestring = device.uuid;
     console.log(devicestring);
     console.log("on device start");
-    if (localStorage['fbloginflag'] == 1) {
-        facebookStatus();
-    }
+    //facebookStatus();
+    
 
 
 }
@@ -39,7 +52,19 @@ function facebookLogin() {
         console.log("login facebook");
         facebookStatus();
         console.log("UserInfo: " + JSON.stringify(userData));
-        window.localStorage.setItem('fbloginflag',1);
+       
+        $.ajax({
+            async: false,
+            type: "POST",
+            dataType: "html",
+            url: "http://www.clubaroy.com/mobile/json/addfb2json.php", //Relative or absolute path to response.php file
+            data: { "name" : '', "lastname" : '', "facebook_id" : userData.authResponse.userID },
+            success: function(data) {
+            console.log(data)
+            
+            }
+        });
+         window.localStorage.setItem('fbloginflag',1);
     }
 
     facebookConnectPlugin.login(["public_profile"],
@@ -50,25 +75,28 @@ function facebookLogin() {
 }
 
 function facebookStatus() {
+
     console.log("run facebook status");
     
     //alert("UserInfo: " + JSON.stringify(userData));
     facebookConnectPlugin.getLoginStatus(
         function (status) {
             fbloginstatus = 1;
-            console.log("current status: " + JSON.stringify(status));
+            console.log(status);
+            fb_id = status.authResponse.userID;
             //fconsole.log(status.authResponse.userID);
             if (status.status == 'connected') {
+                console.log('connect run');
                 var loginobj = "";
                 $.ajax({
                     async: false,
                     type: "POST",
                     dataType: "html",
                     url: "http://www.clubaroy.com/mobile/json/facebook2json.php", //Relative or absolute path to response.php file
-                    data: { "facebook.id" : status.authResponse.userID },
+                    data: { "facebook_id" : fb_id },
                     success: function(data) {
                     console.log(data)
-
+                    console.log(fb_id)
                     loginobj = JSON.parse(data);
                     var length = Object.keys(loginobj.data).length;
                     if (length > 0 ) {
@@ -80,7 +108,9 @@ function facebookStatus() {
                     } else {
                         $('#userpicture').attr('src','http://www.clubaroy.com/home/uploads/users/'+readJSON(loginobj.data[0].avatar));
                     }
-                    sessionStorage.setItem('userid', readJSON(loginobj.data[0].id));           
+                    $('#userpicture').attr('src','http://graph.facebook.com/' + fb_id + '/picture?type=square');
+                    sessionStorage.setItem('userid', readJSON(loginobj.data[0].id));
+                    sessionStorage.setItem('facebook_avatar', 'http://graph.facebook.com/' + fb_id + '/picture?type=square');           
 
                     sessionStorage.setItem('loginstatus', 1);
                     $('#lifav').show();
@@ -99,6 +129,7 @@ function facebookStatus() {
                 $('#lilogout').show();
                 var ucobj = "";
                 $.ajax({
+                    async: false,
                     type: "POST",
                     dataType: "html",
                     url: "http://www.clubaroy.com/mobile/json/rcommentuser2json.php", //Relative or absolute path to response.php file
@@ -117,6 +148,7 @@ function facebookStatus() {
 
                 var rxobj = "";
                 $.ajax({
+                    async: false,
                     type: "POST",
                     dataType: "html",
                     url: "http://www.clubaroy.com/mobile/json/recipe2json.php", //Relative or absolute path to response.php file
@@ -134,14 +166,35 @@ function facebookStatus() {
                 })
 
                 facebookConnectPlugin.api( "me/?fields=id,name", ["public_profile"],
-                    function (response) { $('#facebookname').html(response.name); },
+                    function (response) { $('#facebookname').html(response.name); 
+                    console.log(response)
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        dataType: "html",
+                        url: "http://www.clubaroy.com/mobile/json/updatefb2json.php", //Relative or absolute path to response.php file
+                        data: { "name" : response.name, "lastname" : '', "facebook_id" : response.id },
+                        success: function(data) {
+                        console.log(data)
+                        // console.log(html);
+                        
+                        }
+                    });
+
+                    },
                     function (response) { // alert(JSON.stringify(response)) 
                     }); 
                 myApp.closeModal();
                 
             } else {
-                facebookLogin();
+                if (localStorage['fbloginflag'] == 0) {
+                    console.log('run this 2');
+                    facebookLogin();
+                    
+                }   
             }
+
+            
             //var options = { method:"feed" };
             //facebookConnectPlugin.showDialog(options,
             //    function (result) {
@@ -301,7 +354,9 @@ function sendFile(fileData, rid, filename) {
                         html+= '<div class="item-inner comments-list">';
                         html+= '<div class="image">';
                         html+= '<span class="ava">';
-                        if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
+                       if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
+                            avatar = 'http://graph.facebook.com/' + rcobj.data[i].facebook_id + '/picture?type=square'
+                        } else if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
                             avatar = "assets/img/tmp/ava1.jpg";
                         } else {
                             avatar = "http://www.clubaroy.com/home/uploads/users/"+readJSON(rcobj.data[i].avatar);
@@ -332,7 +387,7 @@ function sendFile(fileData, rid, filename) {
                             }
                             html+= xxhtml+"<br><br>";
 
-                        html+= readJSON(rcobj.data[i].detail).replace(/uploads/g,'..\/home\/uploads');
+                        html+= readJSON(rcobj.data[i].detail).replace(/home\/uploads/g,'uploads').replace(/uploads/g,'http:\/\/www.clubaroy.com\/home\/uploads\/');
                         html+= '</div>';
                         html+= '</div>';
                         html+= '</div>';
@@ -409,7 +464,9 @@ function sendcomment(rid) {
                         html+= '<div class="item-inner comments-list">';
                         html+= '<div class="image">';
                         html+= '<span class="ava">';
-                        if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
+                        if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
+                            avatar = 'http://graph.facebook.com/' + rcobj.data[i].facebook_id + '/picture?type=square'
+                        } else if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
                             avatar = "assets/img/tmp/ava1.jpg";
                         } else {
                             avatar = "http://www.clubaroy.com/home/uploads/users/"+readJSON(rcobj.data[i].avatar);
@@ -440,7 +497,7 @@ function sendcomment(rid) {
                             }
                             html+= xxhtml+"<br><br>";
 
-                        html+= readJSON(rcobj.data[i].detail).replace(/uploads/g,'..\/home\/uploads');
+                        html+= readJSON(rcobj.data[i].detail).replace(/home\/uploads/g,'uploads').replace(/uploads/g,'http:\/\/www.clubaroy.com\/home\/uploads\/');
                         html+= '</div>';
                         html+= '</div>';
                         html+= '</div>';
@@ -1308,12 +1365,12 @@ $$('.popup-login').on('opened', function () {
 
 
 
+
 // ----------------login part ---------------------
 var buttonpress = 0;
 $('#facebookLogin').on('click', function() {
-    facebookStatus();
-
-
+    window.localStorage.setItem('fbloginflag',0);
+    facebookLogin();
 })        
 
 $('#loginclubaroy').click(function() {
@@ -1423,6 +1480,7 @@ $$('#searchall').keypress(function(e) {
 
 $$(".popup-register").on("opened", function(){
 $('#registeruser1').on('click', function () {
+            if (ValidateEmail($('#email').val())) {
             $.ajax({
             type: "POST",
             dataType: "html",
@@ -1434,15 +1492,17 @@ $('#registeruser1').on('click', function () {
               console.log("finish")
               alert("Register successfully");
               myApp.closeModal();
-              mainView.router.loadPage('index.html');
+              mainView.router.load('index.html');
+            } else {
+                alert("This email have been used already");
             }
-
             // console.log(length)
             
             // console.log(html);
             
             }
         });
+        }
         })
 
 });
@@ -1636,7 +1696,7 @@ $$(".popup-splash").on("opened", function() {
         var postdata = {};
         if ( page.query.rand == 1 ) {
             postdata['offset'] = page.query.offset;
-            postdata['rand'] = page.query.rand;
+            postdata['rand'] = page.query.ran
             $('#randheader').html('วันนี้กินอะไรดี');
         } else if (page.query.rand == 2) {
             postdata['offset'] = page.query.offset;
@@ -1917,6 +1977,7 @@ $.ajax({
         var rcobj = "";
         console.log(rid);
         $.ajax({
+            async: false,
             type: "POST",
             dataType: "html",
             url: "http://www.clubaroy.com/mobile/json/rcomment2json.php", //Relative or absolute path to response.php file
@@ -1936,7 +1997,9 @@ $.ajax({
             html+= '<div class="item-inner comments-list">';
             html+= '<div class="image">';
             html+= '<span class="ava">';
-            if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
+            if (rcobj.data[i].facebook_id != "" || rcobj.data[i].facebook_id != null) {
+                            avatar = 'http://graph.facebook.com/' + rcobj.data[i].facebook_id + '/picture?type=square'
+                        } else if (readJSON(rcobj.data[i].avatar) == "" || readJSON(rcobj.data[i].avatar) == null) {
                             avatar = "assets/img/tmp/ava1.jpg";
                         } else {
                             avatar = "http://www.clubaroy.com/home/uploads/users/"+readJSON(rcobj.data[i].avatar);
@@ -1967,7 +2030,7 @@ $.ajax({
             }
             html+= xxhtml+"<br><br>";
 
-            html+= readJSON(rcobj.data[i].detail).replace(/uploads/g,'..\/home\/uploads');
+            html+= readJSON(rcobj.data[i].detail).replace(/home\/uploads/g,'uploads').replace(/uploads/g,'http:\/\/www.clubaroy.com\/home\/uploads\/');
             html+= '</div>';
             html+= '</div>';
             html+= '</div>';
@@ -2613,7 +2676,7 @@ if ("list" == page.name) {
                 html+='<div class="content-block mt-5">';
                 html+='<h1 class="mb-0">'+readJSON(contentobj.data[i].title_th)+'</h1>';
                 html+='<small>วันที่ '+readJSON(contentobj.data[i].updated)+'</small>';
-                html+='<p>'+readJSON(contentobj.data[i].detail_th).replace(/uploads/g,'..\/home\/uploads');+'</p>';
+                html+='<p>'+readJSON(contentobj.data[i].detail_th).replace(/home\/uploads/g,'uploads').replace(/uploads/g,'http:\/\/www.clubaroy.com\/home\/uploads\/')+'</p>';
                 html+='</div>';
                 html+='<div class="item-after"></div>';
                 html+='</div>';
@@ -2900,7 +2963,7 @@ if ("list" == page.name) {
                     html+='</div>';
                     html+='<div class="card-content">';
                     html+='<div class="card-content-inner">';
-                    html+='<p>'+readJSON(ucobj.data[i].detail)+'</p>';
+                    html+='<p>'+readJSON(ucobj.data[i].detail).replace(/home\/uploads/g,'uploads').replace(/uploads/g,'http:\/\/www.clubaroy.com\/home\/uploads\/')+'</p>';
                     html+='</div>';
                     html+='</div>';
                     html+='<div class="card-footer">';
@@ -2968,7 +3031,9 @@ if ("list" == page.name) {
 
                     html='<div class="card facebook-card">';
                     html+='<div class="card-header">';
-                    if (readJSON(rcpobj.data[i].avatar) == "" || readJSON(rcpobj.data[i].avatar) == null) {
+                    if (rcpobj.data[i].facebook_id != "" || rcpobj.data[i].facebook_id != null) {
+                            avatar = 'http://graph.facebook.com/' + rcpobj.data[i].facebook_id + '/picture?type=square'
+                        } else if (readJSON(rcpobj.data[i].avatar) == "" || readJSON(rcpobj.data[i].avatar) == null) {
                         avatar = "assets/img/tmp/ava4.jpg";
                     } else {
                         avatar = "http://www.clubaroy.com/home/uploads/users/"+readJSON(rcpobj.data[i].avatar);
@@ -3042,7 +3107,9 @@ if ("list" == page.name) {
 
                     html='<div class="card facebook-card">';
                     html+='<div class="card-header">';
-                    if (readJSON(rcpxobj.data[i].avatar) == "" || readJSON(rcpxobj.data[i].avatar) == null) {
+                    if (rcpxobj.data[i].facebook_id != "" || rcpxobj.data[i].facebook_id != null) {
+                            avatar = 'http://graph.facebook.com/' + rcpxobj.data[i].facebook_id + '/picture?type=square'
+                        } else if (readJSON(rcpxobj.data[i].avatar) == "" || readJSON(rcpxobj.data[i].avatar) == null) {
                         avatar = "assets/img/tmp/ava4.jpg";
                     } else {
                         avatar = "http://www.clubaroy.com/home/uploads/users/"+readJSON(rcpxobj.data[i].avatar);
@@ -3061,7 +3128,7 @@ if ("list" == page.name) {
                     html+='<div class="card-content">';
                     html+='<div class="card-content-inner">';
                     html+='<p>'+readJSON(rcpxobj.data[i].title)+'</p>';
-                    html+=readJSON(rcpxobj.data[i].detail).replace(/uploads/g,'..\/home\/uploads');
+                    html+=readJSON(rcpxobj.data[i].detail).replace(/home\/uploads/g,'uploads').replace(/uploads/g,'http:\/\/www.clubaroy.com\/home\/uploads\/');
 
                     
                     html+='</div>';
@@ -3095,21 +3162,21 @@ if ("list" == page.name) {
     }
 
     if ("recipeadd" == page.name) {
-        var file = "";
+        var file1 = "";
         $('#addrecipe').on('click', function () {
         console.log(page.name);
         if (window.File && window.FileReader && window.FormData) {
             console.log('test 2')
-        var $inputField = $('#recipeimage');
+        
 
-        $inputField.on('change', function (e) {
-            file = e.target.files[0];
+        $('#recipefile').on('change', function (e) {
+            file1 = e.target.files[0];
             console.log('test 3')
         
             console.log('clicked')
-            if (file) {
-                if (/^image\//i.test(file.type)) {
-                    freadFile(file);
+            if (file1) {
+                if (/^image\//i.test(file1.type)) {
+                    freadFile(file1);
                 } else {
                     alert('Not a valid image!');
                 }
@@ -3117,7 +3184,7 @@ if ("list" == page.name) {
             
             
         });
-        if (file == "" || file == null) {
+        if (file1 == "" || file1 == null) {
             console.log('test 1')
             fsendcomment();
             }
@@ -3321,13 +3388,16 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
             $('#limyrec').hide();
             $('#lilogin').show();
             $('#lilogout').hide();
-        window.localStorage.removeItem("userid");
-        window.localStorage.removeItem("logintype");
-        window.localStorage.removeItem("username");
-        window.localStorage.removeItem("userpw");
+        localStorage.setItem("fbloginflag",0);
+        localStorage.removeItem("userid");
+        localStorage.removeItem("logintype");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userpw");
+        localStorage.removeItem("fbloginflag");
          facebookConnectPlugin.logout( 
                 function (response) {  },
                 function (response) {  });
+         location.reload(); 
         })
         
         $('#lifav').hide();
@@ -3484,6 +3554,16 @@ var defColor = "178, 137, 115", fillColor = "rgba(" + defColor + ", 0.2)", strok
 
     }
   }
+myApp.popup(".popup-login");
 
-  myApp.popup(".popup-login");
+setTimeout(function() {
+                
+                if (localStorage['fbloginflag'] == 1) {
+                console.log('run this');
+                facebookLogin();
+                }
+                
+                }, 2000);
+
+  
 
