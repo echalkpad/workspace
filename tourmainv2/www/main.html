@@ -24,6 +24,7 @@
 		var offlineStatus = 0;
 		var mediaTimer;
 		var current_sound_duration = 0;
+		var langradio = [];
 	
 		
 		function trackInfo(id,did,url,playlist) {
@@ -73,6 +74,17 @@
     		WifiWizard.getCurrentSSID(ssidHandler, ssidHandlerfail);
 		}
 
+		function setlangdiv(objname, lvalue, llabel) {
+			console.log("call here")
+			if ($("#"+objname).is(":checked")) {
+			            window.sessionStorage.setItem('selected_language',lvalue);
+			            $('#language_selection').hide();
+			            $('#mainLanguage').html(llabel);
+			            $('#language_label').html(llabel);
+			          
+			        }
+		}
+
     	function checkConnection() {
 		    var networkState = navigator.connection.type;
 
@@ -86,7 +98,7 @@
 		    states[Connection.CELL]     = 'Cell generic connection';
 		    states[Connection.NONE]     = 'No network connection';
 
-		    debug_print("Network state ::" + networkState, 20);
+		    // debug_print("Network state ::" + networkState, 20);
 
 		    if (networkState == "wifi") {
 		    	getCurrentSSID();
@@ -106,10 +118,10 @@
 			$.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://192.168.129.1/node_server/online.html", //Relative or absolute path to response.php file
+	                    url: "http://52.74.57.2/node_server/online.html", //Relative or absolute path to response.php file
 	                    data: { "devicestring" : "0" },
 	                    success: function(data) {
-	                    debugJSON_print(data,10,'Device register');
+	                    // debugJSON_print(data,10,'Device register');
 
 		                    if (data != "OK") {
 		                    	$('#footer').html('Connection to server ERRORs');
@@ -156,7 +168,7 @@
                 	async: false,
                     type: "POST",
                     dataType: "html",
-                    url: "http://192.168.129.1/node_server/getsoundlist.php", //Relative or absolute path to response.php file
+                    url: "http://52.74.57.2/node_server/getsoundlist.php", //Relative or absolute path to response.php file
                     data: { "params" : "0"},
                     success: function(data) {
                     debugJSON_print(data,5,"Sound files");
@@ -278,7 +290,7 @@
 
 						                    type: "POST",
 						                    dataType: "html",
-						                    url: "http://192.168.129.1/node_server/command.php", //Relative or absolute path to response.php file
+						                    url: "http://52.74.57.2/node_server/command.php", //Relative or absolute path to response.php file
 						                    data: { "type_command" : "update_position", "group_id" : $('#group_text').val(), "track_position" : position},
 						                    success: function(data) {
 						                    debugJSON_print(data,10,'position updated');
@@ -332,6 +344,58 @@
 		    $('#battery-text').html(info.level + "%");
 		}
 
+		function langaction(lobject,lvalue,llabel) {
+			console.log(lobject)
+			console.log(lvalue)
+			console.log(llabel)
+			trackList = JSON.parse(window.localStorage.getItem('soundlist'));
+					trackList.sort(SortByID);
+					debugJSON_print(trackList,3,"sorted track")
+					debug_print('language_radio press',3);
+			        
+			        setlangdiv(lobject,lvalue,llabel);
+
+			        $.ajax({
+	                    type: "POST",
+	                    dataType: "html",
+	                    url: "http://52.74.57.2/node_server/command.php", //Relative or absolute path to response.php file
+	                    data: { "type_command" : "new_position", "group_id" : $('#group_text').val(), "track_position" : "-1", "language" : sessionStorage["selected_language"]},
+	                    success: function(data) {
+	                    debugJSON_print(data,5,'Group Registered');
+
+		                    if (data == null || data == '' || data == undefined || data == 1) {
+		                    	$('#progress_state').html('Registered..');
+		                    } else if (data.substring(0,data.indexOf(' ')).trim() == 'Duplicate') {
+		            			$('#progress_state').html('Group already registered');
+		                    } else {
+		                    	$('#progress_state').html('Register errors');
+		                    }
+
+	                	}
+	                });
+	                program_state = 6;
+			       	if (localStorage["selected_role"] == 1) {
+			       		$('#main_overlay').delay(500).fadeIn();
+			       	} else if (localStorage["selected_role"] == 0) {
+			       		$('#agent_overlay').delay(500).fadeIn();
+			       	}
+			       	program_state = 7;
+			       	var html = "";
+			       	var currentID = 1;
+			       	for (var i=0; i < trackList.length; i++) {
+			       		if (trackList[i].playlist == sessionStorage["selected_language"] ) {
+			       			html += "<option value='"+trackList[i].did+"."+trackList[i].url+"''>";
+			       			html += "Track " + currentID;
+			       			html += "</option>";
+			       			currentID++;
+			       		}
+			       	}
+			       	debug_print(html,3);
+			       	$('#soundlist_select').html(html);
+			       	program_state = 8;
+			    
+		}
+
 		function onDeviceReady() {
 			
 			debug_print("[PhoneGap] Device initialized.",3);
@@ -352,7 +416,44 @@
 			debug_print("start program "+d,5);
 			document.addEventListener("deviceready", onDeviceReady, false);
 			
-			
+			// generate playlist
+
+			$.ajax({
+					async: false,
+		            type: "POST",
+		            dataType: "html",
+		            url: "http://52.74.57.2/node_server/getplaylist.php", 
+		            data: { "name" : '' },
+		            success: function(data) {
+		            	  var html = "";
+		            	  console.log(data);
+		                  var pl_obj = JSON.parse(data);
+		                  sessionStorage.setItem('pl_obj',pl_obj);
+		                  var length = Object.keys(pl_obj.data).length;
+		                  $('#language_selection').html("Please kindly select your device role::");
+
+		                  for (var i=0; i< length; i++) {
+		                  	(function(i, pl_obj){
+		                  	html = "";
+		                  	html +='<div>';
+							html +=	'<input type="radio" name="role_radio" id="language_radio'+(i+1)+'" class="radio"/>';
+							html +=	'<label for="language_radio'+(i+1)+'" class="forradio">'+pl_obj.data[i].playlistname+'</label>';
+							html += '</div>';
+							var playlistname = pl_obj.data[i].playlistname;
+							var playlist_id = pl_obj.data[i].playlist_id;
+							$('#language_selection').append(html);
+							langradio[i] = $('#language_radio'+(i+1));
+							$('#language_radio'+(i+1)).on('change', function(e) {
+								var pl_obj = sessionStorage['pl_obj'];
+								console.log(e);
+								langaction('language_radio'+(i+1),playlist_id,playlistname);
+							});
+							}(i, pl_obj))
+		                  }
+		                 
+		            }
+		      });
+		    
 
 			// initialized GUI
 			$('#index_div').show();
@@ -401,7 +502,7 @@
                 $.ajax({
                     type: "POST",
                     dataType: "html",
-                    url: "http://192.168.129.1/node_server/checkversion.php", //Relative or absolute path to response.php file
+                    url: "http://52.74.57.2/node_server/checkversion.php", //Relative or absolute path to response.php file
                     data: { "params" : "0"},
                     success: function(data) {
                     debugJSON_print(data,5,"current version");
@@ -457,6 +558,7 @@
 					window.sessionStorage.setItem('groupID', $('#group_text').val());
 					if (localStorage["selected_role"]) {
 						if (localStorage["selected_role"] == 1) {
+							console.log("debug 1");
 							$('#role_label').html("Main");
 							$('#language_selection').show();
 						} else {
@@ -470,7 +572,7 @@
 	                $.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://192.168.129.1/node_server/register.php", //Relative or absolute path to response.php file
+	                    url: "http://52.74.57.2/node_server/register.php", //Relative or absolute path to response.php file
 	                    data: { "devicestring" : devicestring, "devicemodel" : devicemodel, "deviceserial" : deviceserial, "current_socket" : "none", "current_state" : "init" , "regdate" : "0000-00-00"},
 	                    success: function(data) {
 	                    debugJSON_print(data,5,'Device register');
@@ -509,85 +611,7 @@
 			       	program_state = 5;
 			    });
 
-				$("#language_radio1, #language_radio2, #language_radio3, #language_radio4, #language_radio5" ).change(function () {
-					trackList = JSON.parse(window.localStorage.getItem('soundlist'));
-					trackList.sort(SortByID);
-					debugJSON_print(trackList,3,"sorted track")
-					debug_print('language_radio press',3);
-			        if ($("#language_radio1").is(":checked")) {
-			            window.sessionStorage.setItem('selected_language','1');
-			            $('#language_selection').hide();
-			            $('#mainLanguage').html("Thai");
-			            $('#language_label').html("Thai");
-			          
-			        }
-			        else if ($("#language_radio2").is(":checked")) {
-						window.sessionStorage.setItem('selected_language','2');
-			            $('#language_selection').hide();
-			            $('#mainLanguage').html("English");
-			            $('#language_label').html("English");
-
-			        }
-			        else if ($("#language_radio3").is(":checked")) {
-						window.sessionStorage.setItem('selected_language','3');
-			            $('#language_selection').hide();
-			            $('#mainLanguage').html("Chinese");
-			            $('#language_label').html("Chinese");
-
-			        }
-			        else if ($("#language_radio4").is(":checked")) {
-						window.sessionStorage.setItem('selected_language','4');
-			            $('#language_selection').hide();
-			            $('#mainLanguage').html("Japanese");
-			            $('#language_label').html("Japanese");
-
-			        }
-			        else if ($("#language_radio5").is(":checked")) {
-						window.sessionStorage.setItem('selected_language','5');
-			            $('#language_selection').hide();
-			            $('#mainLanguage').html("Taiwanese");
-			            $('#language_label').html("Taiwanese");
-
-			        }
-			        $.ajax({
-	                    type: "POST",
-	                    dataType: "html",
-	                    url: "http://192.168.129.1/node_server/command.php", //Relative or absolute path to response.php file
-	                    data: { "type_command" : "new_position", "group_id" : $('#group_text').val(), "track_position" : "-1", "language" : sessionStorage["selected_language"]},
-	                    success: function(data) {
-	                    debugJSON_print(data,5,'Group Registered');
-
-		                    if (data == null || data == '' || data == undefined || data == 1) {
-		                    	$('#progress_state').html('Registered..');
-		                    } else if (data.substring(0,data.indexOf(' ')).trim() == 'Duplicate') {
-		            			$('#progress_state').html('Group already registered');
-		                    } else {
-		                    	$('#progress_state').html('Register errors');
-		                    }
-
-	                	}
-	                });
-	                program_state = 6;
-			       	if (localStorage["selected_role"] == 1) {
-			       		$('#main_overlay').delay(500).fadeIn();
-			       	} else if (localStorage["selected_role"] == 0) {
-			       		$('#agent_overlay').delay(500).fadeIn();
-			       	}
-			       	program_state = 7;
-			       	var html = "";
-			       	var currentID = 1;
-			       	for (var i=0; i < trackList.length; i++) {
-			       		if (trackList[i].playlist == sessionStorage["selected_language"] ) {
-			       			html += "<option value='"+trackList[i].did+"."+trackList[i].url+"''>";
-			       			html += "Track " + currentID;
-			       			html += "</option>";
-			       			currentID++;
-			       		}
-			       	}
-			       	debug_print(html,3);
-			       	$('#soundlist_select').html(html);
-			       	program_state = 8;
-			    });
+					
 				
 				$('#play_button').on('click', function(){
 					var trackUrl = $('#soundlist_select').val().substring($('#soundlist_select').val().indexOf('.'));
@@ -619,7 +643,7 @@
 					$.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://192.168.129.1/node_server/command.php", //Relative or absolute path to response.php file
+	                    url: "http://52.74.57.2/node_server/command.php", //Relative or absolute path to response.php file
 	                    data: postdata,
 	                    success: function(data) {
 	                    debugJSON_print(data ,5,'send command')
@@ -647,7 +671,7 @@
 					$.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://192.168.129.1/node_server/command.php", //Relative or absolute path to response.php file
+	                    url: "http://52.74.57.2/node_server/command.php", //Relative or absolute path to response.php file
 	                    data: postdata,
 	                    success: function(data) {
 	                    debugJSON_print(data ,5,'send command')
@@ -695,6 +719,9 @@
 			         fingers:1
 			      });
 
+				$("langclosedbtn").on('click', function() {
+					$('#language_selection').hide();
+				})
 				$("#index_div").swipe( {
 			        //Generic swipe handler for all directions
 			        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
@@ -768,7 +795,7 @@
 			        			$.ajax({
 							        type: "POST",
 							        dataType: "html",
-							        url: "http://192.168.129.1/node_server/getposition.php", //Relative or absolute path to response.php file
+							        url: "http://52.74.57.2/node_server/getposition.php", //Relative or absolute path to response.php file
 							        data: { "group_id" : $('#group_text').val() },
 							        success: function(data) {
 							        debugJSON_print(data,10,'get position');
@@ -799,7 +826,7 @@
 			          		$.ajax({
 					                    type: "POST",
 					                    dataType: "html",
-					                    url: "http://192.168.129.1/node_server/getcommand.php", //Relative or absolute path to response.php file
+					                    url: "http://52.74.57.2/node_server/getcommand.php", //Relative or absolute path to response.php file
 					                    data: { "group_id" : $('#group_text').val() },
 					                    success: function(data) {
 					                    debugJSON_print(data,10,'get last command');
@@ -872,7 +899,7 @@
 					                		$.ajax({
 							                    type: "POST",
 							                    dataType: "html",
-							                    url: "http://192.168.129.1/node_server/getposition.php", //Relative or absolute path to response.php file
+							                    url: "http://52.74.57.2/node_server/getposition.php", //Relative or absolute path to response.php file
 							                    data: { "group_id" : $('#group_text').val() },
 							                    success: function(data) {
 							                    debugJSON_print(data,1,'get position');
@@ -1063,28 +1090,8 @@
 			</div>
 		</div>
 		
-		<div id="language_selection">
-			Please kindly select your device role::
-	      	<div>
-				<input type="radio" name="role_radio" id="language_radio1" class="radio"/>
-				<label for="language_radio1" class="forradio">Thai</label>
-			</div>
-			<div>
-				<input type="radio" name="role_radio" id="language_radio2" class="radio"/>
-				<label for="language_radio2" class="forradio">English</label>
-			</div>
-			<div>
-				<input type="radio" name="role_radio" id="language_radio3" class="radio"/>
-				<label for="language_radio3" class="forradio">Chinese</label>
-			</div>
-			<div>
-				<input type="radio" name="role_radio" id="language_radio4" class="radio"/>
-				<label for="language_radio4" class="forradio">Japanese</label>
-			</div>
-			<div>
-				<input type="radio" name="role_radio" id="language_radio5" class="radio"/>
-				<label for="language_radio5" class="forradio">Taiwanese</label>
-			</div>
+		<div id="language_selection" class="overlay-div">
+			
 		</div>
 		<div id="footer" class="footer"></div>
 	</div>
