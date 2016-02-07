@@ -24,6 +24,7 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline' http:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:"/>
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -31,18 +32,30 @@
     </head>
     <body>
         <div class="app">
-            <h1>TourmainV2</h1>
+            <h1>TourmainV12</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
             <div><a href="main.html">here</a></div>
+            <br>
+            <br>
+           
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+        <script src="js/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            app.initialize();
-            document.location = "main.html";
+
+           
+            
+            $(document).ready(function(){
+                app.initialize();
+                
+                                    //document.location = localStorage['applicationPath']+localStorage['applicationFile'];
+                
+            });
+             document.location = "main.html";
         </script>
     </body>
 </html>

@@ -1,54 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "id": "cordova-plugin-device.device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media/www/MediaError.js",
-        "id": "cordova-plugin-media.MediaError",
-        "clobbers": [
-            "window.MediaError"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media/www/Media.js",
-        "id": "cordova-plugin-media.Media",
-        "clobbers": [
-            "window.Media"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-        "id": "cordova-plugin-whitelist.whitelist",
-        "runs": true
-    },
-    {
-        "file": "plugins/cordova-plugin-network-information/www/network.js",
-        "id": "cordova-plugin-network-information.network",
-        "clobbers": [
-            "navigator.connection",
-            "navigator.network.connection"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
-        "id": "cordova-plugin-network-information.Connection",
-        "clobbers": [
-            "Connection"
-        ]
-    },
-    {
-        "file": "plugins/com.pylonproducts.wifiwizard/www/WifiWizard.js",
-        "id": "com.pylonproducts.wifiwizard.WifiWizard",
-        "clobbers": [
-            "window.WifiWizard"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-battery-status/www/battery.js",
         "id": "cordova-plugin-battery-status.battery",
         "clobbers": [
@@ -56,12 +8,10 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/phonegap-plugin-contentsync/www/index.js",
-        "id": "phonegap-plugin-contentsync.ContentSync",
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
         "clobbers": [
-            "window.ContentSync",
-            "window.Zip",
-            "window.zip"
+            "device"
         ]
     },
     {
@@ -209,20 +159,93 @@ module.exports = [
             "cordova"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
+        "id": "cordova-plugin-file-transfer.FileTransferError",
+        "clobbers": [
+            "window.FileTransferError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-file-transfer/www/FileTransfer.js",
+        "id": "cordova-plugin-file-transfer.FileTransfer",
+        "clobbers": [
+            "window.FileTransfer"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/MediaError.js",
+        "id": "cordova-plugin-media.MediaError",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/Media.js",
+        "id": "cordova-plugin-media.Media",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/network.js",
+        "id": "cordova-plugin-network-information.network",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+        "id": "cordova-plugin-network-information.Connection",
+        "clobbers": [
+            "Connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+        "id": "cordova-plugin-whitelist.whitelist",
+        "runs": true
+    },
+    {
+        "file": "plugins/org.bcsphere.wifi/www/wifi.js",
+        "id": "org.bcsphere.wifi.wifi",
+        "merges": [
+            "navigator.wifi"
+        ]
+    },
+    {
+        "file": "plugins/phonegap-plugin-contentsync/www/index.js",
+        "id": "phonegap-plugin-contentsync.ContentSync",
+        "clobbers": [
+            "window.ContentSync",
+            "window.Zip",
+            "window.zip"
+        ]
+    },
+    {
+        "file": "plugins/com.pylonproducts.wifiwizard/www/WifiWizard.js",
+        "id": "com.pylonproducts.wifiwizard.WifiWizard",
+        "clobbers": [
+            "window.WifiWizard"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-device": "1.1.0",
-    "cordova-plugin-console": "1.0.2",
-    "cordova-plugin-media": "1.0.1",
-    "cordova-plugin-whitelist": "1.2.0",
-    "cordova-plugin-network-information": "1.1.0",
-    "com.pylonproducts.wifiwizard": "0.2.11",
     "cordova-plugin-battery-status": "1.1.1",
+    "cordova-plugin-console": "1.0.2",
+    "cordova-plugin-device": "1.1.0",
+    "cordova-plugin-file": "3.0.0",
+    "cordova-plugin-file-transfer": "1.5.0",
+    "cordova-plugin-media": "1.0.1",
+    "cordova-plugin-network-information": "1.1.0",
+    "cordova-plugin-whitelist": "1.2.0",
+    "org.bcsphere.wifi": "0.0.1",
     "phonegap-plugin-contentsync": "1.2.3",
-    "cordova-plugin-file": "3.0.0"
+    "com.pylonproducts.wifiwizard": "0.2.9"
 }
 // BOTTOM OF METADATA
 });

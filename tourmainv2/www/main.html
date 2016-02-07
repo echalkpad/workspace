@@ -3,6 +3,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline' http:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:"/>
 	<link rel="stylesheet" href="css/progressbar.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
 	<script type="text/javascript" src="cordova.js"></script>
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="js/progressbar.js"></script>
@@ -25,7 +26,73 @@
 		var mediaTimer;
 		var current_sound_duration = 0;
 		var langradio = [];
-	
+		var currentBSSID;
+		var signallevel;
+		var resetstatus = 0;
+		var currentSSID;
+		var resettimerID;
+		var minimumsignal;
+		var preferredAP;
+		var CurrentAP;
+		var CresettimerID; 
+		var APChange = 0;
+		var offlinestate = 0;
+		var manualreset = 0;
+		
+		function cHandler(s){
+    		// console.log(s);
+    		currentBSSID = s.BSSID
+    		$('#bssid_label').html(currentBSSID);
+    		// console.log(currentBSSID);
+    		//showfooter("currentSSID :: " + currentBSSID);
+		}
+		
+		function cHandlerfail(e){
+    		console.log('Failed getting SSID: ' + e);
+		}
+
+		function loghandler(a) {
+			// console.log(a);
+			showfooter(a);
+		}
+		function listHandler2(a){
+			minimumsignal = 0
+    		// console.log(a);
+    		for (var i=0; i < a.length; i++) {
+    			if (a[i].BSSID == currentBSSID) {
+    				signallevel = a[i].level;
+    				CurrentAP = a[i].SSID;
+    			}
+    			if (/RG[1|2|3|4|5]/.test(a[i].SSID)) {
+    				// console.log(a[i].SSID);
+    				if (minimumsignal == 0) {
+    					minimumsignal = a[i].level;
+    					preferredAP = a[i].SSID;
+    				} else {
+    					if (minimumsignal < a[i].level) {
+    						minimumsignal = a[i].level;
+    						preferredAP = a[i].SSID;
+    					}
+    				}
+    			}
+
+    		}
+    		// console.log(signallevel);
+    		$('#signal_label').html(signallevel);
+		}
+		function getScanResultFail(e) {
+			debug_print("scanresult error :: " + e,10);
+		}
+		function getScanResult(){
+			navigator.wifi.getConnectedWifiInfo(cHandler,cHandlerfail);
+    		WifiWizard.getScanResults(listHandler2, getScanResultFail);
+ 		}
+
+
+		
+		function getRSSI() {
+			getScanResult();			
+		}
 		
 		function trackInfo(id,did,url,playlist) {
     		this.id = id;
@@ -64,10 +131,12 @@
 
     	function ssidHandler(s){
     		$('#SSID').html('Current SSID: ' + s);
+    		//showfooter('Current SSID: ' + s)
 		}
 		
 		function ssidHandlerfail(e){
     		$('#SSID').html('Failed getting SSID: ' + e);
+    		showfooter('Failed getting SSID: ' + e)
 		}
 		
 		function getCurrentSSID(){
@@ -78,6 +147,7 @@
 			console.log("call here")
 			if ($("#"+objname).is(":checked")) {
 			            window.sessionStorage.setItem('selected_language',lvalue);
+			            window.sessionStorage.setItem('lbl_language',llabel);
 			            $('#language_selection').hide();
 			            $('#mainLanguage').html(llabel);
 			            $('#language_label').html(llabel);
@@ -102,14 +172,26 @@
 
 		    if (networkState == "wifi") {
 		    	getCurrentSSID();
+		    	manualreset = 2
 		    	$('#netcon').html('Connection type: ' + states[networkState]);
 		    	$('#wifi-icon').attr('src','img/wifi-icon.png');
 		    	$('#agent-wifi-icon').attr('src','img/wifi-icon.png');
+
 		    } else {
+		    	offlinestate = 1;
 		    	
 		    	$('#netcon').html('Connection type: ' + states[networkState]);
 		    	$('#wifi-icon').attr('src','img/no-connection.png');
 		    	$('#agent-wifi-icon').attr('src','img/no-connection.png');
+		    	if (manualreset == 2) {
+		    		manualreset = 3;
+			    	WifiWizard.disconnect(loghandler, loghandler);
+			    	ZresettimerID = setTimeout(function() {
+					WifiWizard.connectNetwork(preferredAP,loghandler,loghandler);
+					offlinestate = 0;
+					APChange = 0;
+					}, 400);
+		    	}
 		    }
 		}
 
@@ -118,7 +200,7 @@
 			$.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://52.74.57.2/node_server/online.html", //Relative or absolute path to response.php file
+	                    url: "http://"+localStorage['server_ip']+"/node_server/online.html", //Relative or absolute path to response.php file
 	                    data: { "devicestring" : "0" },
 	                    success: function(data) {
 	                    // debugJSON_print(data,10,'Device register');
@@ -140,7 +222,7 @@
                   				$('#server-icon').attr('src','img/no-server.png');
                   				$('#agent-server-icon').attr('src','img/no-server.png');
                   				firstOnline = 0;
-                  				offlineStatus = 1;
+                  				
               			}
 	                });
 		}
@@ -151,7 +233,7 @@
 			var sync = [];
 			debug_print("[PhoneGap] Creating current version in localStorage",3);
 			if (localStorage["download_status"]) {
-                if (localStorage["download_status"] == 0) {
+                if (localStorage["download_status"] === 0) {
 
                 } else {
                     debug_print("[PhoneGap] Rewriting download status in localStorage",3);
@@ -168,7 +250,7 @@
                 	async: false,
                     type: "POST",
                     dataType: "html",
-                    url: "http://52.74.57.2/node_server/getsoundlist.php", //Relative or absolute path to response.php file
+                    url: "http://"+localStorage['server_ip']+"/node_server/getsoundlist.php", //Relative or absolute path to response.php file
                     data: { "params" : "0"},
                     success: function(data) {
                     debugJSON_print(data,5,"Sound files");
@@ -285,12 +367,12 @@
 					            	$('#track_position').html((position) + " sec");
 					            	$('#agent_track_position').html((position) + " sec");
 					                debug_print((position) + " sec",10);
-					                if (localStorage["selected_role"] == 1) {
+					                if (localStorage["selected_role"] === 1) {
 	 					                $.ajax({
 
 						                    type: "POST",
 						                    dataType: "html",
-						                    url: "http://52.74.57.2/node_server/command.php", //Relative or absolute path to response.php file
+						                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
 						                    data: { "type_command" : "update_position", "group_id" : $('#group_text').val(), "track_position" : position},
 						                    success: function(data) {
 						                    debugJSON_print(data,10,'position updated');
@@ -344,6 +426,42 @@
 		    $('#battery-text').html(info.level + "%");
 		}
 
+		function hidelang() {
+			$('#language_selection').hide();
+			$('#main_overlay').delay(500).fadeIn();
+		}
+
+		function testAP() {
+			
+					
+			
+				
+			console.log("C:"+CurrentAP);
+			console.log("P:"+preferredAP);
+			if (CurrentAP != preferredAP) {
+				if (CresettimerID) {
+					clearTimeout(CresettimerID);
+				}
+				if (APChange > 25) {
+				manualreset = 1;
+				WifiWizard.disconnect(loghandler, loghandler);
+				CresettimerID = setTimeout(function() {
+									        	
+				
+				WifiWizard.connectNetwork(preferredAP,loghandler,loghandler);
+				offlinestate = 0;
+				APChange = 0;
+				}, 400);  
+				}else {
+					APChange++;
+				}
+														
+			} else {
+				clearTimeout(CresettimerID);
+				clearTimeout(ZresettimerID);
+				APChange++;
+			}
+		}
 		function langaction(lobject,lvalue,llabel) {
 			console.log(lobject)
 			console.log(lvalue)
@@ -358,12 +476,12 @@
 			        $.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://52.74.57.2/node_server/command.php", //Relative or absolute path to response.php file
+	                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
 	                    data: { "type_command" : "new_position", "group_id" : $('#group_text').val(), "track_position" : "-1", "language" : sessionStorage["selected_language"]},
 	                    success: function(data) {
 	                    debugJSON_print(data,5,'Group Registered');
 
-		                    if (data == null || data == '' || data == undefined || data == 1) {
+		                    if (data === null || data === '' || data == undefined || data == 1) {
 		                    	$('#progress_state').html('Registered..');
 		                    } else if (data.substring(0,data.indexOf(' ')).trim() == 'Duplicate') {
 		            			$('#progress_state').html('Group already registered');
@@ -376,7 +494,7 @@
 	                program_state = 6;
 			       	if (localStorage["selected_role"] == 1) {
 			       		$('#main_overlay').delay(500).fadeIn();
-			       	} else if (localStorage["selected_role"] == 0) {
+			       	} else if (localStorage["selected_role"] === 0) {
 			       		$('#agent_overlay').delay(500).fadeIn();
 			       	}
 			       	program_state = 7;
@@ -415,6 +533,77 @@
 			var d = new Date();
 			debug_print("start program "+d,5);
 			document.addEventListener("deviceready", onDeviceReady, false);
+
+			if (localStorage['server_ip']) {
+				localStorage.setItem('server_ip', '192.168.129.1');
+				$('#server_label').html('IP :: '+localStorage['server_ip']);
+				console.log(1);
+			} else {
+				localStorage.setItem('server_ip', '192.168.129.1');
+
+				$('#server_label').html('IP :: '+localStorage['server_ip']);
+				console.log(2);
+			}
+
+			if (localStorage['signal_text']) {
+				console.log(3);
+				$('#signal_text').val(localStorage['signal_text']);
+			} else {
+				localStorage.setItem('signal_text', '-100');
+				console.log(4);
+				$('#signal_text').val("-100");
+			}
+
+			if (localStorage['ssid_text']) {
+				console.log(5);	
+				$('#ssid_text').val(localStorage['ssid_text']);
+			} else {
+				localStorage.setItem('ssid_text', 'RG1');
+				console.log(6);
+				$('#ssid_text').val("RG1");
+			}
+
+			if (localStorage['wifi-detect']) {
+				localStorage.setItem('wifi-detect',0)
+				var detectstatus = localStorage.getItem('wifi-detect');
+				console.log(7);
+					if (detectstatus == 1) {
+						
+						$('#detect_label').html('On');
+
+					}
+					if (detectstatus === 0) {
+						
+						$('#detect_label').html('Off');
+
+					}
+				
+			} else {
+				console.log(8);
+				localStorage.setItem('wifi-detect',0)
+				$('#detect_label').html("Off");
+			}
+
+			if (localStorage['wifi-force']) {
+				console.log(9);
+				localStorage.setItem('wifi-force',0)
+				var forcestatus = localStorage.getItem('wifi-force');
+					if ( forcestatus == 1) {
+						
+						$('#force_label').html('On');
+
+					}
+					if (forcestatus === 0) {
+						
+						$('#force_label').html('Off');
+
+					}
+				
+			} else {
+				console.log(10);
+				localStorage.setItem('wifi-force',0)
+				$('#force_label').html("Off");
+			}
 			
 			// generate playlist
 
@@ -422,7 +611,7 @@
 					async: false,
 		            type: "POST",
 		            dataType: "html",
-		            url: "http://52.74.57.2/node_server/getplaylist.php", 
+		            url: "http://"+localStorage['server_ip']+"/node_server/getplaylist.php", 
 		            data: { "name" : '' },
 		            success: function(data) {
 		            	  var html = "";
@@ -430,7 +619,8 @@
 		                  var pl_obj = JSON.parse(data);
 		                  sessionStorage.setItem('pl_obj',pl_obj);
 		                  var length = Object.keys(pl_obj.data).length;
-		                  $('#language_selection').html("Please kindly select your device role::");
+		                  $('#language_selection').html("Please kindly select your playlist language::");
+		                  $('#language_selection').append('<a href=# onclick="hidelang()"><i class="fa fa-times fa-3x server" style="color:black"></i></a>');
 
 		                  for (var i=0; i< length; i++) {
 		                  	(function(i, pl_obj){
@@ -463,6 +653,8 @@
 			$('#language_selection').hide();
 			$('#main_overlay').hide();
 			$('#agent_overlay').hide();
+			$('#notuseatall').hide();
+			$('#wifibtn').hide();
 			document.getElementById('group_text').style.height="50px";
 			document.getElementById('group_text').style.fontSize="14pt";
 			document.getElementById('group_text').style.verticalAlign="bottom";
@@ -502,7 +694,7 @@
                 $.ajax({
                     type: "POST",
                     dataType: "html",
-                    url: "http://52.74.57.2/node_server/checkversion.php", //Relative or absolute path to response.php file
+                    url: "http://"+localStorage['server_ip']+"/node_server/checkversion.php", //Relative or absolute path to response.php file
                     data: { "params" : "0"},
                     success: function(data) {
                     debugJSON_print(data,5,"current version");
@@ -572,7 +764,7 @@
 	                $.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://52.74.57.2/node_server/register.php", //Relative or absolute path to response.php file
+	                    url: "http://"+localStorage['server_ip']+"/node_server/register.php", //Relative or absolute path to response.php file
 	                    data: { "devicestring" : devicestring, "devicemodel" : devicemodel, "deviceserial" : deviceserial, "current_socket" : "none", "current_state" : "init" , "regdate" : "0000-00-00"},
 	                    success: function(data) {
 	                    debugJSON_print(data,5,'Device register');
@@ -588,6 +780,7 @@
 	                	}
 	                });
 	                clearTimeout(reloadtimerID);
+	                APChange = 0;
 	                program_state = 4;
 	                
 				});
@@ -611,7 +804,179 @@
 			       	program_state = 5;
 			    });
 
+			    $('#signal_btn').on('click', function() {
+			    	
+					if($('#signal_text').is(':enabled')){
+     					$('#signal_text').prop('disabled',true);
+     					debug_print("signal button press",1);
+							var postdata = {};
+							postdata['command'] = "detect"; 
+						    postdata['params'] = $('#signal_text').val();
+						    postdata['group_id'] = sessionStorage['groupID'];
+						    postdata['extra_field'] = '';
+						    postdata['type_command'] = 'new';
+
+						    // $('#track_state').html(postdata['command']);	
+
+							$.ajax({
+			                    type: "POST",
+			                    dataType: "html",
+			                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
+			                    data: postdata,
+			                    success: function(data) {
+			                    debugJSON_print(data ,5,'send command')
+			                    debugJSON_print(postdata ,5,'command info')
+			                	}
+			                });
+					} else {
+						$('#signal_text').prop('disabled',false);
+					}
+			    })
+
+			    $('#ssid_btn').on('click', function() {
+			    	
+					if($('#ssid_text').is(':enabled')){
+     					$('#ssid_text').prop('disabled',true);
+     					debug_print("force button press",1);
+							var postdata = {};
+							postdata['command'] = "force"; 
+						    postdata['params'] = $('#ssid_text').val();
+						    postdata['group_id'] = sessionStorage['groupID'];
+						    postdata['extra_field'] = '';
+						    postdata['type_command'] = 'new';
+
+						    // $('#track_state').html(postdata['command']);	
+
+							$.ajax({
+			                    type: "POST",
+			                    dataType: "html",
+			                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
+			                    data: postdata,
+			                    success: function(data) {
+			                    debugJSON_print(data ,5,'send command')
+			                    debugJSON_print(postdata ,5,'command info')
+			                	}
+			                });
+					} else {
+						$('#ssid_text').prop('disabled',false);
+					}
+			    })
+
+				$('#btn_server').on('click', function() {
+					console.log('click')
 					
+					
+					document.location = "index.html"
+				});
+
+				$('#btn_detect').on('click', function() {
+					console.log('click')
+					var detectstatus = localStorage.getItem('wifi-detect');
+					if (detectstatus == 0) {
+						localStorage.setItem('wifi-detect',1);
+						$('#detect_label').html('On');
+						debug_print("wdetect button press",1);
+							var postdata = {};
+							postdata['command'] = "wdetect"; 
+						    postdata['params'] = "on";
+						    postdata['group_id'] = sessionStorage['groupID'];
+						    postdata['extra_field'] = '';
+						    postdata['type_command'] = 'new';
+
+						    // $('#track_state').html(postdata['command']);	
+
+							$.ajax({
+			                    type: "POST",
+			                    dataType: "html",
+			                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
+			                    data: postdata,
+			                    success: function(data) {
+			                    debugJSON_print(data ,5,'send command')
+			                    debugJSON_print(postdata ,5,'command info')
+			                	}
+			                });
+
+					}
+					if (detectstatus == 1) {
+						localStorage.setItem('wifi-detect',0);
+						$('#detect_label').html('Off');
+						debug_print("wdetect button press",1);
+							var postdata = {};
+							postdata['command'] = "wdetect"; 
+						    postdata['params'] = "off";
+						    postdata['group_id'] = sessionStorage['groupID'];
+						    postdata['extra_field'] = '';
+						    postdata['type_command'] = 'new';
+
+						    // $('#track_state').html(postdata['command']);	
+
+							$.ajax({
+			                    type: "POST",
+			                    dataType: "html",
+			                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
+			                    data: postdata,
+			                    success: function(data) {
+			                    debugJSON_print(data ,5,'send command')
+			                    debugJSON_print(postdata ,5,'command info')
+			                	}
+			                });
+
+					}
+				});
+
+				$('#btn_force').on('click', function() {
+					console.log('click')
+					var forcestatus = localStorage.getItem('wifi-force');
+					if ( forcestatus == 0) {
+						localStorage.setItem('wifi-force',1);
+						$('#force_label').html('On');
+						debug_print("wforce button press",1);
+							var postdata = {};
+							postdata['command'] = "wforce"; 
+						    postdata['params'] = "on";
+						    postdata['group_id'] = sessionStorage['groupID'];
+						    postdata['extra_field'] = '';
+						    postdata['type_command'] = 'new';
+
+						    // $('#track_state').html(postdata['command']);	
+
+							$.ajax({
+			                    type: "POST",
+			                    dataType: "html",
+			                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
+			                    data: postdata,
+			                    success: function(data) {
+			                    debugJSON_print(data ,5,'send command')
+			                    debugJSON_print(postdata ,5,'command info')
+			                	}
+			                });
+					}
+					if (forcestatus == 1) {
+						localStorage.setItem('wifi-force',0);
+						$('#force_label').html('Off');
+						debug_print("wforce button press",1);
+							var postdata = {};
+							postdata['command'] = "wforce"; 
+						    postdata['params'] = "off";
+						    postdata['group_id'] = sessionStorage['groupID'];
+						    postdata['extra_field'] = '';
+						    postdata['type_command'] = 'new';
+
+						    // $('#track_state').html(postdata['command']);	
+
+							$.ajax({
+			                    type: "POST",
+			                    dataType: "html",
+			                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
+			                    data: postdata,
+			                    success: function(data) {
+			                    debugJSON_print(data ,5,'send command')
+			                    debugJSON_print(postdata ,5,'command info')
+			                	}
+			                });
+
+					}
+				});
 				
 				$('#play_button').on('click', function(){
 					var trackUrl = $('#soundlist_select').val().substring($('#soundlist_select').val().indexOf('.'));
@@ -643,7 +1008,7 @@
 					$.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://52.74.57.2/node_server/command.php", //Relative or absolute path to response.php file
+	                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
 	                    data: postdata,
 	                    success: function(data) {
 	                    debugJSON_print(data ,5,'send command')
@@ -671,13 +1036,39 @@
 					$.ajax({
 	                    type: "POST",
 	                    dataType: "html",
-	                    url: "http://52.74.57.2/node_server/command.php", //Relative or absolute path to response.php file
+	                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
 	                    data: postdata,
 	                    success: function(data) {
 	                    debugJSON_print(data ,5,'send command')
 	                    debugJSON_print(postdata ,5,'command info')
 	                	}
 	                });
+				})
+
+				$('#wifi_button').on('click', function(){
+					if (localStorage['wifi-force'] == 1) {
+ 					showfooter('reset wifi button called');
+					debug_print("wifi button press",1);
+					var postdata = {};
+					postdata['command'] = "wifi"; 
+				    postdata['params'] = '';
+				    postdata['group_id'] = sessionStorage['groupID'];
+				    postdata['extra_field'] = '';
+				    postdata['type_command'] = 'new';
+
+				    // $('#track_state').html(postdata['command']);	
+
+					$.ajax({
+	                    type: "POST",
+	                    dataType: "html",
+	                    url: "http://"+localStorage['server_ip']+"/node_server/command.php", //Relative or absolute path to response.php file
+	                    data: postdata,
+	                    success: function(data) {
+	                    debugJSON_print(data ,5,'send command')
+	                    debugJSON_print(postdata ,5,'command info')
+	                	}
+	                });
+				}
 				})
 
 				// END GUI CONTROL
@@ -689,10 +1080,19 @@
 			          showfooter("You swiped " + direction + " with " + fingerCount + " finger(s)");
 			          // $('#main_footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
 			          // $('#footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          var current_role = localStorage["selected_role"];
 			          if (direction == "left") {
-			          	if (localStorage["selected_role"] == 1) {
+			          	if (current_role == 1) {
 			          		$('#main_overlay').delay(500).fadeOut();
 			          		$('#index_div').show();
+			          	}
+			          }
+			          console.log(direction);
+			          if (direction == "down") {
+			          	console.log("down");
+			          	if (current_role == 1) {
+			          		$('#main_overlay').delay(500).fadeOut();
+			          		$('#language_selection').show();
 			          	}
 			          }
 			        },
@@ -707,12 +1107,15 @@
 			          showfooter("You swiped " + direction + " with " + fingerCount + " finger(s)");
 			          // $('#main_footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
 			          // $('#footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          var current_role = localStorage["selected_role"];
 			          if (direction == "left") {
-			          	if (localStorage["selected_role"] == 0) {
+			          	if (current_role == 0) {
 			          		$('#agent_overlay').delay(500).fadeOut();
 			          		$('#index_div').show();
 			          	}
 			          }
+
+
 			        },
 			        //Default is 75px, set to 0 for demo so any distance triggers swipe
 			         threshold:0,
@@ -721,26 +1124,25 @@
 
 				$("langclosedbtn").on('click', function() {
 					$('#language_selection').hide();
-				})
+					$('#main_overlay').delay(500).fadeIn();
+				});
+
 				$("#index_div").swipe( {
 			        //Generic swipe handler for all directions
 			        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
 			          showfooter("You swiped " + direction + " with " + fingerCount + " finger(s)");
 			          // $('#main_footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
 			          // $('#footer').html("You swiped " + direction + " with " + fingerCount + " finger(s)");
+			          var current_role = localStorage["selected_role"];
 			          if (direction == "right") {
-			          	if (localStorage["selected_role"] == 1) {
+			          	if (current_role == 1) {
 			          		$('#main_overlay').delay(500).fadeIn();
-			          	} else if (localStorage["selected_role"] == 0) {
+			          	} else if (current_role == 0) {
 			          		$('#agent_overlay').delay(500).fadeIn();
 			          	}
 			          }
 
-			          if (direction == "down") {
-			          	if (localStorage["selected_role"] == 1) {
-			          		$('#language_selection').show();
-			          	}
-			          }
+			          
 			        },
 			        //Default is 75px, set to 0 for demo so any distance triggers swipe
 			         threshold:0,
@@ -751,11 +1153,42 @@
   					// Handler for .load() called.
   					program_state = 3;
 				};
+				var APcount = 0;
+				setInterval(function() {
 
+					APcount++;
+					if (program_state > 3) {
+							
+						testAP();
+						
+					}
+					$('#count_label').html(APcount + "APC: "+ APChange +" C: " + CurrentAP + "P: " + preferredAP);
+				}, 1000);
 				// Interval check
 				setInterval(function() {
 			        checkConnection();
 			        checkServer();
+			        getRSSI();
+			        
+			        var detect_flag = localStorage.getItem('wifi-detect');
+			        if (detect_flag== 1) {
+			        	console.log("detect on")
+				        if (signallevel < $('#signal_text').val() && resetstatus == 0 && currentBSSID != "00:00:00:00:00:00") {
+				        	console.log("---------")
+				        	if (resettimerID) {
+				        		clearTimeout(resettimerID);
+				        	}
+				        	resetstatus = 1;
+				        	WifiWizard.disconnect(loghandler, loghandler);
+				        	
+				        	resettimerID = setTimeout(function() {
+							var d = new Date();
+							debug_print("checkreset ------------------------------------------------------------->"+d,5);
+							resetstatus = 0;
+							WifiWizard.connectNetwork($('#ssid_text').val(),loghandler,loghandler);
+							}, 5000);
+				        }
+			    	}
 			        $('#program_state').html("Program State :: "+program_state);
 			        $('#audio_label').html(" "+audio_state);
 			        onBatteryStatus();
@@ -784,6 +1217,12 @@
 			        } 
 			    }, 1000);
 				
+				setInterval(function() {
+					if(program_state > 3) {
+			        	WifiWizard.startScan(loghandler,loghandler);
+			    	}
+			        
+				}, 22000);
 
 			    setInterval(function() {
 			    	var trackUrl;
@@ -795,27 +1234,16 @@
 			        			$.ajax({
 							        type: "POST",
 							        dataType: "html",
-							        url: "http://52.74.57.2/node_server/getposition.php", //Relative or absolute path to response.php file
+							        url: "http://"+localStorage['server_ip']+"/node_server/getposition.php", //Relative or absolute path to response.php file
 							        data: { "group_id" : $('#group_text').val() },
 							        success: function(data) {
 							        debugJSON_print(data,10,'get position');
 							        var language_obj = JSON.parse(data);
-								        if (language_obj.data[0].language == 1) {
-								        	$('#language_label').html("Thai");
-								        	$('#agent_language').html("Thai");
-								        } else if (language_obj.data[0].language == 2) {
-								        	$('#language_label').html("English");
-								        	$('#agent_language').html("English");
-								        } else if (language_obj.data[0].language == 3) {
-								        	$('#language_label').html("Chinese");
-								        	$('#agent_language').html("Chinese");
-								        } else if (language_obj.data[0].language == 4) {
-								        	$('#language_label').html("Japanese");
-								        	$('#agent_language').html("Japanese");
-								        } else if (language_obj.data[0].language == 5) {
-								        	$('#language_label').html("Taiwanese");
-								        	$('#agent_language').html("Taiwanese");
-								        }
+								        
+								        	$('#language_label').html(sessionStorage['lbl_language']);
+								        	$('#agent_language').html(sessionStorage['lbl_language']);
+								        
+								     
 								        window.sessionStorage.setItem('selected_language',language_obj.data[0].language)
 							        }
 						        });
@@ -826,54 +1254,65 @@
 			          		$.ajax({
 					                    type: "POST",
 					                    dataType: "html",
-					                    url: "http://52.74.57.2/node_server/getcommand.php", //Relative or absolute path to response.php file
+					                    url: "http://"+localStorage['server_ip']+"/node_server/getcommand.php", //Relative or absolute path to response.php file
 					                    data: { "group_id" : $('#group_text').val() },
 					                    success: function(data) {
 					                    debugJSON_print(data,10,'get last command');
 					                    var command_obj = JSON.parse(data);
 					                    debugJSON_print(command_obj,10,'convert command');
-					                    for (var i=0; i < trackList.length; i++) {
-					                    	if (trackList[i].did == command_obj.data[0].params) {
-					                    		debug_print("get trackUrl",5);
-					                    		trackUrl = trackList[i].url;
-					                    		debug_print(trackUrl,5);
-					                    	}
-					                    }
-					                    $('#agent_track_path').html(trackUrl);
+					                    if (command_obj.data[0].command == "play") {
+						                    for (var i=0; i < trackList.length; i++) {
+						                    	if (trackList[i].did == command_obj.data[0].params) {
+						                    		debug_print("get trackUrl",5);
+						                    		trackUrl = trackList[i].url;
+						                    		debug_print(trackUrl,5);
+						                    	}
+						                    }
+						                    $('#agent_track_path').html(trackUrl);
+						                }
+					                    var force_flag = localStorage.getItem('wifi-force');
 					                    if (current_command < command_obj.data[0].id) {
 
 					                    	debug_print("run command",5);
 					                    	if (command_obj.data[0].command == "play") {
+					                    		var currentcid = sessionStorage['current-command-id'];
+					                    		if ( currentcid === command_obj.data[0].id) {
 
-					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command)
-					                    		if (audio_state == 0) {
-					                    			debug_print("audiostate 0",1);
-					                    			audio_state = 1;
-					                    			playAudio(trackUrl);
+					                    		} else {
 					                    		
-					                    			// $('#agent_track_state').html("play");
-					                    		} else if (audio_state == 1) {
-					                    			debug_print("audiostate 1",1);
-					                    			my_media.stop();
-					               
-       
-					                    			audio_state = 1;
-					                    			playAudio(trackUrl);
-					                    			// $('#agent_track_state').html("play");
-					                    		} else if (audio_state == 2) {
-					                    			debug_print("audiostate 2",1);
-					                    			my_media.play();
-					                    			audio_state = 1;
-					                    			// $('#agent_track_state').html("play");
-					                    		} 
+
+						                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command);
+						                    			if (audio_state == 0) {
+						                    			debug_print("audiostate 0",1);
+						                    			audio_state = 1;
+						                    			playAudio(trackUrl);
+						                    		
+						                    			// $('#agent_track_state').html("play");
+						                    		} else if (audio_state == 1) {
+						                    			debug_print("audiostate 1",1);
+						                    			my_media.stop();
+						               
+	       
+						                    			audio_state = 1;
+						                    			playAudio(trackUrl);
+						                    			// $('#agent_track_state').html("play");
+						                    		} else if (audio_state == 2) {
+						                    			debug_print("audiostate 2",1);
+						                    			my_media.play();
+						                    			audio_state = 1;
+						                    			// $('#agent_track_state').html("play");
+						                    		} 
+						                    	}
 
 					                    	} else if (command_obj.data[0].command == "pause") {
+					                    		showfooter("command executed :: " + command_obj.data[0].command)
 					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command)
 					                    		my_media.pause();
 					                    		audio_state = 2;
 					                    		// $('#agent_track_state').html("pause");
 
 					                    	} else if (command_obj.data[0].command == "stop") {
+					                    		showfooter("command executed :: " + command_obj.data[0].command)
 					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command)
 					                    		if (my_media) {
 					                    			my_media.stop();
@@ -884,8 +1323,62 @@
 					                    			// $('#agent_track_state').html("stop");
 
 					                    		} 
-					                    	} 
+					                    	} else if (command_obj.data[0].command == "detect") {
+					                    		showfooter("command executed :: " + command_obj.data[0].command)
+					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command);
+					                    		$('#signal_text').val(command_obj.data[0].params);
+					                    		localStorage.setItem('signal_text',command_obj.data[0].params);
+					                    			// $('#agent_track_state').html("stop");
+					                    	} else if (command_obj.data[0].command == "force") {
+					                    		showfooter("command executed :: " + command_obj.data[0].command)
+					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command);
+					                    		$('#ssid_text').val(command_obj.data[0].params);
+					                    		localStorage.setItem('ssid_text',command_obj.data[0].params);
+
+					                    	} else if (command_obj.data[0].command == "wforce") {
+					                    		showfooter("command executed :: " + command_obj.data[0].command)
+					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command);
+					                    		$('#force_label').html(command_obj.data[0].params);
+					                    			if (command_obj.data[0].params == "on") {
+					                    				localStorage.setItem('wifi-force',1);
+					                    			} else if (command_obj.data[0].params == "off") {
+					                    				localStorage.setItem('wifi-force',0);
+					                    			}
+					                    	
+					                    	} else if (command_obj.data[0].command == "wdetect") {
+					                    		showfooter("command executed :: " + command_obj.data[0].command)
+					                    		window.sessionStorage.setItem('current-command',command_obj.data[0].command);
+					                    		$('#detect_label').html(command_obj.data[0].params);
+					                    			if (command_obj.data[0].params == "on") {
+					                    				localStorage.setItem('wifi-detect',1);
+					                    			} else if (command_obj.data[0].params == "off") {
+					                    				localStorage.setItem('wifi-detect',0);
+					                    			}			
+					                    			// $('#agent_track_state').html("stop");					               
+					                    		
+					                    	} else if (command_obj.data[0].command == "wifi" && force_flag == 1) {
+					                    		var currentcid = sessionStorage['current-command-id'];
+					                    		if ( currentcid === command_obj.data[0].id) {
+
+					                    		} else {
+					                    			showfooter("command executed :: " + command_obj.data[0].command)
+					                    			
+					                    			if (WresettimerID) {
+											        		clearTimeout(WresettimerID);
+											        	}
+											        	
+											        	WifiWizard.disconnect(loghandler, loghandler);
+											        	WresettimerID = setTimeout(function() {
+														var d = new Date();
+														debug_print("checkreset ------------------------------------------------------------->"+d,5);
+														
+														WifiWizard.connectNetwork($('#ssid_text').val(),loghandler,loghandler);
+														}, 5000);
+					                    		}
+					                    		window.sessionStorage.setItem('current-command-id',command_obj.data[0].id);
+					                    	}
 					                    	current_command = command_obj.data[0].id;
+					                    	window.sessionStorage.setItem('current-command-id',command_obj.data[0].id);
 					                    	window.sessionStorage.setItem('current-command',command_obj.data[0].command);
 					                    } else {
 					                    	debug_print("current :: "+ current_command + " database_command :: "+ command_obj.data[0].command);
@@ -899,7 +1392,7 @@
 					                		$.ajax({
 							                    type: "POST",
 							                    dataType: "html",
-							                    url: "http://52.74.57.2/node_server/getposition.php", //Relative or absolute path to response.php file
+							                    url: "http://"+localStorage['server_ip']+"/node_server/getposition.php", //Relative or absolute path to response.php file
 							                    data: { "group_id" : $('#group_text').val() },
 							                    success: function(data) {
 							                    debugJSON_print(data,1,'get position');
@@ -915,7 +1408,7 @@
 
 			          	}
 			        }
-			    }, 500);
+			    }, 1000);
 
 			    reloadtimerID = setTimeout(function() {
 				
@@ -981,6 +1474,15 @@
 			right:0px;
 			
 			}
+
+		.wifibtn
+			{
+			position:absolute;
+			bottom:0px;
+			right:0px;
+			
+			}
+
 
 		.footer
 			{
@@ -1050,6 +1552,29 @@
 			color: #777;
 		}
 
+		
+		.textbox { 
+		    background: white; 
+		    border: 1px double #DDD; 
+		    border-radius: 5px; 
+		    box-shadow: 0 0 5px #333; 
+		    color: #666; 
+		    outline: none; 
+		    height:40px; 
+		    width: 50px; 
+		} 
+ 
+		.textbox1 { 
+		    background: white; 
+		    border: 1px double #DDD; 
+		    border-radius: 5px; 
+		    box-shadow: 0 0 5px #333; 
+		    color: #666; 
+		    outline: none; 
+		    height:40px; 
+		    width: 150px; 
+		}
+
 		/* radio focus */
 	</style>
 </head>
@@ -1073,12 +1598,28 @@
 				<div><label> Device Serial :: </label> <label id="device_serial"></label></div>
 				<div><label> Group :: </label> <label id="group_id"></label></div>
 				<div><label> Role :: </label> <label id="role_label"></label></div>
-				<div><label> Language :: </label> <label id="language_label"></label></div>
+				<div id="showlangformain"><label> Language :: </label> <label id="language_label"></label></div>
 				<div><label> Audio State :: </label> <label id="audio_label"></label></div>
+				<div><label> Signal :: </label> <label id="signal_label"></label></div>
+				<div><label> BSSID :: </label> <label id="bssid_label"></label></div>
+				<div><label> CAPcount :: </label> <label id="count_label"></label></div>
+				<br>
+				<div><span><a href="#" id='btn_server'><i class="fa fa-server fa-3x" style="color:black"></i></a> <label id="server_label"></label></span></div>
+			<div id="notuseatall">
+				<div><span><a href="#" id='btn_detect'><i class="fa fa-signal fa-3x" style="color:black"></i></a> <label> Wifi Automatic disconnect :: </label><label id="detect_label"></label></span></div>
+				<div id="signal_div">
+					<label> Signal Strength:: </label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="signal_text" class="textbox" value="-100" height='50px' disabled/> <a href='#' id="signal_btn" /> <i class="fa fa-floppy-o fa-2x"></i></a>
+				</div>
+				<div id="signal_div">
+					<label> SSID to reconnect:: </label><input type="text" id="ssid_text" class="textbox1" value="RG1" height='50px' disabled/> <a href='#' id="ssid_btn"/> <i class="fa fa-floppy-o fa-2x"></i></a>
+				</div>
+				<div><span><a href="#" id='btn_force'><i class="fa fa-retweet fa-3x" style="color:black"></i></a> <label> Wifi Force Disconnect :: </label><label id="force_label"></label></span></div>
+			</div>
+				
 			</div>
 		</div>
 		<br>
-		<div id="role_selection">
+		<div id="role_selection" class="overlay-div">
 			Please kindly select your device role::
 	      	<div>
 				<input type="radio" name="role_radio" id="radio1" class="radio"/>
@@ -1114,6 +1655,11 @@
 		<div id="audiocontrol">
 			<a href='#' id="play_button"/> <img src=img/play.png width='100px' height='100px'></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' id="stop_button"/> <img src=img/stop.png width='100px' height='100px'></a>
 		</div>
+		<div id="Command Infomation">
+			<div>
+				<div><label> Current command :: </label> <label id="lbl_current_command"></label></div>
+			</div>
+		</div>
 		<div id="Track Infomation">
 			<div>
 				<div><label> Language :: </label> <label id="mainLanguage"></label></div>
@@ -1121,10 +1667,12 @@
 				<div><label> Path  :: </label> <label id="track_path"></label></div>
 				<div><label> State :: </label> <label id="track_state"></label></div>
 				<div><label> Position :: </label> <label id="track_position"></label></div>
+
 			</div>
 		</div>
 		<div id="main_progressbar"></div>
 		<div id="main_group_id"></div>
+		<div id="wifibtn"><a href='#' id='wifi_button'><i class="fa fa-wifi fa-3x" style="color:black" width='100px' height='100px'></i></a></div>
 		<div id="main_footer" class="footer"></div>
 	</div>
 	<div id="agent_overlay" class="overlay-div">

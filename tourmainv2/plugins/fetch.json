@@ -47,14 +47,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "com.pylonproducts.wifiwizard": {
-        "source": {
-            "type": "registry",
-            "id": "wifiwizard"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "org.apache.cordova.battery-status": {
         "source": {
             "type": "registry",
@@ -75,6 +67,31 @@
         "source": {
             "type": "registry",
             "id": "phonegap-plugin-contentsync"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-file-transfer": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-file-transfer"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "org.bcsphere.wifi": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/bcsphere/wifi",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.pylonproducts.wifiwizard": {
+        "source": {
+            "type": "registry",
+            "id": "com.pylonproducts.wifiwizard"
         },
         "is_top_level": true,
         "variables": {}

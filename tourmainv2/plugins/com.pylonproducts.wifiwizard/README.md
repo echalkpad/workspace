@@ -1,13 +1,5 @@
 # WifiWizard
 
-Version 0.2.10
-
-`getCurrentBSSID` now available on IOS.
-
-Fixed callback issue with `connectNetwork`. It now checks to make sure you are connected to the specific network before returning.
-
-Updated permissions for Android Marshmallow.
-
 Version 0.2.9
 
 This Phonegap plugin enables WiFi management from within Phonegap applications.
@@ -88,7 +80,7 @@ Retrieves the current wifi status and passes `true` or `false` to the handler.
 
 #### `WifiWizard.setWifiEnabled(enabled, win, fail);` 
 
-Set wifi status. `enabled` is a Boolean type, so to disable the Wifi, you'd execute `WifiWizard.setWifiEnabled(false, win, fail);`
+Set wifi status. `enabled` is a Boolean type, so to disable the Wifi, you'd execute `WifiWizard.setWifiEnabled(false);`
 
 ### Changelog:
 

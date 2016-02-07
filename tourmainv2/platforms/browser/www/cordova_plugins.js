@@ -54,13 +54,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/com.pylonproducts.wifiwizard/www/WifiWizard.js",
-        "id": "com.pylonproducts.wifiwizard.WifiWizard",
-        "clobbers": [
-            "window.WifiWizard"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-battery-status/www/battery.js",
         "id": "cordova-plugin-battery-status.battery",
         "clobbers": [
@@ -79,6 +72,41 @@ module.exports = [
             "window.ContentSync",
             "window.Zip",
             "window.zip"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
+        "id": "cordova-plugin-file-transfer.FileTransferError",
+        "clobbers": [
+            "window.FileTransferError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-file-transfer/www/FileTransfer.js",
+        "id": "cordova-plugin-file-transfer.FileTransfer",
+        "clobbers": [
+            "window.FileTransfer"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-file-transfer/www/browser/FileTransfer.js",
+        "id": "cordova-plugin-file-transfer.BrowserFileTransfer",
+        "clobbers": [
+            "window.FileTransfer"
+        ]
+    },
+    {
+        "file": "plugins/org.bcsphere.wifi/www/wifi.js",
+        "id": "org.bcsphere.wifi.wifi",
+        "merges": [
+            "navigator.wifi"
+        ]
+    },
+    {
+        "file": "plugins/com.pylonproducts.wifiwizard/www/WifiWizard.js",
+        "id": "com.pylonproducts.wifiwizard.WifiWizard",
+        "clobbers": [
+            "window.WifiWizard"
         ]
     },
     {
@@ -241,9 +269,11 @@ module.exports.metadata =
     "cordova-plugin-media": "1.0.1",
     "cordova-plugin-whitelist": "1.2.0",
     "cordova-plugin-network-information": "1.1.0",
-    "com.pylonproducts.wifiwizard": "0.2.11",
     "cordova-plugin-battery-status": "1.1.1",
     "phonegap-plugin-contentsync": "1.2.3",
+    "cordova-plugin-file-transfer": "1.5.0",
+    "org.bcsphere.wifi": "0.0.1",
+    "com.pylonproducts.wifiwizard": "0.2.9",
     "cordova-plugin-file": "3.0.0"
 }
 // BOTTOM OF METADATA

@@ -37,13 +37,19 @@
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.tour.mainv2"
         },
-        "com.pylonproducts.wifiwizard": {
-            "PACKAGE_NAME": "com.tour.mainv2"
-        },
         "cordova-plugin-battery-status": {
             "PACKAGE_NAME": "com.tour.mainv2"
         },
         "phonegap-plugin-contentsync": {
+            "PACKAGE_NAME": "com.tour.mainv2"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.tour.mainv2"
+        },
+        "org.bcsphere.wifi": {
+            "PACKAGE_NAME": "com.tour.mainv2"
+        },
+        "com.pylonproducts.wifiwizard": {
             "PACKAGE_NAME": "com.tour.mainv2"
         }
     },

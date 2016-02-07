@@ -11,7 +11,6 @@
 - (void)startScan:(CDVInvokedUrlCommand*)command;
 - (void)disconnect:(CDVInvokedUrlCommand*)command;
 - (void)getConnectedSSID:(CDVInvokedUrlCommand*)command;
-- (void)getConnectedBSSID:(CDVInvokedUrlCommand*)command;
 - (void)isWifiEnabled:(CDVInvokedUrlCommand*)command;
 - (void)setWifiEnabled:(CDVInvokedUrlCommand*)command;
 
