@@ -434,7 +434,7 @@ function sendcomment(rid) {
 function commentupload(rid) {
     
 
-    
+    backflag = 1;
     //myApp.alert("$('#commentbox1').val()","");
     cfformData.append('comment', $('#commentbox1').val());
     cfformData.append('userid', sessionStorage.getItem('userid'));
@@ -539,7 +539,8 @@ function commentupload(rid) {
     });
 
     checkreview();
-    mainView.router.refreshPage();
+    //mainView.router.refreshPage();
+    mainView.router.loadPage("restaurant.html?rid="+rid);
 
 }
 
@@ -2202,6 +2203,7 @@ $.ajax({
     console.log('click 0');
 
         commentupload(page.query.rid);
+        backflag = 0;
        
     });
 
