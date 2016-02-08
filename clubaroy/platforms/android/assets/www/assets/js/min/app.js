@@ -3,6 +3,7 @@ var fbloginstatus = 0;
 var fb_id;
 var cfformData = new FormData();
 var formData = new FormData();
+var backflag = 0;
 
 function ValidateEmail(mail) 
 {
@@ -564,6 +565,8 @@ function freadFile(file) {
 }
 
 function fprocessFile(dataURL, fileType, filename) {
+    console.log(dataURL);
+    console.log(filename);
     var maxWidth = 8000;
     var maxHeight = 8000;
 
@@ -571,6 +574,7 @@ function fprocessFile(dataURL, fileType, filename) {
     image.src = dataURL;
 
     image.onload = function () {
+        console.log("onload 1");
         var width = image.width;
         var height = image.height;
         var shouldResize = (width > maxWidth) || (height > maxHeight);
@@ -646,7 +650,7 @@ function uploadrecipe() {
         success: function (data) {
             console.log(data);
             if (data == 1) {
-                mainView.router.loadPage('recipes.html');
+                mainView.router.loadPage('recipes.html?uid='+sessionStorage.getItem('userid')+'&method=2');
             } else {
                 //alert('There was an error uploading your file!');
             }
@@ -661,6 +665,125 @@ function uploadrecipe() {
 }
 
 // ---------end recipe -----------------------------------------------------------------
+
+
+// --------------------------avatar -----------------------------------------------
+
+function ureadFile(file) {
+    console.log(file);
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        uprocessFile(reader.result, file.type, file.name);
+    }
+
+    reader.onerror = function () {
+        console.log('There was an error reading the file!');
+    }
+
+    reader.readAsDataURL(file);
+}
+
+function fprocessFile(dataURL, fileType, filename) {
+    console.log(dataURL);
+    console.log(filename);
+    var maxWidth = 8000;
+    var maxHeight = 8000;
+
+    var image = new Image();
+    image.src = dataURL;
+
+    image.onload = function () {
+        console.log("onload 1");
+        var width = image.width;
+        var height = image.height;
+        var shouldResize = (width > maxWidth) || (height > maxHeight);
+
+        if (!shouldResize) {
+            usendFile(dataURL, filename);
+            return;
+        }
+
+        var newWidth;
+        var newHeight;
+
+        if (width > height) {
+            newHeight = height * (maxWidth / width);
+            newWidth = maxWidth;
+        } else {
+            newWidth = width * (maxHeight / height);
+            newHeight = maxHeight;
+        }
+
+        var canvas = document.createElement('canvas');
+
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+
+        var context = canvas.getContext('2d');
+
+        context.drawImage(this, 0, 0, newWidth, newHeight);
+
+        dataURL = canvas.toDataURL(fileType);
+
+        usendFile(dataURL, filename);
+    };
+
+    image.onerror = function () {
+        console.log('There was an error processing your file!');
+    };
+}
+
+
+
+function usendFile(fileData, filename) {
+    
+
+    formData.append('imageData', fileData);
+    //myApp.alert("$('#commentbox1').val()","");
+    formData.append('filename', filename);
+
+    console.log(formData)
+
+
+}
+
+function uploadavatar() {
+
+
+    // formData.append('imageData', fileData);
+    //myApp.alert("$('#commentbox1').val()","");
+    formData.append('userid', sessionStorage.getItem('userid'));
+    //formData.append('filename', filename);
+    
+    //console.log(formData)
+
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: 'http://www.clubaroy.com/mobile/json/addavatar2json.php',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+            if (data == 1) {
+                mainView.router.load(index.html);
+            } else {
+                //alert('There was an error uploading your file!');
+            }
+        },
+        error: function (data) {
+            console.log(data);
+            //alert('There was an error uploading your file!');
+        }
+    });
+    
+
+}
+
+
+// ------------------------- end avatar -----------------------------------------
 
 
 // ----member-------------------------------------------------------------------------------------------------------------------
@@ -1509,7 +1632,9 @@ $$(".popup-splash").on("opened", function() {
 }), $$(document).on("pageAfterAnimation", function(e) {
     var page = e.detail.page;
 
-
+    
+        myApp.hidePreloader();
+    
 
     if ("restaurant" == page.name) {
         var mySwiper = new Swiper ('.swiper-container', {
@@ -1530,6 +1655,7 @@ $$(".popup-splash").on("opened", function() {
     }
 
     if ("" == page.name || "index" == page.name) {
+
         console.log("this page ::"+page.name);
         var el = document.getElementById('imagemap1').style.visibility='hidden';
         var el1 = document.getElementById('imagemap2').style.visibility='visible';
@@ -1614,10 +1740,41 @@ $$(".popup-splash").on("opened", function() {
         showPolarChartPage(ctx);
     }
     naxvarBg();
-}), $$(document).on("pageInit", function(e) {
+}), $$(document).on("pageBeforeInit", function(e) {
+    var page = e.detail.page;
+    if (backflag == 0) {
+        myApp.showPreloader("Please wait");
+    }
+    backflag = 0;
+    console.log('test before init event');
+    
+        
 
+
+}), $$(document).on("pageAfterBack", function(e) {
+    var page = e.detail.page;
+    console.log('test back event');
+    
+    
+        backflag = 1;
+    
+
+
+}), $$(document).on("pageReinit", function(e) {
+    var page = e.detail.page;
+    console.log('test reinit event');
+    
+    
+        myApp.hidePreloader();
+    
+
+
+}), $$(document).on("pageInit", function(e) {
+    
+    
 
     var page = e.detail.page;
+    console.log('event 1')
 	console.log(page.name)
     $(".zoom").swipebox(), $(".navbar").removeClass("navbar-clear"), ("index" === page.name || "menu" === page.name || "login" === page.name || "dashboard-1" === page.name || "panel" === page.name) && $(".navbar").addClass("navbar-clear"), 
     $(".twitter-content").length > 0 && $(".twitter-content").twittie({
@@ -2626,7 +2783,7 @@ if ("list" == page.name) {
         if (page.query.jsonfile == 'news') {
             $('#pageheader').html('ข่าวสาร');
         } else if (page.query.jsonfile == 'technic') {
-            $('#pageheader').html('เทคนิคก้นรคัว');
+            $('#pageheader').html('เทคนิคก้นครัว');
         } else if (page.query.jsonfile == 'travel') {
             $('#pageheader').html('Travel');
         } else {

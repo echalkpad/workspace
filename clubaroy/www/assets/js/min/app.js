@@ -3,6 +3,7 @@ var fbloginstatus = 0;
 var fb_id;
 var cfformData = new FormData();
 var formData = new FormData();
+var backflag = 0;
 
 function ValidateEmail(mail) 
 {
@@ -1741,16 +1742,39 @@ $$(".popup-splash").on("opened", function() {
     naxvarBg();
 }), $$(document).on("pageBeforeInit", function(e) {
     var page = e.detail.page;
-
-    
+    if (backflag == 0) {
         myApp.showPreloader("Please wait");
+    }
+    backflag = 0;
+    console.log('test before init event');
+    
+        
+
+
+}), $$(document).on("pageAfterBack", function(e) {
+    var page = e.detail.page;
+    console.log('test back event');
+    
+    
+        backflag = 1;
+    
+
+
+}), $$(document).on("pageReinit", function(e) {
+    var page = e.detail.page;
+    console.log('test reinit event');
+    
+    
+        myApp.hidePreloader();
     
 
 
 }), $$(document).on("pageInit", function(e) {
-
+    
+    
 
     var page = e.detail.page;
+    console.log('event 1')
 	console.log(page.name)
     $(".zoom").swipebox(), $(".navbar").removeClass("navbar-clear"), ("index" === page.name || "menu" === page.name || "login" === page.name || "dashboard-1" === page.name || "panel" === page.name) && $(".navbar").addClass("navbar-clear"), 
     $(".twitter-content").length > 0 && $(".twitter-content").twittie({
