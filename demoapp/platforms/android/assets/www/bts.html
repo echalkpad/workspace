@@ -46,10 +46,12 @@ user-drag: none;
 
 
             setInterval(function() {
-			    var myImageElement1 = document.getElementById('imgoncamera1');
-			    var myImageElement2 = document.getElementById('imgoncamera2');
-			    myImageElement1.src = 'http://103.27.201.113/snap/thumb.jpg?rand=' + Math.random();
-			    myImageElement2.src = 'http://103.27.201.113/snap/thumb1.jpg?rand=' + Math.random();
+			    
+			    var myvElement1 = document.getElementById('video3');
+			    var myvElement2 = document.getElementById('video4');
+			    
+			    myvElement1.poster = 'http://103.27.201.113/snap/thumb.jpg?rand=' + Math.random();
+			    myvElement2.poster = 'http://103.27.201.113/snap/thumb1.jpg?rand=' + Math.random();
 			}, 1000);
  </script> 
 
@@ -68,20 +70,23 @@ user-drag: none;
 				Your browser does not support the video tag.
 			</video></a>
 			</span><span>
-			<a href=playvideo2.html><video id="video1" width="240" height="180"  class="video-js vjs-default-skin" controls preload="auto">
+			<a href=playvideo2.html><video id="video2" width="240" height="180"  class="video-js vjs-default-skin" controls preload="auto">
 				<source src="http://115.31.185.77:1935/test/1234.stream/playlist.m3u8"/>
 				Your browser does not support the video tag.
 			</video></a>
 			</span><br>
-			<span id="camera1">
+			<span>
+			<a href=playvideo3.html><video id="video3" width="240" height="180"  class="video-js vjs-default-skin" controls=false preload="auto" poster="http://103.27.201.113/snap/thumb.jpg">
+				<source src="http://103.27.201.113:8010/test.webm"/>
+				Your browser does not support the video tag.
+			</video></a>
+			</span><span>
+			<a href=playvideo4.html><video id="video4" width="240" height="180"  class="video-js vjs-default-skin" controls=false preload="auto" poster="http://103.27.201.113/snap/thumb1.jpg">
+				<source src="http://103.27.201.113:8010/test2.webm"/>
+				Your browser does not support the video tag.
+			</video></a>
+			</span><br>
 			
-				<img src="http://103.27.201.113/snap/thumb.jpg" width="240" height="180" id="imgoncamera1">
-			
-			</span><span id="camera2">
-			
-				<img src="http://103.27.201.113/snap/thumb1.jpg" width="240" height="180" id="imgoncamera2">
-			
-		</span>
 		</div>
 	</div>
 </div>
